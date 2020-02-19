@@ -81,35 +81,6 @@ if (isset($settings['memcache']['servers'])) {
   $settings['cache']['bins']['form'] = 'cache.backend.database';
 }
 
-// Set environment based variables.
-if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
-  switch ($_ENV['AH_SITE_ENVIRONMENT']) {
-    case 'local':
-      $base_url = 'http://tm.local';
-      $config['google_tag.settings']['environment_id'] = 'env-33';
-      $config['google_tag.settings']['environment_token'] = 'UCZtZ6PkCd0GeSb_wEreKA';
-      break;
-
-    case 'dev':
-      $base_url = 'http://dev-talkingmachines.pantheonsite.io';
-      $config['google_tag.settings']['environment_id'] = 'env-34';
-      $config['google_tag.settings']['environment_token'] = 'B-auxERyEhmTvvHdIyM7Fg';
-      break;
-
-    case 'test':
-      $base_url = 'http://test-talkingmachines.pantheonsite.io';
-      $config['google_tag.settings']['environment_id'] = 'env-35';
-      $config['google_tag.settings']['environment_token'] = 'bjxYz-akp6RC0Ci7VRJKCA';
-      break;
-
-    case 'prod':
-      $base_url = 'http://thetalkingmachines.com';
-      $config['google_tag.settings']['environment_id'] = 'env-2';
-      $config['google_tag.settings']['environment_token'] = 'LC7dt9FiJkTdJqwFpg0WsQ';
-      break;
-  }
-}
-
 /**
  * The default number of entities to update in a batch process.
  *
@@ -129,3 +100,59 @@ if (file_exists('/var/www/site-php')) {
 }
 
 $settings['update_free_access'] = TRUE;
+
+if (defined('PANTHEON_ENVIRONMENT')) {
+  include __DIR__ . "/settings.pantheon.php";
+
+  // Include the Redis services.yml file. Adjust the path if you installed to a contrib or other subdirectory.
+  $settings['container_yamls'][] = 'modules/redis/example.services.yml';
+
+  //phpredis is built into the Pantheon application container.
+  $settings['redis.connection']['interface'] = 'PhpRedis';
+  // These are dynamic variables handled by Pantheon.
+  $settings['redis.connection']['host']      = $_ENV['CACHE_HOST'];
+  $settings['redis.connection']['port']      = $_ENV['CACHE_PORT'];
+  $settings['redis.connection']['password']  = $_ENV['CACHE_PASSWORD'];
+
+  $settings['cache']['default'] = 'cache.backend.redis'; // Use Redis as the default cache.
+  $settings['cache_prefix']['default'] = 'pantheon-redis';
+
+  // Always set the fast backend for bootstrap, discover and config, otherwise this gets lost when redis is enabled.
+  $settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
+  $settings['cache']['bins']['config']    = 'cache.backend.chainedfast';
+
+  // Set Redis to not get the cache_form (no performance difference).
+  $settings['cache']['bins']['form']      = 'cache.backend.database';
+}
+
+$settings['cache']['bins']['render'] = 'cache.backend.null';
+
+// Set environment based variables.
+if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+  switch ($_ENV['PANTHEON_ENVIRONMENT']) {
+    case 'local':
+      $base_url = 'http://tm.local';
+      $config['google_tag.settings']['environment_id'] = 'env-33';
+      $config['google_tag.settings']['environment_token'] = 'UCZtZ6PkCd0GeSb_wEreKA';
+      break;
+
+    case 'dev':
+      $base_url = 'http://dev-talkingmachines.pantheonsite.io';
+      $config['google_tag.settings']['environment_id'] = 'env-34';
+      $config['google_tag.settings']['environment_token'] = 'B-auxERyEhmTvvHdIyM7Fg';
+      break;
+
+    case 'test':
+      $base_url = 'http://test-talkingmachines.pantheonsite.io';
+      $config['google_tag.settings']['environment_id'] = 'env-35';
+      $config['google_tag.settings']['environment_token'] = 'bjxYz-akp6RC0Ci7VRJKCA';
+      break;
+
+    case 'live':
+      $base_url = 'http://thetalkingmachines.com';
+      $config['google_tag.settings']['environment_id'] = 'env-2';
+      $config['google_tag.settings']['environment_token'] = 'LC7dt9FiJkTdJqwFpg0WsQ';
+      break;
+  }
+}

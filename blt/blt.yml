@@ -20,6 +20,7 @@ drush:
   default_alias: '${drush.aliases.local}'
 deploy:
   dir: '/tmp/blt_artifact_deploy'
+  exclude_file: ${repo.root}/sys/deploy-exclude.txt
 modules:
   local:
     enable: [dblog, devel, seckit, views_ui]
