@@ -11,7 +11,7 @@ project:
 git:
   default_branch: develop
   remotes:
-    - 'ssh://codeserver.dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5@codeserver.dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in:2222/~/repository.git talkingmachines'
+    - 'ssh://codeserver.dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5@codeserver.dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in:2222/~/repository.git'
 drush:
   aliases:
     remote: talkingmachine.dev
