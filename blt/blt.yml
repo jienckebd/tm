@@ -18,6 +18,8 @@ drush:
     local: talkingmachine.local
     ci: self
   default_alias: '${drush.aliases.local}'
+deploy:
+  dir: '/tmp/blt_artifact_deploy'
 modules:
   local:
     enable: [dblog, devel, seckit, views_ui]
