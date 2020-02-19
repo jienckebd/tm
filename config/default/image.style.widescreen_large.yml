@@ -1,0 +1,26 @@
+uuid: 93ef08a5-5bae-400f-9717-3ca65766d245
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.focal_point
+  module:
+    - crop
+    - focal_point
+name: widescreen_large
+label: 'Widescreen Large'
+effects:
+  6686e690-e256-49e7-9fad-402a2f305c83:
+    uuid: 6686e690-e256-49e7-9fad-402a2f305c83
+    id: focal_point_scale_and_crop
+    weight: -9
+    data:
+      width: 1600
+      height: 1000
+      crop_type: focal_point
+  cdbc45c9-df63-4648-9628-1e902bfc2f6e:
+    uuid: cdbc45c9-df63-4648-9628-1e902bfc2f6e
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: focal_point

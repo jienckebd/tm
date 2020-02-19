@@ -1,0 +1,271 @@
+uuid: 259f5886-d611-45d4-8733-d707310bb98a
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.article.body
+    - field.field.node.article.feeds_item
+    - field.field.node.article.field_anon
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_content
+    - field.field.node.article.field_date
+    - field.field.node.article.field_disqus
+    - field.field.node.article.field_document
+    - field.field.node.article.field_entity_queue
+    - field.field.node.article.field_image
+    - field.field.node.article.field_link
+    - field.field.node.article.field_link_download
+    - field.field.node.article.field_meta_tags
+    - field.field.node.article.field_social_share
+    - field.field.node.article.field_summary
+    - field.field.node.article.field_tags
+    - field.field.node.article.field_type
+    - field.field.node.article.panelizer
+    - node.type.article
+  module:
+    - metatag
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: true
+    custom: false
+    allow: false
+    default: standard
+    displays:
+      default:
+        blocks:
+          f3a83b31-7059-40c8-8ce9-9d1f4721c394:
+            id: 'entity_field:node:uid'
+            label: 'Authored by'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: author
+              settings: {  }
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 0
+            uuid: f3a83b31-7059-40c8-8ce9-9d1f4721c394
+          19cdb3d6-eaa8-4915-8e21-b5b43b7d48b4:
+            id: 'entity_field:node:created'
+            label: 'Authored on'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: timestamp
+              settings:
+                date_format: medium
+                custom_date_format: ''
+                timezone: ''
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 0
+            uuid: 19cdb3d6-eaa8-4915-8e21-b5b43b7d48b4
+          4f5c1932-fb1d-4803-9a87-6b31ddddb85f:
+            id: 'entity_field:node:body'
+            label: Body
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: text_default
+              settings: {  }
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 101
+            uuid: 4f5c1932-fb1d-4803-9a87-6b31ddddb85f
+          8f00dfa5-5740-4845-b935-319051cfa417:
+            id: 'entity_field:node:field_category'
+            label: Category
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: above
+              type: entity_reference_label
+              settings:
+                link: true
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 104
+            uuid: 8f00dfa5-5740-4845-b935-319051cfa417
+          9cb6c4cc-8df4-4348-a734-62fe4ecc90c9:
+            id: 'entity_field:node:field_image'
+            label: Image
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: above
+              type: entity_reference_label
+              settings:
+                link: true
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 102
+            uuid: 9cb6c4cc-8df4-4348-a734-62fe4ecc90c9
+          1c9f1400-2bea-46b0-8c5a-add3d3227df2:
+            id: 'entity_field:node:field_meta_tags'
+            label: 'Meta tags'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: above
+              type: metatag_empty_formatter
+              settings: {  }
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 103
+            uuid: 1c9f1400-2bea-46b0-8c5a-add3d3227df2
+          4e3d003c-9099-4a12-8271-393ae6a5e8ae:
+            id: 'entity_field:node:field_tags'
+            label: Tags
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: above
+              type: entity_reference_label
+              settings:
+                link: true
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 105
+            uuid: 4e3d003c-9099-4a12-8271-393ae6a5e8ae
+        id: panels_variant
+        label: Default
+        uuid: f5dcbc1e-75a6-4209-a842-85774ddda44a
+        weight: 0
+        layout: layout_onecol
+        layout_settings: {  }
+        page_title: null
+        storage_type: panelizer_default
+        storage_id: 'node:article:default:default'
+        builder: ipe
+        pattern: panelizer
+        static_context: {  }
+      standard:
+        blocks: {  }
+        id: panels_variant
+        uuid: 9e0beb46-80ca-4df4-adaf-01a768a66179
+        label: Standard
+        weight: 0
+        layout: onecolumn
+        layout_settings: {  }
+        page_title: null
+        storage_type: panelizer_default
+        storage_id: 'node:article:default:standard'
+        pattern: panelizer
+        builder: ipe
+        static_context: {  }
+id: node.article.full
+targetEntityType: node
+bundle: article
+mode: full
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_category:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_image:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_meta_tags:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_tags:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  panelizer:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: panelizer
+    region: content
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  feeds_item: true
+  field_anon: true
+  field_author: true
+  field_content: true
+  field_date: true
+  field_disqus: true
+  field_document: true
+  field_entity_queue: true
+  field_link: true
+  field_link_download: true
+  field_social_share: true
+  field_summary: true
+  field_type: true
+  langcode: true
+  search_api_excerpt: true
+  status: true

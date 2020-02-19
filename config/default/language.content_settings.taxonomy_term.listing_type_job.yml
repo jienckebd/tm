@@ -1,0 +1,18 @@
+uuid: 3550af4f-8d69-44a8-9a50-5cdb1b1b8790
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.listing_type_job
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.listing_type_job
+target_entity_type_id: taxonomy_term
+target_bundle: listing_type_job
+default_langcode: site_default
+language_alterable: false

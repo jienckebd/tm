@@ -1,0 +1,34 @@
+uuid: 7e3b93f5-4696-4056-89ce-48c5c344cb84
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.article
+    - node.type.company
+    - node.type.event
+    - node.type.job
+    - node.type.landing_page
+    - node.type.podcast
+  module:
+    - entity_embed
+    - node
+_core:
+  default_config_hash: xgvZUh-eaMilacE1XYCQ9nLH-2-meOjCyofXSO82gqg
+label: Node
+id: node
+type_id: entity
+type_settings:
+  entity_type: node
+  bundles:
+    - article
+    - company
+    - event
+    - job
+    - landing_page
+    - podcast
+  display_plugins:
+    - 'view_mode:node.embedded'
+  entity_browser: ''
+  entity_browser_settings:
+    display_review: false
+icon_uuid: null

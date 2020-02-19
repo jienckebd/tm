@@ -1,0 +1,23 @@
+uuid: 618e598c-0dc3-4d4f-9699-9d4383855fdc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_default
+    - media.type.image
+id: media.image.field_default
+field_name: field_default
+entity_type: media
+bundle: image
+label: 'Default Media'
+description: 'Use in the default media pool.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

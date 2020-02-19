@@ -1,0 +1,20 @@
+uuid: 69adeb46-c162-424c-bcf3-8e60d7986b7d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - tm_theme_one
+_core:
+  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+id: tm_theme_one_local_actions
+theme: tm_theme_one
+region: content
+weight: -3
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }

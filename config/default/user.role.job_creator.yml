@@ -1,0 +1,26 @@
+uuid: 8dfb41e1-7bdb-4741-ba4c-691893fe94b2
+langcode: en
+status: true
+dependencies: {  }
+id: job_creator
+label: 'Job creator'
+weight: 18
+is_admin: null
+permissions:
+  - 'access image_browser entity browser pages'
+  - 'access media_browser entity browser pages'
+  - 'access panels in-place editing'
+  - 'administer panelizer node job content'
+  - 'administer panelizer node job layout'
+  - 'change layouts in place editing'
+  - 'create job content'
+  - 'create url aliases'
+  - 'edit own job content'
+  - 'use draft_draft transition'
+  - 'use draft_needs_review transition'
+  - 'use needs_review_needs_review transition'
+  - 'use text format rich_text'
+  - 'view any unpublished content'
+  - 'view job revisions'
+  - 'view latest version'
+  - 'view own unpublished content'

@@ -1,0 +1,393 @@
+diff --git a/src/Entity/Vote.php b/src/Entity/Vote.php
+index 645d79d..278da58 100644
+--- a/src/Entity/Vote.php
++++ b/src/Entity/Vote.php
+@@ -67,6 +67,34 @@ class Vote extends ContentEntityBase implements VoteInterface {
+   /**
+    * {@inheritdoc}
+    */
++  function getContextVotedEntityType() {
++    return $this->get('context_entity_type')->value;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  function setContextVotedEntityType($name) {
++    return $this->set('context_entity_type', $name);
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  function getContextVotedEntityId() {
++    return $this->get('context_entity_id')->target_id;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  function setContextVotedEntityId($id) {
++    return $this->set('context_entity_id', $id);
++  }
++
++  /**
++   * {@inheritdoc}
++   */
+   function getValue() {
+     return $this->get('value')->value;
+   }
+@@ -187,6 +215,19 @@ class Vote extends ContentEntityBase implements VoteInterface {
+       ->setDefaultValue(0)
+       ->setRequired(TRUE);
+
++    $fields['context_entity_type'] = BaseFieldDefinition::create('string')
++      ->setLabel(t('Context Entity Type'))
++      ->setDescription(t('The type from the voted context entity.'))
++      ->setSettings([
++        'max_length' => 64,
++      ])
++      ->setRequired(TRUE);
++
++    $fields['context_entity_id'] = BaseFieldDefinition::create('entity_reference')
++      ->setLabel(t('Context Entity ID'))
++      ->setDescription(t('The ID from the voted context entity'))
++      ->setRequired(TRUE);
++
+     $fields['value'] = BaseFieldDefinition::create('float')
+       ->setLabel(t('Value'))
+       ->setDescription(t('The numeric value of the vote.'))
+@@ -256,12 +297,27 @@ class Vote extends ContentEntityBase implements VoteInterface {
+     if (\Drupal::config('votingapi.settings')
+         ->get('calculation_schedule') == 'immediate'
+     ) {
+-      \Drupal::service('plugin.manager.votingapi.resultfunction')
+-        ->recalculateResults(
+-          $this->getVotedEntityType(),
+-          $this->getVotedEntityId(),
+-          $this->bundle()
+-        );
++
++      if (($context_entity_type = $this->getContextVotedEntityType())
++        && ($context_entity_id = $this->getContextVotedEntityId())) {
++        \Drupal::service('plugin.manager.votingapi.resultfunction')
++          ->recalculateResults(
++            $this->getVotedEntityType(),
++            $this->getVotedEntityId(),
++            $this->bundle(),
++            $context_entity_type,
++            $context_entity_id
++          );
++      }
++      else {
++        \Drupal::service('plugin.manager.votingapi.resultfunction')
++          ->recalculateResults(
++            $this->getVotedEntityType(),
++            $this->getVotedEntityId(),
++            $this->bundle()
++          );
++      }
++
+       $cache_tag = $this->getVotedEntityType() . ':' . $this->getVotedEntityId();
+       Cache::invalidateTags([$cache_tag]);
+     }
+diff --git a/src/Entity/VoteResult.php b/src/Entity/VoteResult.php
+index 9d2d3d4..9caeb42 100644
+--- a/src/Entity/VoteResult.php
++++ b/src/Entity/VoteResult.php
+@@ -173,6 +173,19 @@ class VoteResult extends ContentEntityBase implements VoteResultInterface {
+       ->setDescription(t('The ID from the voted entity'))
+       ->setRequired(TRUE);
+
++    $fields['context_entity_type'] = BaseFieldDefinition::create('string')
++      ->setLabel(t('Context Entity Type'))
++      ->setDescription(t('The type from the voted context entity.'))
++      ->setSettings([
++        'max_length' => 64,
++      ])
++      ->setRequired(TRUE);
++
++    $fields['context_entity_id'] = BaseFieldDefinition::create('entity_reference')
++      ->setLabel(t('Context Entity ID'))
++      ->setDescription(t('The ID from the voted context entity'))
++      ->setRequired(TRUE);
++
+     $fields['value'] = BaseFieldDefinition::create('float')
+       ->setLabel(t('Value'))
+       ->setDescription(t('The numeric value of the vote.'))
+
+diff --git a/src/VoteInterface.php b/src/VoteInterface.php
+index 4fa73e3..ff8c664 100644
+--- a/src/VoteInterface.php
++++ b/src/VoteInterface.php
+@@ -20,7 +20,10 @@ interface VoteInterface extends ContentEntityInterface, EntityOwnerInterface {
+   public function getVotedEntityType();
+
+   /**
+-   * {@inheritdoc}
++   * Sets the vote entity type.
++   *
++   * @return \Drupal\votingapi\VoteInterface
++   *   The updated vote entity.
+    */
+   public function setVotedEntityType($name);
+
+@@ -33,11 +36,46 @@ interface VoteInterface extends ContentEntityInterface, EntityOwnerInterface {
+   public function getVotedEntityId();
+
+   /**
+-   * {@inheritdoc}
++   * Set the vote entity ID.
++   *
++   * @return \Drupal\votingapi\VoteInterface
++   *   The updated vote entity.
+    */
+   public function setVotedEntityId($id);
+
+   /**
++   * Returns the type of entity context that the vote was cast on.
++   *
++   * @return string
++   *   The entity type.
++   */
++  public function getContextVotedEntityType();
++
++  /**
++   * Sets the vote context entity type.
++   *
++   * @return \Drupal\votingapi\VoteInterface
++   *   The updated vote entity.
++   */
++  public function setContextVotedEntityType($name);
++
++  /**
++   * Returns the ID of the entity context that the vote was cast on.
++   *
++   * @return int
++   *   The entity ID.
++   */
++  public function getContextVotedEntityId();
++
++  /**
++   * Set the vote context entity ID.
++   *
++   * @return \Drupal\votingapi\VoteInterface
++   *   The updated vote entity.
++   */
++  public function setContextVotedEntityId($id);
++
++  /**
+    * Returns the vote value.
+    *
+    * @return int
+diff --git a/src/VoteResultFunctionManager.php b/src/VoteResultFunctionManager.php
+index cc6b6ee..9ea3e9e 100644
+--- a/src/VoteResultFunctionManager.php
++++ b/src/VoteResultFunctionManager.php
+@@ -43,18 +43,34 @@ class VoteResultFunctionManager extends DefaultPluginManager {
+    *   The type of entity, e.g. 'node'.
+    * @param int $entity_id
+    *   The ID of the entity.
++   * @param string $context_entity_type
++   *   The type of context entity.
++   * @param int $context_entity_id
++   *   The ID of the entity context.
+    *
+    * @return array
+    *   An nested array
+    */
+-  public function getResults($entity_type_id, $entity_id) {
++  public function getResults($entity_type_id, $entity_id, $context_entity_type = NULL, $context_entity_id = NULL) {
+     $results = [];
+
+-    $result = db_select('votingapi_result', 'v')
+-      ->fields('v', ['type', 'function', 'value'])
+-      ->condition('entity_type', $entity_type_id)
+-      ->condition('entity_id', $entity_id)
+-      ->execute();
++    if ($context_entity_type && $context_entity_id) {
++      $result = db_select('votingapi_result', 'v')
++        ->fields('v', ['type', 'function', 'value'])
++        ->condition('entity_type', $entity_type_id)
++        ->condition('entity_id', $entity_id)
++        ->condition('context_entity_type', $context_entity_type)
++        ->condition('context_entity_id', $context_entity_id)
++        ->execute();
++    }
++    else {
++      $result = db_select('votingapi_result', 'v')
++        ->fields('v', ['type', 'function', 'value'])
++        ->condition('entity_type', $entity_type_id)
++        ->condition('entity_id', $entity_id)
++        ->execute();
++    }
++
+     while ($row = $result->fetchAssoc()) {
+       $results[$row['type']][$row['function']] = $row['value'];
+     }
+@@ -77,20 +93,47 @@ class VoteResultFunctionManager extends DefaultPluginManager {
+    * @param string $entity_id
+    *   The key ID of the content being rated.
+    * @param string $vote_type
++   *   The vote type.
++   * @param string $context_entity_type
++   *   The type of context entity.
++   * @param int $context_entity_id
++   *   The ID of the entity context.
+    */
+-  public function recalculateResults($entity_type_id, $entity_id, $vote_type) {
+-    db_delete('votingapi_result')
+-      ->condition('entity_type', $entity_type_id)
+-      ->condition('entity_id', $entity_id)
+-      ->condition('type', $vote_type)
+-      ->execute();
+-
+-    $vote_ids = \Drupal::entityQuery('vote')
+-      ->condition('entity_type', $entity_type_id)
+-      ->condition('entity_id', $entity_id)
+-      ->condition('type', $vote_type)
+-      ->sort('type')
+-      ->execute();
++  public function recalculateResults($entity_type_id, $entity_id, $vote_type, $context_entity_type = NULL, $context_entity_id = NULL) {
++
++    if ($context_entity_type && $context_entity_id) {
++      db_delete('votingapi_result')
++        ->condition('entity_type', $entity_type_id)
++        ->condition('entity_id', $entity_id)
++        ->condition('context_entity_type', $context_entity_type)
++        ->condition('context_entity_id', $context_entity_id)
++        ->condition('type', $vote_type)
++        ->execute();
++
++      $vote_ids = \Drupal::entityQuery('vote')
++        ->condition('entity_type', $entity_type_id)
++        ->condition('entity_id', $entity_id)
++        ->condition('context_entity_type', $context_entity_type)
++        ->condition('context_entity_id', $context_entity_id)
++        ->condition('type', $vote_type)
++        ->sort('type')
++        ->execute();
++    }
++    else {
++      db_delete('votingapi_result')
++        ->condition('entity_type', $entity_type_id)
++        ->condition('entity_id', $entity_id)
++        ->condition('type', $vote_type)
++        ->execute();
++
++      $vote_ids = \Drupal::entityQuery('vote')
++        ->condition('entity_type', $entity_type_id)
++        ->condition('entity_id', $entity_id)
++        ->condition('type', $vote_type)
++        ->sort('type')
++        ->execute();
++    }
++
+     $vote_storage = \Drupal::entityManager()->getStorage('vote');
+     $votes = [];
+     $vote_type = '';
+@@ -101,7 +144,7 @@ class VoteResultFunctionManager extends DefaultPluginManager {
+         // Votes are sorted by vote type, so when we hit a new type, we can run
+         // find the results of the current set and then start over.
+         if (!empty($vote_type) && $vote_type != $vote->bundle()) {
+-          $this->performAndStore($votes);
++          $this->performAndStore($votes, $context_entity_type, $context_entity_id);
+           $vote_type = $vote->bundle();
+           $votes = [];
+         }
+@@ -109,7 +152,7 @@ class VoteResultFunctionManager extends DefaultPluginManager {
+       }
+
+       // Still one last set to process
+-      $this->performAndStore($votes);
++      $this->performAndStore($votes, $context_entity_type, $context_entity_id);
+     }
+   }
+
+@@ -120,22 +163,41 @@ class VoteResultFunctionManager extends DefaultPluginManager {
+    * @param VoteInterface[] $votes
+    *   The set of votes to perform the calculations on. All votes in the set are
+    *   expected to be the same vote type and for the same entity.
++   * @param string $context_entity_type
++   *   The type of context entity.
++   * @param int $context_entity_id
++   *   The ID of the entity context.
+    */
+-  protected function performAndStore($votes) {
++  protected function performAndStore($votes, $context_entity_type = NULL, $context_entity_id = NULL) {
+     $entity_type_id = $votes[0]->getVotedEntityType();
+     $entity_id = $votes[0]->getVotedEntityId();
+     $vote_type = $votes[0]->bundle();
+
+     foreach ($this->getDefinitions() as $plugin_id => $definition) {
+       $plugin = $this->createInstance($plugin_id);
+-      db_insert('votingapi_result')->fields([
+-        'entity_id' => $entity_id,
+-        'entity_type' => $entity_type_id,
+-        'type' => $vote_type,
+-        'function' => $plugin_id,
+-        'value' => $plugin->calculateResult($votes),
+-        'timestamp' => \Drupal::time()->getRequestTime(),
+-      ])->execute();
++
++      if ($context_entity_type && $context_entity_id) {
++        db_insert('votingapi_result')->fields([
++          'entity_id' => $entity_id,
++          'entity_type' => $entity_type_id,
++          'context_entity_type' => $context_entity_type,
++          'context_entity_id' => $context_entity_id,
++          'type' => $vote_type,
++          'function' => $plugin_id,
++          'value' => $plugin->calculateResult($votes),
++          'timestamp' => \Drupal::time()->getRequestTime(),
++        ])->execute();
++      }
++      else {
++        db_insert('votingapi_result')->fields([
++          'entity_id' => $entity_id,
++          'entity_type' => $entity_type_id,
++          'type' => $vote_type,
++          'function' => $plugin_id,
++          'value' => $plugin->calculateResult($votes),
++          'timestamp' => \Drupal::time()->getRequestTime(),
++        ])->execute();
++      }
+     }
+   }
+ }
+diff --git a/src/VoteStorage.php b/src/VoteStorage.php
+index 4233446..00dbf32 100644
+--- a/src/VoteStorage.php
++++ b/src/VoteStorage.php
+@@ -10,7 +10,7 @@ use Drupal\votingapi\Entity\Vote;
+  */
+ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterface {
+
+-  function getUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL) {
++  function getUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL, $context_entity_type = NULL, $context_entity_id = NULL) {
+     $query = \Drupal::entityQuery('vote')
+       ->condition('user_id', $uid);
+     if ($vote_type_id) {
+@@ -22,14 +22,20 @@ class VoteStorage extends SqlContentEntityStorage implements VoteStorageInterfac
+     if ($entity_id) {
+       $query->condition('entity_id', $entity_id);
+     }
++    if ($context_entity_type) {
++      $query->condition('context_entity_type', $context_entity_type);
++    }
++    if ($context_entity_id) {
++      $query->condition('context_entity_id', $context_entity_id);
++    }
+     if ($uid == 0) {
+       $query->condition('vote_source', static::defaultVoteSource($vote_source));
+     }
+     return $query->execute();
+   }
+
+-  function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL) {
+-    $votes = $this->getUserVotes($uid, $vote_type_id, $entity_type_id, $entity_id, $vote_source);
++  function deleteUserVotes($uid, $vote_type_id = NULL, $entity_type_id = NULL, $entity_id = NULL, $vote_source = NULL, $context_entity_type = NULL, $context_entity_id = NULL) {
++    $votes = $this->getUserVotes($uid, $vote_type_id, $entity_type_id, $entity_id, $vote_source, $context_entity_type, $context_entity_id);
+     if (!empty($votes)) {
+       entity_delete_multiple('vote', $votes);
+     }

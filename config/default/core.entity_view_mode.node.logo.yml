@@ -1,0 +1,14 @@
+uuid: 49f1992d-0e7b-4c31-8f24-6080c25288a2
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - node
+third_party_settings:
+  lightning_core:
+    description: ''
+id: node.logo
+label: Logo
+targetEntityType: node
+cache: true

@@ -1,0 +1,25 @@
+uuid: f460aeb6-17d0-444f-a496-fbe7f325282d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_email
+    - node.type.event
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_contact_email
+id: node.event.field_contact_email
+field_name: field_contact_email
+entity_type: node
+bundle: event
+label: E-mail
+description: 'This information is only used for Talking Machines to contact you.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

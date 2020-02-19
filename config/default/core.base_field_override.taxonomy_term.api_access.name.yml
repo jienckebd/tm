@@ -1,0 +1,18 @@
+uuid: 9f17dcb5-75ca-4a4d-a4e3-c3144ffce97a
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.api_access
+id: taxonomy_term.api_access.name
+field_name: name
+entity_type: taxonomy_term
+bundle: api_access
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

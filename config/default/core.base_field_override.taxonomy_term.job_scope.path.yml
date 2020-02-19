@@ -1,0 +1,20 @@
+uuid: 0fab81cf-ed64-4339-a434-0ce45171fe76
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.job_scope
+  module:
+    - path
+id: taxonomy_term.job_scope.path
+field_name: path
+entity_type: taxonomy_term
+bundle: job_scope
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

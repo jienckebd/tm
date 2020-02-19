@@ -1,0 +1,18 @@
+uuid: 48396fed-0cf3-4d27-9a48-08f527480c45
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Doc
+type: doc
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

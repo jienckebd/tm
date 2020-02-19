@@ -1,0 +1,14 @@
+uuid: 71992a1b-0182-46d0-9b0d-d3dffb5f5eab
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.gallery_creator
+  module:
+    - user
+id: user_add_role_action.gallery_creator
+label: 'Add the Gallery creator role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: gallery_creator

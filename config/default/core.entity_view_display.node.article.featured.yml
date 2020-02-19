@@ -1,0 +1,167 @@
+uuid: 051bf51d-6c15-4b13-833f-a530dac25268
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.featured
+    - field.field.node.article.body
+    - field.field.node.article.feeds_item
+    - field.field.node.article.field_anon
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_content
+    - field.field.node.article.field_date
+    - field.field.node.article.field_disqus
+    - field.field.node.article.field_document
+    - field.field.node.article.field_entity_queue
+    - field.field.node.article.field_image
+    - field.field.node.article.field_link
+    - field.field.node.article.field_link_download
+    - field.field.node.article.field_meta_tags
+    - field.field.node.article.field_social_share
+    - field.field.node.article.field_summary
+    - field.field.node.article.field_tags
+    - field.field.node.article.field_type
+    - field.field.node.article.panelizer
+    - node.type.article
+  module:
+    - cn_display
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - panelizer
+    - smart_trim
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: radix_boxton
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        label: ''
+    regions:
+      contentmain:
+        - field_image
+        - node_title
+        - field_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          wrapper: h3
+          class: heading-glow
+          link: false
+id: node.article.featured
+targetEntityType: node
+bundle: article
+mode: featured
+content:
+  field_image:
+    type: entity_reference_entity_view
+    weight: 0
+    region: contentmain
+    label: hidden
+    settings:
+      view_mode: thumbnail_large
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: '1'
+  field_summary:
+    weight: 2
+    label: hidden
+    settings:
+      trim_length: 300
+      trim_type: chars
+      trim_suffix: ...
+      wrap_class: trimmed
+      more_text: More
+      more_class: more-link
+      trim_options:
+        text: true
+        trim_zero: false
+      wrap_output: false
+      more_link: false
+      summary_handler: full
+    third_party_settings:
+      cn_display:
+        fallback_field: ''
+        roles:
+          anonymous: 0
+          authenticated: 0
+          administrator: 0
+          page_creator: 0
+          layout_manager: 0
+          page_reviewer: 0
+          landing_page_creator: 0
+          landing_page_reviewer: 0
+          media_creator: 0
+          media_manager: 0
+          article_creator: 0
+          article_reviewer: 0
+          event_creator: 0
+          event_reviewer: 0
+          content_admin: 0
+          podcast_creator: 0
+          podcast_reviewer: 0
+          job_creator: 0
+          job_reviewer: 0
+          company_creator: 0
+          company_reviewer: 0
+          api_endpoint_creator: 0
+          api_endpoint_reviewer: 0
+          doc_creator: 0
+          doc_reviewer: 0
+          client_administrator: 0
+          gallery_creator: 0
+          gallery_reviewer: 0
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+    type: smart_trim
+    region: contentmain
+hidden:
+  body: true
+  feeds_item: true
+  field_anon: true
+  field_author: true
+  field_category: true
+  field_content: true
+  field_date: true
+  field_disqus: true
+  field_document: true
+  field_entity_queue: true
+  field_link: true
+  field_link_download: true
+  field_meta_tags: true
+  field_social_share: true
+  field_tags: true
+  field_type: true
+  langcode: true
+  links: true
+  panelizer: true
+  search_api_excerpt: true
+  status: true
+  title: true

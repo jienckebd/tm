@@ -1,0 +1,15 @@
+uuid: 24461b13-4b58-4f9b-b7b1-051589ce486e
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: ''
+id: content_admin
+label: 'Content Admin'
+weight: 13
+is_admin: null
+permissions:
+  - 'bypass node access'

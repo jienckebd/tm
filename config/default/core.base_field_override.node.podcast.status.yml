@@ -1,0 +1,22 @@
+uuid: 1de30a57-e305-44c8-a4f0-4cadbeecc6dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.podcast
+id: node.podcast.status
+field_name: status
+entity_type: node
+bundle: podcast
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

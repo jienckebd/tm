@@ -1,0 +1,59 @@
+docroot: web
+project:
+  machine_name: tm
+  prefix: TM
+  human_name: 'Talking Machines'
+  profile:
+    name: lightning
+  local:
+    protocol: http
+    hostname: 'local.${project.machine_name}.com'
+git:
+  default_branch: develop
+  remotes:
+    - 'talkingmachine@svn-4786.devcloud.hosting.acquia.com:talkingmachine.git'
+drush:
+  aliases:
+    remote: talkingmachine.dev
+    local: talkingmachine.local
+    ci: self
+  default_alias: '${drush.aliases.local}'
+modules:
+  local:
+    enable: [dblog, devel, seckit, views_ui]
+    uninstall: [acsf, acquia_connector, shield]
+  ci:
+    enable: {  }
+    uninstall: [acquia_connector, shield]
+  dev:
+    enable: [acquia_connector, shield]
+    uninstall: {  }
+  test:
+    enable: [acquia_connector, shield]
+    uninstall: [devel, views_ui]
+  prod:
+    enable: [acquia_connector, shield]
+    uninstall: [devel, views_ui]
+sync:
+  exclude-paths:
+    - styles
+    - css
+    - js
+  exclude-file-types:
+    - '*.pdf'
+ext_dev:
+  attribute:
+    type: module
+    path: docroot/modules/contrib/attribute
+    branch: 8.x-1.x
+    composer_id: jienckebd/attribute
+  autoref:
+    type: module
+    path: docroot/modules/contrib/autoref
+    branch: 8.x-1.x
+    composer_id: jienckebd/autoref
+  feeds_crawler:
+    type: module
+    path: docroot/modules/contrib/feeds_crawler
+    branch: 8.x-1.x
+    composer_id: jienckebd/feeds_crawler

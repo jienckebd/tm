@@ -1,0 +1,248 @@
+uuid: aa3709c2-1dba-4f85-832f-4c821d44aee1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.job.field_address
+    - field.field.node.job.field_anon
+    - field.field.node.job.field_category
+    - field.field.node.job.field_company
+    - field.field.node.job.field_contact_email
+    - field.field.node.job.field_contact_name
+    - field.field.node.job.field_content
+    - field.field.node.job.field_date
+    - field.field.node.job.field_date_end
+    - field.field.node.job.field_image
+    - field.field.node.job.field_job_level
+    - field.field.node.job.field_job_scope
+    - field.field.node.job.field_link
+    - field.field.node.job.field_listing_type
+    - field.field.node.job.field_meta_tags
+    - field.field.node.job.field_social_share
+    - field.field.node.job.field_summary
+    - field.field.node.job.field_tags
+    - field.field.node.job.field_video
+    - field.field.node.job.panelizer
+    - node.type.job
+  module:
+    - cn_core
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - panelizer
+    - smart_trim
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+    displays:
+      default:
+        blocks:
+          216b7864-3b19-4b99-b5f5-4cc606340ccd:
+            id: 'entity_field:node:uid'
+            label: 'Authored by'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: author
+              settings: {  }
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 0
+            uuid: 216b7864-3b19-4b99-b5f5-4cc606340ccd
+          2b435222-32d4-4ec5-abf5-73492afdb99f:
+            id: 'entity_field:node:created'
+            label: 'Authored on'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: timestamp
+              settings:
+                date_format: medium
+                custom_date_format: ''
+                timezone: ''
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 0
+            uuid: 2b435222-32d4-4ec5-abf5-73492afdb99f
+          a99fc904-953f-4d69-b394-334fb0ba4f69:
+            id: 'entity_field:node:body'
+            label: Body
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: text_default
+              settings: {  }
+              third_party_settings: {  }
+              weight: 0
+              region: content
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+            region: content
+            weight: 101
+            uuid: a99fc904-953f-4d69-b394-334fb0ba4f69
+        id: panels_variant
+        label: Default
+        uuid: 3a2d95d5-e5b8-4f6c-9a15-67e526a348c9
+        weight: 0
+        layout: layout_onecol
+        layout_settings: {  }
+        page_title: '[node:title]'
+        storage_type: ''
+        storage_id: ''
+        builder: ipe
+        pattern: panelizer
+      standard:
+        blocks: {  }
+        id: panels_variant
+        uuid: 771f96de-0a7b-486d-8bb4-89f9b1939073
+        label: Standard
+        weight: 0
+        layout: onecolumn
+        layout_settings: {  }
+        page_title: ''
+        storage_type: panelizer_default
+        storage_id: node__job__default__standard
+        pattern: panelizer
+        builder: ipe
+        static_context: {  }
+  ds:
+    layout:
+      id: radix_brenham
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      sidebar:
+        - field_image
+      contentmain:
+        - node_title
+        - field_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h3
+          class: ''
+id: node.job.search_index
+targetEntityType: node
+bundle: job
+mode: search_index
+content:
+  field_image:
+    type: entity_reference_entity_view
+    weight: 0
+    region: sidebar
+    label: hidden
+    settings:
+      view_mode: square_small
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: '1'
+  field_summary:
+    weight: 2
+    label: hidden
+    settings:
+      trim_length: 300
+      trim_type: chars
+      trim_suffix: ...
+      wrap_class: trimmed
+      more_text: More
+      more_class: more-link
+      wrap_output: false
+      more_link: false
+      trim_options:
+        text: false
+        trim_zero: false
+      summary_handler: full
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+    type: smart_trim
+    region: contentmain
+hidden:
+  field_address: true
+  field_anon: true
+  field_category: true
+  field_company: true
+  field_contact_email: true
+  field_contact_name: true
+  field_content: true
+  field_date: true
+  field_date_end: true
+  field_job_level: true
+  field_job_scope: true
+  field_link: true
+  field_listing_type: true
+  field_meta_tags: true
+  field_social_share: true
+  field_tags: true
+  field_video: true
+  langcode: true
+  links: true
+  panelizer: true
+  status: true
+  title: true

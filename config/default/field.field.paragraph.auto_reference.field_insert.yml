@@ -1,0 +1,23 @@
+uuid: b279ff9e-15b4-4fb5-a590-b5aea4f5d090
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_insert
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.field_insert
+field_name: field_insert
+entity_type: paragraph
+bundle: auto_reference
+label: 'Perform on insert'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

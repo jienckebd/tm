@@ -1,0 +1,21 @@
+uuid: 0ab41855-8101-4bb7-a889-53b20aff2ebb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_icon
+    - node.type.doc
+  module:
+    - font_field_icon
+id: node.doc.field_icon
+field_name: field_icon
+entity_type: node
+bundle: doc
+label: Icon
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: font_field_icon

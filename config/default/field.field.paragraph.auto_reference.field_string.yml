@@ -1,0 +1,19 @@
+uuid: d817c972-42f7-40df-9ccd-7267a23b5ec1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_string
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.field_string
+field_name: field_string
+entity_type: paragraph
+bundle: auto_reference
+label: 'Matching Text'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

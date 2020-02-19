@@ -1,0 +1,25 @@
+uuid: a4e33aee-49bc-4c34-95a4-ef409133080a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_social_share
+    - node.type.job
+  module:
+    - social_media
+id: node.job.field_social_share
+field_name: field_social_share
+entity_type: node
+bundle: job
+label: 'Social Share'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: social_media

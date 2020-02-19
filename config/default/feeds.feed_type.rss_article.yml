@@ -1,0 +1,77 @@
+uuid: c69d70a2-6d02-4791-9d59-36c75ae351d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.node.article.title
+    - field.field.node.article.feeds_item
+    - field.field.node.article.field_content
+    - field.field.node.article.field_date
+    - field.field.node.article.field_link
+    - field.field.node.article.field_summary
+    - node.type.article
+  module:
+    - cn_feeds
+    - node
+    - paragraphs
+label: 'Node: Article: RSS: Crawler'
+id: rss_article
+description: ''
+help: null
+import_period: 0
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: true
+  use_pubsubhubbub: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: article
+parser_configuration: {  }
+processor: article
+processor_configuration:
+  update_existing: 0
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: false
+  owner_id: 159
+  authorize: false
+  skip_hash_check: false
+  values:
+    type: article
+custom_sources: {  }
+mappings:
+  -
+    target: field_link
+    map:
+      uri: url
+      title: ''
+  -
+    target: title
+    map:
+      value: title
+    unique: {  }
+  -
+    target: field_date
+    map:
+      value: timestamp
+    settings:
+      timezone: UTC
+  -
+    target: feeds_item
+    map:
+      url: url
+      guid: guid
+    unique:
+      guid: '1'
+  -
+    target: field_summary
+    map:
+      value: description
+  -
+    target: field_content
+    map:
+      value: content
+    settings:
+      paragraphs_type: copy
+      format: plain_text
+      paragraph_field: ''

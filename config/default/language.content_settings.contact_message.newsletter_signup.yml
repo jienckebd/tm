@@ -1,0 +1,11 @@
+uuid: 256a7df9-6fe9-4e78-9ef6-539cdf9708b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.newsletter_signup
+id: contact_message.newsletter_signup
+target_entity_type_id: contact_message
+target_bundle: newsletter_signup
+default_langcode: site_default
+language_alterable: false

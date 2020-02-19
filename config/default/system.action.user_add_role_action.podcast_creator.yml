@@ -1,0 +1,14 @@
+uuid: e852d514-ca06-4030-9957-eec242206f6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.podcast_creator
+  module:
+    - user
+id: user_add_role_action.podcast_creator
+label: 'Add the Podcast creator role to the selected users'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: podcast_creator

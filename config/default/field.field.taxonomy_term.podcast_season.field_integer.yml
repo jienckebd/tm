@@ -1,0 +1,23 @@
+uuid: 4d186eeb-0622-4473-86f2-2ff2e55e5122
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_integer
+    - taxonomy.vocabulary.podcast_season
+id: taxonomy_term.podcast_season.field_integer
+field_name: field_integer
+entity_type: taxonomy_term
+bundle: podcast_season
+label: Integer
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

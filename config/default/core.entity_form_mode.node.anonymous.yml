@@ -1,0 +1,14 @@
+uuid: 7a7a6a9a-36df-4a8d-a02a-21325db4d2d7
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - node
+third_party_settings:
+  lightning_core:
+    description: ''
+id: node.anonymous
+label: Anonymous
+targetEntityType: node
+cache: true

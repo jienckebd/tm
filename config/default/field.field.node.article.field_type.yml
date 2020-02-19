@@ -1,0 +1,32 @@
+uuid: 91547f1e-ca3b-4aff-94ac-d3cf745ffdaa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_type
+    - node.type.article
+    - taxonomy.vocabulary.article_type
+  content:
+    - 'taxonomy_term:article_type:08f14d27-b263-463e-8b70-209b5ff9ff72'
+id: node.article.field_type
+field_name: field_type
+entity_type: node
+bundle: article
+label: 'What are you submitting?'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: 08f14d27-b263-463e-8b70-209b5ff9ff72
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      article_type: article_type
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

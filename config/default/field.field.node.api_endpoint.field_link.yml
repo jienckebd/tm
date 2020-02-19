@@ -1,0 +1,23 @@
+uuid: dad85190-be05-43ee-bb29-a9e3bcd84938
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link
+    - node.type.api_endpoint
+  module:
+    - link
+id: node.api_endpoint.field_link
+field_name: field_link
+entity_type: node
+bundle: api_endpoint
+label: Endpoint
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

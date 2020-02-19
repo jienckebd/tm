@@ -1,0 +1,72 @@
+diff --git a/core/lib/Drupal/Core/Entity/EntityDisplayBase.php b/core/lib/Drupal/Core/Entity/EntityDisplayBase.php
+index ca106b290f..11262c770e 100644
+--- a/core/lib/Drupal/Core/Entity/EntityDisplayBase.php
++++ b/core/lib/Drupal/Core/Entity/EntityDisplayBase.php
+@@ -163,17 +163,18 @@ abstract class EntityDisplayBase extends ConfigEntityBase implements EntityDispl
+         if (!isset($this->content[$name]) && !isset($this->hidden[$name])) {
+           // Extra fields are visible by default unless they explicitly say so.
+           if (!isset($definition['visible']) || $definition['visible'] == TRUE) {
+-            $this->content[$name] = [
+-              'weight' => $definition['weight']
+-            ];
++            $this->content[$name] = $definition;
+           }
+           else {
+             $this->hidden[$name] = TRUE;
+           }
+         }
+-        // Ensure extra fields have a 'region'.
++        // Ensure extra fields have a 'region' and a 'label'.
+         if (isset($this->content[$name])) {
+-          $this->content[$name] += ['region' => $default_region];
++          $this->content[$name] += [
++            'region' => $default_region,
++            'label' => 'above',
++          ];
+         }
+       }
+ 
+diff --git a/core/modules/field_ui/src/Form/EntityDisplayFormBase.php b/core/modules/field_ui/src/Form/EntityDisplayFormBase.php
+index 42a4e81d62..742361ba35 100644
+--- a/core/modules/field_ui/src/Form/EntityDisplayFormBase.php
++++ b/core/modules/field_ui/src/Form/EntityDisplayFormBase.php
+@@ -595,10 +595,7 @@ abstract class EntityDisplayFormBase extends EntityForm {
+         $entity->removeComponent($name);
+       }
+       else {
+-        $entity->setComponent($name, [
+-          'weight' => $form_values['fields'][$name]['weight'],
+-          'region' => $form_values['fields'][$name]['region'],
+-        ]);
++        $entity->setComponent($name, $form_values['fields'][$name]);
+       }
+     }
+   }
+diff --git a/core/modules/field_ui/src/Form/EntityViewDisplayEditForm.php b/core/modules/field_ui/src/Form/EntityViewDisplayEditForm.php
+index c27f3d4f52..047ce01aec 100644
+--- a/core/modules/field_ui/src/Form/EntityViewDisplayEditForm.php
++++ b/core/modules/field_ui/src/Form/EntityViewDisplayEditForm.php
+@@ -67,13 +67,19 @@ class EntityViewDisplayEditForm extends EntityDisplayFormBase {
+    */
+   protected function buildExtraFieldRow($field_id, $extra_field) {
+     $extra_field_row = parent::buildExtraFieldRow($field_id, $extra_field);
++    $display_options = $this->entity->getComponent($field_id);
+ 
+-    // Insert an empty placeholder for the label column.
++    // Insert the label column.
+     $label = [
+-      'empty_cell' => [
+-        '#markup' => '&nbsp;'
+-      ]
++      'label' => [
++        '#type' => 'select',
++        '#title' => $this->t('Label display for @title', array('@title' => $extra_field['label'])),
++        '#title_display' => 'invisible',
++        '#options' => $this->getFieldLabelOptions(),
++        '#default_value' => $display_options ? $display_options['label'] : 'above',
++      ],
+     ];
++
+     $label_position = array_search('plugin', array_keys($extra_field_row));
+     $extra_field_row = array_slice($extra_field_row, 0, $label_position, TRUE) + $label + array_slice($extra_field_row, $label_position, count($extra_field_row) - 1, TRUE);
+ 

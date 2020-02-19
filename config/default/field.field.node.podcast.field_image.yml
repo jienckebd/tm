@@ -1,0 +1,32 @@
+uuid: b024dc45-d480-4773-96e4-63e9961c110b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - media.type.image
+    - node.type.podcast
+  content:
+    - 'media:image:786e75f7-f82f-4421-86d9-880911fab355'
+id: node.podcast.field_image
+field_name: field_image
+entity_type: node
+bundle: podcast
+label: Image
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 786e75f7-f82f-4421-86d9-880911fab355
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

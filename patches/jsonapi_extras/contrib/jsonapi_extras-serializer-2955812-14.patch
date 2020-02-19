@@ -1,0 +1,37 @@
+diff --git a/src/Normalizer/FieldItemNormalizer.php b/src/Normalizer/FieldItemNormalizer.php
+index b13eed9..99916ae 100644
+--- a/src/Normalizer/FieldItemNormalizer.php
++++ b/src/Normalizer/FieldItemNormalizer.php
+@@ -2,12 +2,14 @@
+ 
+ namespace Drupal\jsonapi_extras\Normalizer;
+ 
++use Drupal\Core\Cache\CacheableMetadata;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Field\FieldItemInterface;
+ use Drupal\jsonapi\Normalizer\NormalizerBase;
+ use Drupal\jsonapi\Normalizer\FieldItemNormalizer as JsonapiFieldItemNormalizer;
+ use Drupal\jsonapi\Normalizer\Value\FieldItemNormalizerValue;
+ use Drupal\jsonapi_extras\Plugin\ResourceFieldEnhancerManager;
++use Symfony\Component\Serializer\SerializerInterface;
+ 
+ /**
+  * Converts the Drupal field structure to a JSON API array structure.
+@@ -73,9 +75,16 @@ class FieldItemNormalizer extends NormalizerBase {
+     }
+     // Apply any enhancements necessary.
+     $processed = $enhancer->postProcess($normalized_output->rasterizeValue());
+-    $normalized_output = new FieldItemNormalizerValue([$processed]);
++    $normalized_output = new FieldItemNormalizerValue([$processed], new CacheableMetadata());
+ 
+     return $normalized_output;
+   }
+ 
++  /**
++   * {@inheritdoc}
++   */
++  public function setSerializer(SerializerInterface $serializer) {
++    parent::setSerializer($serializer);
++    $this->subject->setSerializer($serializer);
++  }
+ }

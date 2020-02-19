@@ -1,0 +1,11 @@
+id: content_type
+label: 'Content Type'
+ui_limit: ''
+properties:
+  content:
+    value: '[node:content-type:name]'
+    format: plain_text
+type: token
+type_label: 'Token field'
+entities:
+  node: node

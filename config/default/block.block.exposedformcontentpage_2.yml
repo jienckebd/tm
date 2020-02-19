@@ -1,0 +1,29 @@
+uuid: b26a8498-6761-4497-96b8-1a49716bbf31
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.content
+  module:
+    - system
+    - views
+  theme:
+    - tm_theme_admin
+id: exposedformcontentpage_2
+theme: tm_theme_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:content-page_2'
+settings:
+  id: 'views_exposed_filter_block:content-page_2'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: /admin/content/submission
+    negate: false
+    context_mapping: {  }

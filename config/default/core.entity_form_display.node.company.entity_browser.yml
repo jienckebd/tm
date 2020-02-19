@@ -1,0 +1,64 @@
+uuid: 2b095e9c-9fc0-4bf1-ad05-928aaef092e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.entity_browser
+    - field.field.node.company.field_address
+    - field.field.node.company.field_company_type
+    - field.field.node.company.field_content
+    - field.field.node.company.field_icon
+    - field.field.node.company.field_image
+    - field.field.node.company.field_meta_tags
+    - field.field.node.company.field_partner
+    - field.field.node.company.field_rel_type
+    - field.field.node.company.field_social_share
+    - field.field.node.company.field_summary
+    - field.field.node.company.field_tags
+    - field.field.node.company.panelizer
+    - node.type.company
+id: node.company.entity_browser
+targetEntityType: node
+bundle: company
+mode: entity_browser
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_address: true
+  field_company_type: true
+  field_content: true
+  field_icon: true
+  field_image: true
+  field_meta_tags: true
+  field_partner: true
+  field_rel_type: true
+  field_social_share: true
+  field_summary: true
+  field_tags: true
+  panelizer: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

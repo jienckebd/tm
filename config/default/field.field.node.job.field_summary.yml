@@ -1,0 +1,19 @@
+uuid: 9caecb7c-80c1-4988-98cb-87f7704fa380
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.job
+id: node.job.field_summary
+field_name: field_summary
+entity_type: node
+bundle: job
+label: 'Job Description'
+description: 'Be sure to include a link or email address in the description so applicants can contact you.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

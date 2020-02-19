@@ -1,0 +1,13 @@
+uuid: e506b1d4-b817-4ab7-888e-a4bee1c529d1
+langcode: en
+status: true
+dependencies:
+  module:
+    - bulk_update_fields
+_core:
+  default_config_hash: lAQhb5fL_Tmgmr_l-eKoGW_ZbHwWgzWncYYEIiw67aE
+id: bulk_update_fields_action_base
+label: 'Bulk Update Fields to Another Value'
+type: node
+plugin: bulk_update_fields_action_base
+configuration: {  }

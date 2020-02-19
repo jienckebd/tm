@@ -1,0 +1,44 @@
+diff --git a/src/Plugin/views/exposed_form/BetterExposedFilters.php b/src/Plugin/views/exposed_form/BetterExposedFilters.php
+index 72348d0..9e0d9ea 100644
+--- a/src/Plugin/views/exposed_form/BetterExposedFilters.php
++++ b/src/Plugin/views/exposed_form/BetterExposedFilters.php
+@@ -100,6 +100,16 @@ class BetterExposedFilters extends InputRequired {
+       ),
+     );
+ 
++    /**
++     * Layout options.
++     */
++    $bef_options['layout']['inline'] = array(
++      '#type' => 'checkbox',
++      '#title' => $this->t('Inline Form Elements'),
++      '#default_value' => $existing['layout']['inline'],
++      '#description' => $this->t('Check this to wrap the form with form-inline and form--inline classes.'),
++    );
++
+     /*
+      * Add options for exposed sorts.
+      */
+@@ -1226,6 +1236,12 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
+       $form['secondary']['#weight'] = count($form['#info']) -1;
+       $form['#info']['filter-secondary']['value'] = 'secondary';
+     }
++
++    $layout_options = $settings['layout'];
++    if ($layout_options['inline'] == TRUE) {
++      $form['#attributes']['class'][] = 'form-inline';
++      $form['#attributes']['class'][] = 'form--inline';
++    }
+   }
+ 
+   /**
+@@ -1489,6 +1505,9 @@ Title Desc|Z -> A</pre> Leave the replacement text blank to remove an option alt
+         'bef_format' => 'default',
+         'is_secondary' => FALSE,
+       ),
++      'layout' => array(
++        'inline' => TRUE,
++      ),
+     );
+ 
+     // Update legacy settings in the exposed form settings form. This

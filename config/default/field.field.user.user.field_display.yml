@@ -1,0 +1,24 @@
+uuid: 3dcc6151-5df7-475f-bc09-64975e2c86f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_display
+  module:
+    - user
+id: user.user.field_display
+field_name: field_display
+entity_type: user
+bundle: user
+label: 'Display on about page'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

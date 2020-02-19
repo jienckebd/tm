@@ -1,0 +1,18 @@
+uuid: 8a2c7a30-4809-4ff1-a4a2-7d836a717495
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.company_relationship_type
+id: taxonomy_term.company_relationship_type.name
+field_name: name
+entity_type: taxonomy_term
+bundle: company_relationship_type
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

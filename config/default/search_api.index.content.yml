@@ -1,0 +1,339 @@
+uuid: a8b9849d-b796-47a3-a3e1-7686e0ff18c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - field.storage.node.field_company_type
+    - field.storage.node.body
+    - field.storage.node.field_category
+    - field.storage.node.field_tags
+    - field.storage.node.field_job_scope
+    - field.storage.node.field_job_level
+    - field.storage.node.field_address
+    - field.storage.node.field_season
+    - field.storage.node.field_event_type
+    - field.storage.node.field_summary
+    - field.storage.node.field_type
+    - field.storage.node.field_entity_queue
+    - search_api.server.database
+    - core.entity_view_mode.node.full
+  module:
+    - search_api
+    - node
+    - entityqueue
+_core:
+  default_config_hash: qEX0c8Yf878jYMC-3TrFlGSSNQeGbl3u0Hs6GJfxA38
+id: content
+name: Content
+description: 'An index of all content in your site.'
+read_only: false
+field_settings:
+  rendered:
+    label: Rendered
+    property_path: rendered_item
+    type: text
+    configuration:
+      roles:
+        anonymous: anonymous
+      view_mode:
+        'entity:node':
+          page: default
+          landing_page: full
+          article: default
+          event: default
+          podcast: default
+          job: default
+          company: default
+          api_endpoint: default
+          doc: default
+          gallery: default
+  label:
+    label: Label
+    property_path: aggregated_field
+    type: text
+    configuration:
+      type: first
+      fields:
+        - 'entity:node/title'
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  status:
+    label: status
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    indexed_locked: true
+    type_locked: true
+  uid:
+    label: uid
+    datasource_id: 'entity:node'
+    property_path: uid
+    type: integer
+    indexed_locked: true
+    type_locked: true
+  field_date:
+    label: Date
+    datasource_id: 'entity:node'
+    property_path: field_date
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_date
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+  field_company_type:
+    label: 'Company Type'
+    datasource_id: 'entity:node'
+    property_path: field_company_type
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_company_type
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
+    type: string
+  body:
+    label: Body
+    datasource_id: 'entity:node'
+    property_path: body
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.body
+  field_category:
+    label: Category
+    datasource_id: 'entity:node'
+    property_path: field_category
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_category
+  field_tags:
+    label: Tags
+    datasource_id: 'entity:node'
+    property_path: field_tags
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_tags
+  field_job_scope:
+    label: 'Job Scope'
+    datasource_id: 'entity:node'
+    property_path: field_job_scope
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_job_scope
+  field_job_level:
+    label: 'Job Level'
+    datasource_id: 'entity:node'
+    property_path: field_job_level
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_job_level
+  locality:
+    label: 'Location » The locality (i.e. city).'
+    datasource_id: 'entity:node'
+    property_path: 'field_address:locality'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_address
+  country_name:
+    label: 'Location » The full name of the country.'
+    datasource_id: 'entity:node'
+    property_path: 'field_address:country_name'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_address
+  field_season:
+    label: Season
+    datasource_id: 'entity:node'
+    property_path: field_season
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_season
+  field_event_type:
+    label: 'Event Type'
+    datasource_id: 'entity:node'
+    property_path: field_event_type
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_event_type
+  field_summary:
+    label: Summary
+    datasource_id: 'entity:node'
+    property_path: field_summary
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_summary
+  promote:
+    label: 'Promoted to front page'
+    datasource_id: 'entity:node'
+    property_path: promote
+    type: boolean
+  field_type:
+    label: 'What are you submitting?'
+    datasource_id: 'entity:node'
+    property_path: field_type
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_type
+  nid:
+    label: ID
+    datasource_id: 'entity:node'
+    property_path: nid
+    type: integer
+  field_entity_queue:
+    label: 'Entity Queues'
+    datasource_id: 'entity:node'
+    property_path: field_entity_queue
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_entity_queue
+  name:
+    label: Name
+    datasource_id: 'entity:entity_subqueue'
+    property_path: name
+    type: string
+  queue:
+    label: Queue
+    datasource_id: 'entity:entity_subqueue'
+    property_path: queue
+    type: string
+  items:
+    label: Items
+    datasource_id: 'entity:entity_subqueue'
+    property_path: items
+    type: integer
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+  'entity:entity_subqueue':
+    bundles:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  content_access:
+    weights:
+      preprocess_query: -10
+  html_filter:
+    fields:
+      - rendered
+      - label
+    title: true
+    alt: true
+    tags:
+      h1: 5
+      h2: 3
+      h3: 2
+      strong: 2
+      b: 2
+    weights:
+      preprocess_index: -10
+      preprocess_query: -9
+    all_fields: false
+  ignorecase:
+    fields:
+      - rendered
+      - label
+    weights:
+      preprocess_index: -9
+      preprocess_query: -8
+    all_fields: false
+  rendered_item: {  }
+  stopwords:
+    fields:
+      - rendered
+      - label
+    stopwords:
+      - a
+      - an
+      - and
+      - are
+      - as
+      - at
+      - be
+      - but
+      - by
+      - for
+      - if
+      - in
+      - into
+      - is
+      - it
+      - 'no'
+      - not
+      - of
+      - 'on'
+      - or
+      - s
+      - such
+      - t
+      - that
+      - the
+      - their
+      - then
+      - there
+      - these
+      - they
+      - this
+      - to
+      - was
+      - will
+      - with
+    weights:
+      preprocess_index: -5
+      preprocess_query: -4
+    all_fields: false
+  tokenizer:
+    fields:
+      - rendered
+      - label
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -5
+    all_fields: false
+  transliteration:
+    fields:
+      - rendered
+      - label
+    weights:
+      preprocess_index: -4
+      preprocess_query: -3
+    all_fields: false
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: database

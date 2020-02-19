@@ -1,0 +1,255 @@
+uuid: f9706d3f-2268-4fcc-9a0d-b89a13626008
+langcode: en
+status: true
+dependencies:
+  config:
+    - entity_browser.browser.image_browser_modal
+    - field.field.node.podcast.feeds_item
+    - field.field.node.podcast.field_author
+    - field.field.node.podcast.field_content
+    - field.field.node.podcast.field_date
+    - field.field.node.podcast.field_document
+    - field.field.node.podcast.field_duration
+    - field.field.node.podcast.field_episode
+    - field.field.node.podcast.field_guid
+    - field.field.node.podcast.field_image
+    - field.field.node.podcast.field_link_download
+    - field.field.node.podcast.field_meta_tags
+    - field.field.node.podcast.field_season
+    - field.field.node.podcast.field_social_share
+    - field.field.node.podcast.field_summary
+    - field.field.node.podcast.field_tags
+    - node.type.podcast
+  module:
+    - autocomplete_deluxe
+    - datetime
+    - duration_field
+    - entity_browser
+    - field_group
+    - link
+    - metatag
+    - paragraphs
+    - path
+third_party_settings:
+  field_group:
+    group_general_settings:
+      children:
+        - title
+        - field_link_download
+        - field_date
+        - field_tags
+        - field_summary
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'General Settings'
+    group_podcast:
+      children:
+        - field_season
+        - field_episode
+        - field_duration
+        - field_guid
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: Podcast
+    group_authoring_information:
+      children:
+        - field_author
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        label: 'Authoring Information'
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Authoring Information'
+id: node.podcast.default
+targetEntityType: node
+bundle: podcast
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_author:
+    weight: 4
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  field_content:
+    weight: 12
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  field_date:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_duration:
+    weight: 3
+    settings:
+      duration: ''
+    third_party_settings: {  }
+    type: duration_widget
+    region: content
+  field_episode:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_guid:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_image:
+    weight: 3
+    settings:
+      entity_browser: image_browser_modal
+      field_widget_display: label
+      field_widget_edit: true
+      field_widget_remove: true
+      open: true
+      selection_mode: selection_append
+      field_widget_display_settings: {  }
+    third_party_settings: {  }
+    type: entity_browser_entity_reference
+    region: content
+  field_link_download:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_meta_tags:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_firehose
+    region: content
+  field_season:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_summary:
+    weight: 8
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  field_tags:
+    weight: 7
+    settings:
+      limit: '10'
+      min_length: '0'
+      delimiter: ''
+      not_found_message: 'The term ''@term'' will be added'
+      new_terms: '1'
+      not_found_message_allow: 0
+      match_operator: CONTAINS
+      autocomplete_route_name: autocomplete_deluxe.autocomplete
+      target_type: taxonomy_term
+      size: 60
+      selection_handler: default
+    third_party_settings: {  }
+    type: autocomplete_deluxe
+    region: content
+  langcode:
+    type: language_select
+    weight: 5
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 13
+    third_party_settings: {  }
+    region: content
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden:
+  feeds_item: true
+  field_document: true
+  field_social_share: true

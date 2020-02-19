@@ -1,0 +1,18 @@
+uuid: ea6c9c4b-202f-44fa-9f59-28506c34cb35
+langcode: en
+status: true
+dependencies: {  }
+id: doc_reviewer
+label: 'Doc reviewer'
+weight: 27
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'delete any doc content'
+  - 'edit any doc content'
+  - 'use draft_published transition'
+  - 'use needs_review_draft transition'
+  - 'use needs_review_published transition'
+  - 'use published_archived transition'
+  - 'use published_published transition'
+  - 'view moderation states'

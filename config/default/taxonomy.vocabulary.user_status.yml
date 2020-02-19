@@ -1,0 +1,8 @@
+uuid: 155a1f16-d28f-44de-8724-9467faccd5d8
+langcode: en
+status: true
+dependencies: {  }
+name: 'User Status'
+vid: user_status
+description: ''
+weight: 0

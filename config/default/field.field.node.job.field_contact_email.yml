@@ -1,0 +1,19 @@
+uuid: 6668a29b-1c23-4d46-b994-09d1fb374bfb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_email
+    - node.type.job
+id: node.job.field_contact_email
+field_name: field_contact_email
+entity_type: node
+bundle: job
+label: E-mail
+description: 'This information is only used for Talking Machines to contact you.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

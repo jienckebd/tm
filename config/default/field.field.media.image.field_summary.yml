@@ -1,0 +1,23 @@
+uuid: c1e6638e-8039-45de-a5b1-2deb993fe7ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_summary
+    - media.type.image
+  module:
+    - text
+id: media.image.field_summary
+field_name: field_summary
+entity_type: media
+bundle: image
+label: 'Caption or Summary'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+field_type: text_with_summary

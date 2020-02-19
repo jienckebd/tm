@@ -1,0 +1,42 @@
+dev:
+  host: appserver.dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in
+  options:
+    db-allows-remote: true
+    db-url: 'mysql://pantheon:c77bb5af31a84cb3aeb7ba5d526ca1f7@dbserver.dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in:11682/pantheon'
+  paths:
+    drush-script: drush
+    files: code/sites/default/files
+  ssh:
+    options: '-p 2222 -o "AddressFamily inet"'
+  uri: dev-talkingmachines.pantheonsite.io
+  user: dev.80150cd3-ce1c-47a2-8d72-76afad9db5a5
+live:
+  host: appserver.live.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in
+  options:
+    db-allows-remote: true
+    db-url: 'mysql://pantheon:49e31c8a8c4143fdab45904bde757a23@dbserver.live.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in:14510/pantheon'
+  paths:
+    drush-script: drush
+    files: code/sites/default/files
+  ssh:
+    options: '-p 2222 -o "AddressFamily inet"'
+  uri: live-talkingmachines.pantheonsite.io
+  user: live.80150cd3-ce1c-47a2-8d72-76afad9db5a5
+local:
+  paths:
+    files: sites/default/files
+    drush-script: drush
+  root: /var/www/tm/docroot
+  uri: tm.local
+test:
+  host: appserver.test.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in
+  options:
+    db-allows-remote: true
+    db-url: 'mysql://pantheon:ebcde88b8d594fbc9d2ff9bc1ec9f731@dbserver.test.80150cd3-ce1c-47a2-8d72-76afad9db5a5.drush.in:12372/pantheon'
+  paths:
+    drush-script: drush
+    files: code/sites/default/files
+  ssh:
+    options: '-p 2222 -o "AddressFamily inet"'
+  uri: test-talkingmachines.pantheonsite.io
+  user: test.80150cd3-ce1c-47a2-8d72-76afad9db5a5

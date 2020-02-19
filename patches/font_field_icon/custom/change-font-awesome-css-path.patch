@@ -1,0 +1,13 @@
+diff --git a/src/Plugin/Field/FieldWidget/FontFieldIconDefaultWidget.php b/src/Plugin/Field/FieldWidget/FontFieldIconDefaultWidget.php
+index 64c3d9a..6f293b3 100644
+--- a/src/Plugin/Field/FieldWidget/FontFieldIconDefaultWidget.php
++++ b/src/Plugin/Field/FieldWidget/FontFieldIconDefaultWidget.php
+@@ -57,7 +57,7 @@ class FontFieldIconDefaultWidget extends WidgetBase {
+    *   Return icon.
+    */
+   public function getIconsFromFile() {
+-    $filepath = DRUPAL_ROOT . '/libraries/fontawesome/css/font-awesome.css';
++    $filepath = DRUPAL_ROOT . '/themes/custom/tm_theme_one/bower_components/font-awesome/css/font-awesome.min.css';
+     $content = file_exists($filepath) ? file_get_contents($filepath) : '';
+     if ($content) {
+       if (preg_match_all('@\.fa-(.*?):before@m', $content, $matches)) {

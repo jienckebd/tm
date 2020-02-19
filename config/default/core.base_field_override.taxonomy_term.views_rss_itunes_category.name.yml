@@ -1,0 +1,18 @@
+uuid: 137b6990-7846-4092-ae87-798c1f473be6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.views_rss_itunes_category
+id: taxonomy_term.views_rss_itunes_category.name
+field_name: name
+entity_type: taxonomy_term
+bundle: views_rss_itunes_category
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

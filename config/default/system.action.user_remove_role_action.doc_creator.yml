@@ -1,0 +1,14 @@
+uuid: f395d3d6-d92a-4644-9743-d4c32b1e45e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.doc_creator
+  module:
+    - user
+id: user_remove_role_action.doc_creator
+label: 'Remove the Doc creator role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: doc_creator

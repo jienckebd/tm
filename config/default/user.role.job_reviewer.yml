@@ -1,0 +1,18 @@
+uuid: 78f09b57-ae74-4536-8db8-9883175d88c3
+langcode: en
+status: true
+dependencies: {  }
+id: job_reviewer
+label: 'Job reviewer'
+weight: 19
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'delete any job content'
+  - 'edit any job content'
+  - 'use draft_published transition'
+  - 'use needs_review_draft transition'
+  - 'use needs_review_published transition'
+  - 'use published_archived transition'
+  - 'use published_published transition'
+  - 'view moderation states'

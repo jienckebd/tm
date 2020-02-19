@@ -1,0 +1,23 @@
+uuid: 9fd717a6-7ac1-473e-9c12-adfd53c62d26
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.storage.block_content.field_role_field_x_action
+id: block_content.basic.field_role_field_x_action
+field_name: field_role_field_x_action
+entity_type: block_content
+bundle: basic
+label: 'Actions Access'
+description: 'Decide which roles can use the actions.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user_role'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

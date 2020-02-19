@@ -1,0 +1,14 @@
+uuid: 7cdd3f14-b136-49e1-8add-84e91fcf2c46
+langcode: en
+status: true
+dependencies: {  }
+third_party_settings:
+  contextual:
+    mode: '1'
+id: feeds_item_internal
+label: 'Feeds Item Internal'
+type: html_token
+description: ''
+field_types:
+  - feeds_item
+data: "<div class=\"field field--label-above\">\r\n  <div class=\"field__item\">\r\n    <a href=\"[node:feeds_item:entity:url]\">[node:feeds_item:entity:title]</a>\r\n  </div>\r\n</div>\r\n"

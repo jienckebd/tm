@@ -1,0 +1,20 @@
+uuid: ec34b325-d330-4e48-9d0e-f158d964a5f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.podcast_season
+  module:
+    - path
+id: taxonomy_term.podcast_season.path
+field_name: path
+entity_type: taxonomy_term
+bundle: podcast_season
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

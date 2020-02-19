@@ -1,0 +1,13 @@
+diff --git a/includes/field_ui.inc b/includes/field_ui.inc
+index dafe2df..aa662a6 100644
+--- a/includes/field_ui.inc
++++ b/includes/field_ui.inc
+@@ -768,7 +768,7 @@ function _ds_field_ui_table_layouts($entity_type, $bundle, $view_mode, array &$f
+   $layout['layout_options'] = $layout_options;
+   _ds_field_ui_table_layouts_preview($form, $form_state, $ds_layouts, $layout, $display);
+ 
+-  if (!empty($layout) && !empty($layout['settings'])) {
++  if (!empty($layout) && isset($layout['settings'])) {
+     /* @var \Drupal\Core\Layout\LayoutInterface $layout_plugin */
+     $layout_plugin = \Drupal::service('plugin.manager.core.layout')->createInstance($layout['layout'], $layout['settings'] ?: []);
+ 

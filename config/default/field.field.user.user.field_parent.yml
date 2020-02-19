@@ -1,0 +1,29 @@
+uuid: a96acbeb-881f-459f-b363-d750b16591ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_parent
+  module:
+    - user
+id: user.user.field_parent
+field_name: field_parent
+entity_type: user
+bundle: user
+label: Parents
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

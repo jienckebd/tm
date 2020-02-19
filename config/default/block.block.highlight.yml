@@ -1,0 +1,29 @@
+uuid: b9c1aab6-db50-4100-9f72-046f197325c6
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:plain:216c4474-a261-492b-8ccf-c1ca27fc057a'
+  module:
+    - block_class
+    - block_content
+  theme:
+    - tm_theme_one
+third_party_settings:
+  block_class:
+    classes: ''
+id: highlight
+theme: tm_theme_one
+region: highlight
+weight: 0
+provider: null
+plugin: 'block_content:216c4474-a261-492b-8ccf-c1ca27fc057a'
+settings:
+  id: 'block_content:216c4474-a261-492b-8ccf-c1ca27fc057a'
+  label: Highlight
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

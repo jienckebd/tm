@@ -1,0 +1,18 @@
+uuid: da005629-a804-47fe-b25b-89d136d7a468
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.internal
+id: doc.internal.created
+field_name: created
+entity_type: doc
+bundle: internal
+label: 'Authored on'
+description: 'The time that the entity was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

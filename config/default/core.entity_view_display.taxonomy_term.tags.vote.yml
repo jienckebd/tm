@@ -1,0 +1,78 @@
+uuid: 4eb8c749-2a46-42b7-ab60-7e90b320f00a
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.vote
+    - field.field.taxonomy_term.tags.feeds_item
+    - field.field.taxonomy_term.tags.field_autoref
+    - field.field.taxonomy_term.tags.field_image
+    - field.field.taxonomy_term.tags.field_tags
+    - field.field.taxonomy_term.tags.field_tags_parent
+    - field.field.taxonomy_term.tags.field_vote
+    - taxonomy.vocabulary.tags
+  module:
+    - ds
+    - panelizer
+    - user
+    - vud
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        layout:
+          wrapper: div
+          classes: {  }
+          attributes: ''
+          add_region_classes: true
+        regions:
+          main:
+            wrapper: div
+            classes: {  }
+            attributes: ''
+            add_region_classes: true
+    regions:
+      main:
+        - taxonomy_term_title
+        - field_vote
+    fields:
+      taxonomy_term_title:
+        plugin_id: taxonomy_term_title
+        weight: 0
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: ''
+          class: ''
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: taxonomy_term.tags.vote
+targetEntityType: taxonomy_term
+bundle: tags
+mode: vote
+content:
+  field_vote:
+    type: vote_up_down_formatter_type
+    weight: 1
+    region: main
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  description: true
+  feeds_item: true
+  field_autoref: true
+  field_image: true
+  field_tags: true
+  field_tags_parent: true
+  flag_vote: true
+  langcode: true
+  search_api_excerpt: true

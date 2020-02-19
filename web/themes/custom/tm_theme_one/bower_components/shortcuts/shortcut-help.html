@@ -1,0 +1,147 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
+
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+
+<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
+
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<link rel="import" href="../paper-material/paper-material.html">
+
+<link rel="import" href="../paper-toast/paper-toast.html">
+
+<dom-module id="shortcut-help">
+    <template>
+        <style is="custom-style" include="iron-flex iron-flex-alignment">
+            .header {
+                text-transform: capitalize;
+                color: black;
+                margin: 5px;
+            }
+
+            .type {
+                width: 150px;
+                color: black;
+            }
+
+            paper-material {
+                padding: 15px;
+                margin: 5px;
+            }
+
+            .shortcut {
+                margin-bottom: 5px;
+            }
+
+            .cagegory {
+                margin: 20px;
+                max-width: 300px;
+            }
+
+            paper-dialog {
+                width: 80%;
+                max-width:500px;
+            }
+
+            h2{
+                margin-bottom: 20px;
+            }
+
+            paper-toast {
+                z-index : var(--toast-z-index, 1200)
+            }
+        </style>
+        <paper-toast id="toast1" duration="3000" text="To see list of available shortcuts. ?"></paper-toast>
+        <paper-dialog id="dialog" with-backdrop>
+            <paper-dialog-scrollable>
+                <h2>Shortcuts</h2>
+                <div class="layout vertical">
+                    <template is="dom-repeat" items="{{data}}">
+                        <div>
+                            <span class="header"><b>{{item.header}}</b></span>
+                            <template is="dom-repeat" as="shortcuts" items="{{item.shortcuts}}">
+                                <paper-material class="layout horizontal start-justified">
+                                    <span class="type self-start">{{shortcuts.label}}</span>
+                                    <div class="layout vertical start-justified">
+                                        <span class="shortcut">{{shortcuts.shortcut}}</span>
+                                        <span>{{shortcuts.description}}</span>
+                                    </div>
+                                </paper-material>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </paper-dialog-scrollable>
+        </paper-dialog>
+        <iron-a11y-keys id="a11y" keys="/" on-keys-pressed="helpRequested"></iron-a11y-keys>
+        <iron-a11y-keys id="esc" keys="esc" on-keys-pressed="close"></iron-a11y-keys>
+    </template>
+    <script>
+        (function () {
+            'use strict';
+
+            Polymer({
+                is: 'shortcut-help',
+
+                properties: {
+                    data: {
+                        type: Array
+                    }
+                },
+
+                ready: function () {
+                    this.$.a11y.target = document.querySelector('body');
+                    this.$.esc.target = this;
+                    var _this = this;
+                    var configElement = document.querySelector('#shortcutConfig');
+                    configElement.addEventListener('response', function (event) {
+                        _this.updateData(configElement.lastResponse);
+                    });
+                    if (configElement.lastResponse) {
+                        _this.updateData(configElement.lastResponse);
+                    }
+                },
+
+                updateData: function (data) {
+                    var highLevelShortcuts = [];
+                    Object.keys(data).forEach(function (item) {
+                        var baseShortcuts = {};
+                        baseShortcuts.header = item;
+                        baseShortcuts.shortcuts = [];
+                        Object.keys(data[item]).forEach(function (shortcut) {
+                            baseShortcuts.shortcuts.push({
+                                'shortcut': data[item][shortcut]['shortcut'],
+                                'label': data[item][shortcut]['label'],
+                                'description': data[item][shortcut]['description']
+                            });
+                        });
+                        highLevelShortcuts.push(baseShortcuts);
+                    });
+                    console.log('highLevelShortcuts', highLevelShortcuts);
+                    this.$.toast1.show();
+                    this.set('data', highLevelShortcuts);
+                },
+
+                helpRequested: function (event) {
+                    console.log('requested help dialog');
+                    this.$.dialog.open();
+                },
+
+                close: function (event) {
+                    this.$.dialog.close();
+                }
+
+            });
+        })();
+    </script>
+</dom-module>

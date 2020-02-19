@@ -1,0 +1,14 @@
+uuid: bc93956d-1338-4f9b-aefa-4acc257f600d
+langcode: en
+status: true
+dependencies: {  }
+third_party_settings:
+  contextual:
+    mode: '1'
+id: address_city
+label: 'Address: City'
+type: html_token
+description: ''
+field_types:
+  - address
+data: '<div class="field-value field-value--address field-value--address--city">[node:field_address:0:locality]</div>'

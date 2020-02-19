@@ -1,0 +1,39 @@
+uuid: fb6838e1-e3f1-49d6-9382-6ffad4d1001b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.job
+    - paragraphs.paragraphs_type.code
+    - paragraphs.paragraphs_type.copy
+  module:
+    - entity_reference_revisions
+id: node.job.field_content
+field_name: field_content
+entity_type: node
+bundle: job
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      code: code
+      copy: copy
+    target_bundles_drag_drop:
+      author:
+        weight: 4
+        enabled: false
+      code:
+        enabled: true
+        weight: 5
+      copy:
+        enabled: true
+        weight: 6
+field_type: entity_reference_revisions

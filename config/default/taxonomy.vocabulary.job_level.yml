@@ -1,0 +1,8 @@
+uuid: e25f40c4-45be-4540-b172-2b6fb8ac8804
+langcode: en
+status: true
+dependencies: {  }
+name: 'Job Level'
+vid: job_level
+description: ''
+weight: 0

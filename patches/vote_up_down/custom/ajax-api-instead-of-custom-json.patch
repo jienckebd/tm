@@ -1,0 +1,64 @@
+diff --git a/js/VoteUpDown.js b/js/VoteUpDown.js
+index 6465cde..0288a79 100644
+--- a/js/VoteUpDown.js
++++ b/js/VoteUpDown.js
+@@ -6,25 +6,6 @@
+
+   Drupal.behaviors.voteUpDown = {
+     attach: function (context, settings) {
+-      $('.vud-widget a').click(function (e) {
+-        e.preventDefault();
+-        var baseWidget = $(this).parents('.vud-widget');
+-        var routeUrl = $(this).is('a') ? $(this).attr('href') : $(this).parent().attr('href');
+-        var operation;
+-
+-        if($(this).is('.inactive'))
+-          baseWidget.append('<img class="throbber" src="' + drupalSettings.path.baseUrl + '/' + settings.basePath + '/img/status-active.gif">');
+-
+-        if($(this).is('a.up.inactive'))
+-          operation = 'up';
+-        else if($(this).is('a.down.inactive'))
+-          operation = 'down';
+-        else
+-          operation = 'reset';
+-
+-        voteUpDownService.vote(baseWidget, routeUrl, operation, settings.basePath, settings.points, settings.uservote);
+-        e.stopImmediatePropagation();
+-      });
+     }
+   };
+
+diff --git a/widgets/updown/widget.html.twig b/widgets/updown/widget.html.twig
+index e99110e..0128039 100644
+--- a/widgets/updown/widget.html.twig
++++ b/widgets/updown/widget.html.twig
+@@ -1,4 +1,4 @@
+-<div class="vud-widget vud-widget-updown" id="{{ id }}">
++<div class="vud-widget vud-widget-updown {{ id }}" id="{{ id }}">
+   <div class="updown-score">
+     <span class="updown-current-score">{{ points }}</span>
+     {{ vote_label }}
+@@ -7,7 +7,6 @@
+     {% if show_up_as_link == true %}
+       <a href="{{ link_up }}" rel="nofollow" class="{{ link_class_up }}">
+     {% endif %}
+-      <div class="{{ class_up }} updown-up" title="{% trans %}Vote up!{% endtrans %}">+</div>
+       <div class="element-invisible">{% trans %}Vote up!{% endtrans %}</div>
+     {% if show_up_as_link == true %}
+       </a>
+@@ -15,14 +14,13 @@
+     {% if show_down_as_link == true %}
+       <a href="{{ link_down }}" rel="nofollow" class="{{ link_class_down }}">
+     {% endif %}
+-      <div class="{{ class_down }} updown-down" title="{% trans %}Vote down!{% endtrans %}">-</div>
+       <div class="element-invisible">{% trans %}Vote down!{% endtrans %}</div>
+     {% if show_down_as_link == true %}
+       </a>
+     {% endif %}
+   {% endif %}
+   {% if show_reset == true %}
+-    <a href="{{ link_reset }}" rel="nofollow" class="{{ link_class_reset }}" title="{{ reset_long_text }}">
++    <a href="{{ link_reset }}" rel="nofollow" class="{{ link_class_reset }}">
+       <div class="{{ class_reset }}">
+         {{ reset_short_text }}
+       </div>

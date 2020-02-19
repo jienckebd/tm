@@ -1,0 +1,84 @@
+uuid: 28d3657a-ef8b-432e-8bf3-07a65b4a0436
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.tags.feeds_item
+    - field.field.taxonomy_term.tags.field_autoref
+    - field.field.taxonomy_term.tags.field_image
+    - field.field.taxonomy_term.tags.field_tags
+    - field.field.taxonomy_term.tags.field_tags_parent
+    - field.field.taxonomy_term.tags.field_vote
+    - taxonomy.vocabulary.tags
+  module:
+    - panelizer
+    - text
+    - user
+    - vud
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: taxonomy_term.tags.default
+targetEntityType: taxonomy_term
+bundle: tags
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_autoref:
+    weight: 13
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_image:
+    type: entity_reference_entity_view
+    weight: 14
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_tags:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_tags_parent:
+    weight: 12
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_vote:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: vote_up_down_formatter_type
+    region: content
+  flag_vote:
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  feeds_item: true
+  langcode: true
+  weight: true

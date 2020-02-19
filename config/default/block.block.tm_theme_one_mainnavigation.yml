@@ -1,0 +1,25 @@
+uuid: 791a49c8-2f29-4d12-9c2c-19f3e3830b45
+langcode: en
+status: false
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - tm_theme_one
+id: tm_theme_one_mainnavigation
+theme: tm_theme_one
+region: navbar_branding
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: 609b607f-a6eb-4f16-8fed-686b675fa536
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_video
+    - node.type.job
+  module:
+    - video_embed_field
+id: node.job.field_video
+field_name: field_video
+entity_type: node
+bundle: job
+label: Video
+description: 'Provide a video for this job that will be provided on the job detail page.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_providers:
+    vimeo: '0'
+    youtube: '0'
+    youtube_playlist: '0'
+field_type: video_embed_field

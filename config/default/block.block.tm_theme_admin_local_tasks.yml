@@ -1,0 +1,27 @@
+uuid: 1398b574-1057-4e44-a997-a64ddd3329a0
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+  theme:
+    - tm_theme_admin
+third_party_settings:
+  block_class:
+    classes: ''
+_core:
+  default_config_hash: X9I1OB0W3WlWtrK-CNcg6hNWwa8wficanpH8pYnDZDE
+id: tm_theme_admin_local_tasks
+theme: tm_theme_admin
+region: pre_content
+weight: -6
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }

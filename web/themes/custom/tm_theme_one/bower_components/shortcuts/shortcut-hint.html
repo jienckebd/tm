@@ -1,0 +1,289 @@
+
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+<link rel="import" href="../neon-animation/animations/fade-in-animation.html">
+<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+
+<dom-module id="shortcut-hint">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: absolute;
+        outline: none;
+        z-index: 1002;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: default;
+      }
+
+      #tooltip {
+        display: block;
+        outline: none;
+        @apply(--paper-font-common-base);
+        font-size: 10px;
+        line-height: 1;
+
+        background-color: var(--shortcut-hint-background, #616161);
+        opacity: var(--shortcut-hint-opacity, 0.9);
+        color: var(--shortcut-hint-text-color, white);
+
+        padding: 8px;
+        border-radius: 2px;
+
+        @apply(--shortcut-hint);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+    </style>
+
+    <div id="tooltip" class="hidden">
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'shortcut-hint',
+
+      hostAttributes: {
+        role: 'tooltip',
+        tabindex: -1
+      },
+
+      behaviors: [
+        Polymer.NeonAnimationRunnerBehavior
+      ],
+
+      properties: {
+
+        for: {
+          type: String,
+          observer: '_forChanged'
+        },
+
+        manualMode: {
+          type: Boolean,
+          value: true
+        },
+
+        //Do not change this alter the position based on offset and positionLeft
+        position: {
+          type: String,
+          value: 'top',
+          readonly : true
+        },
+
+        fitToVisibleBounds: {
+          type: Boolean,
+          value: false
+        },
+
+        offset: {
+          type: Number,
+          value: 14
+        },
+
+        positionLeft : {
+          type: Number,
+          value: 0
+        },
+
+        marginTop: {
+          type: Number,
+          value: 14
+        },
+
+        animationDelay: {
+          type: Number,
+          value: 500
+        },
+
+        animationConfig: {
+          type: Object,
+          value: function() {
+            return {
+              'entry': [{
+                name: 'fade-in-animation',
+                node: this,
+                timing: {delay: 0}
+              }],
+              'exit': [{
+                name: 'fade-out-animation',
+                node: this
+              }]
+            }
+          }
+        },
+
+        _showing: {
+          type: Boolean,
+          value: false
+        }
+      },
+
+      listeners: {
+        'neon-animation-finish': '_onAnimationFinish',
+        'mouseenter': 'hide'
+      },
+
+      get target () {
+        var parentNode = Polymer.dom(this).parentNode;
+        // If the parentNode is a document fragment, then we need to use the host.
+        var ownerRoot = Polymer.dom(this).getOwnerRoot();
+
+        var target;
+        if (this.for) {
+          target = Polymer.dom(ownerRoot).querySelector('#' + this.for);
+        } else {
+          target = parentNode.nodeType == Node.DOCUMENT_FRAGMENT_NODE ?
+                  ownerRoot.host : parentNode;
+        }
+
+        return target;
+      },
+
+      attached: function() {
+        this._target = this.target;
+
+        if (this.manualMode)
+          return;
+
+        this.listen(this._target, 'mouseenter', 'show');
+        this.listen(this._target, 'focus', 'show');
+        this.listen(this._target, 'mouseleave', 'hide');
+        this.listen(this._target, 'blur', 'hide');
+        this.listen(this._target, 'tap', 'hide');
+      },
+
+      detached: function() {
+        if (this._target && !this.manualMode) {
+          this.unlisten(this._target, 'mouseenter', 'show');
+          this.unlisten(this._target, 'focus', 'show');
+          this.unlisten(this._target, 'mouseleave', 'hide');
+          this.unlisten(this._target, 'blur', 'hide');
+          this.unlisten(this._target, 'tap', 'hide');
+        }
+      },
+
+      show: function() {
+        // If the tooltip is already showing, there's nothing to do.
+        if (this._showing)
+          return;
+
+        if (Polymer.dom(this).textContent.trim() === '')
+          return;
+
+
+        this.cancelAnimation();
+        this._showing = true;
+        this.toggleClass('hidden', false, this.$.tooltip);
+        this.updatePosition();
+
+        this.animationConfig.entry[0].timing.delay = this.animationDelay;
+        this._animationPlaying = true;
+        this.playAnimation('entry');
+      },
+
+      hide: function() {
+        // If the tooltip is already hidden, there's nothing to do.
+        if (!this._showing) {
+          return;
+        }
+
+        // If the entry animation is still playing, don't try to play the exit
+        // animation since this will reset the opacity to 1. Just end the animation.
+        if (this._animationPlaying) {
+          this.cancelAnimation();
+          this._showing = false;
+          this._onAnimationFinish();
+          return;
+        }
+
+        this._showing = false;
+        this._animationPlaying = true;
+        this.playAnimation('exit');
+      },
+
+      _forChanged: function() {
+        this._target = this.target;
+      },
+
+      updatePosition: function() {
+        if (!this._target)
+          return;
+
+        var offset = this.offset;
+        // If a marginTop has been provided by the user (pre 1.0.3), use it.
+        if (this.marginTop != 14 && this.offset == 14)
+          offset = this.marginTop;
+
+        var parentRect = this.offsetParent.getBoundingClientRect();
+        var targetRect = this._target.getBoundingClientRect();
+        var thisRect = this.getBoundingClientRect();
+
+        var horizontalCenterOffset = (targetRect.width - thisRect.width) / 2;
+        var verticalCenterOffset = (targetRect.height - thisRect.height) / 2;
+
+        var targetLeft = targetRect.left - parentRect.left;
+        var targetTop = targetRect.top - parentRect.top;
+
+        var tooltipLeft, tooltipTop;
+
+        switch (this.position) {
+          case 'top':
+            tooltipLeft = targetLeft + horizontalCenterOffset + this.positionLeft;
+            tooltipTop = targetTop - thisRect.height - offset;
+            break;
+          case 'bottom':
+            tooltipLeft = targetLeft + horizontalCenterOffset;
+            tooltipTop = targetTop + targetRect.height + offset;
+            break;
+          case 'left':
+            tooltipLeft = targetLeft - thisRect.width - offset;
+            tooltipTop = targetTop + verticalCenterOffset;
+            break;
+          case 'right':
+            tooltipLeft = targetLeft + targetRect.width + offset;
+            tooltipTop = targetTop + verticalCenterOffset;
+            break;
+        }
+
+        // TODO(noms): This should use IronFitBehavior if possible.
+        if (this.fitToVisibleBounds) {
+          // Clip the left/right side.
+          if (tooltipLeft + thisRect.width > window.innerWidth) {
+            this.style.right = '0px';
+            this.style.left = 'auto';
+          } else {
+            this.style.left = Math.max(0, tooltipLeft) + 'px';
+            this.style.right = 'auto';
+          }
+
+          // Clip the top/bottom side.
+          if (tooltipTop + thisRect.height > window.innerHeight) {
+            this.style.bottom = '0px';
+            this.style.top = 'auto';
+          } else {
+            this.style.top = Math.max(0, tooltipTop) + 'px';
+            this.style.bottom = 'auto';
+          }
+        } else {
+          this.style.left = tooltipLeft + 'px';
+          this.style.top = tooltipTop + 'px';
+        }
+
+      },
+
+      _onAnimationFinish: function() {
+        this._animationPlaying = false;
+        if (!this._showing) {
+          this.toggleClass('hidden', true, this.$.tooltip);
+        }
+      },
+    });
+  </script>
+</dom-module>

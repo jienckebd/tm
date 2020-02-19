@@ -1,0 +1,34 @@
+uuid: f6284ec4-21cf-4ea5-bf48-f3e7c6464182
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.podcast_season.field_integer
+    - taxonomy.vocabulary.podcast_season
+  module:
+    - text
+    - user
+id: taxonomy_term.podcast_season.default
+targetEntityType: taxonomy_term
+bundle: podcast_season
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_integer:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

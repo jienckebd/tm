@@ -1,0 +1,116 @@
+uuid: 0b15f1b5-7c1b-436c-ae44-a79295bc6624
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.common_entity
+  module:
+    - field_group
+third_party_settings:
+  field_group:
+    group_general_settings:
+      children:
+        - status
+        - autoref_insert
+        - autoref_update
+        - autoref_empty
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'General Settings'
+    group_fields:
+      children:
+        - field_name
+        - field_name_check
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: Fields
+    group_system:
+      children:
+        - uid
+        - created
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: System
+id: autoref.common_entity.default
+targetEntityType: autoref
+bundle: common_entity
+mode: default
+content:
+  autoref_empty:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 11
+    region: content
+    third_party_settings: {  }
+  autoref_insert:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 9
+    region: content
+    third_party_settings: {  }
+  autoref_update:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 10
+    region: content
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_name:
+    type: options_buttons
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_name_check:
+    type: options_buttons
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+hidden:
+  label: true
+  langcode: true
+  weight: true

@@ -1,0 +1,61 @@
+uuid: 8c53e8b7-f982-44a8-8035-96668dc41fba
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.media
+  module:
+    - dropzonejs_eb_widget
+    - entity_browser_entity_form
+    - views
+name: media_browser_modal
+label: 'Media Browser Modal'
+display: modal
+display_configuration:
+  width: '650'
+  height: '1000'
+  link_text: 'Select media'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  c7a6b818-0e81-4c17-be91-aa653f87ea05:
+    settings:
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 32M
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select media'
+      auto_select: false
+    uuid: c7a6b818-0e81-4c17-be91-aa653f87ea05
+    weight: 1
+    label: Upload
+    id: dropzonejs
+  bf777a34-ba65-4ddd-8b23-d582936b217e:
+    settings:
+      view: media
+      view_display: entity_browser_1
+      submit_text: 'Select media'
+      auto_select: false
+    uuid: bf777a34-ba65-4ddd-8b23-d582936b217e
+    weight: 2
+    label: Library
+    id: view
+  0f1868cd-fccb-4e0b-833b-b8481066eb98:
+    settings:
+      entity_type: media
+      bundle: video
+      form_mode: media_browser
+      submit_text: 'Save video'
+    uuid: 0f1868cd-fccb-4e0b-833b-b8481066eb98
+    weight: 3
+    label: 'Embed Video'
+    id: entity_form

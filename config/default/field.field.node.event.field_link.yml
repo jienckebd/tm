@@ -1,0 +1,23 @@
+uuid: 83590ce7-5823-4a01-a403-95e00a8da66f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link
+    - node.type.event
+  module:
+    - link
+id: node.event.field_link
+field_name: field_link
+entity_type: node
+bundle: event
+label: 'Link to website'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

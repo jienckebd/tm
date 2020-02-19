@@ -1,0 +1,18 @@
+uuid: b77b738a-06f3-4231-978a-c7bff17c4688
+langcode: en
+status: true
+dependencies: {  }
+id: api_endpoint_reviewer
+label: 'API Endpoint reviewer'
+weight: 25
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'delete any api_endpoint content'
+  - 'edit any api_endpoint content'
+  - 'use draft_published transition'
+  - 'use needs_review_draft transition'
+  - 'use needs_review_published transition'
+  - 'use published_archived transition'
+  - 'use published_published transition'
+  - 'view moderation states'

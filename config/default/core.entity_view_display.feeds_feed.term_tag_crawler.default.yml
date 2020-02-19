@@ -1,0 +1,205 @@
+uuid: 8a53c793-b013-42d9-bcc1-0d0a1e8067c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.term_tag_crawler
+  module:
+    - cn_core
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+third_party_settings:
+  ds:
+    layout:
+      id: radix_sutro
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      header:
+        - title
+        - source
+      column1:
+        - item_count
+        - type
+      column2:
+        - imported
+        - next
+id: feeds_feed.term_tag_crawler.default
+targetEntityType: feeds_feed
+bundle: term_tag_crawler
+mode: default
+content:
+  imported:
+    label: above
+    type: timestamp
+    weight: 4
+    region: column2
+    settings:
+      date_format: short
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+            gallery_creator: 0
+            gallery_reviewer: 0
+  item_count:
+    label: above
+    type: number_unformatted
+    weight: 2
+    region: column1
+    settings: {  }
+    third_party_settings: {  }
+  next:
+    label: above
+    type: timestamp
+    weight: 5
+    region: column2
+    settings:
+      date_format: short
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+            gallery_creator: 0
+            gallery_reviewer: 0
+  source:
+    label: above
+    type: uri_link
+    weight: 1
+    region: header
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    label: above
+    type: string
+    weight: 0
+    region: header
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  type:
+    type: entity_reference_label
+    weight: 3
+    region: column1
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+            gallery_creator: 0
+            gallery_reviewer: 0
+hidden:
+  changed: true
+  created: true
+  fid: true
+  status: true
+  uid: true

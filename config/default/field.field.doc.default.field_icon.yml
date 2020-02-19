@@ -1,0 +1,21 @@
+uuid: b5490f8f-dd20-479a-a2a4-3531b02d6d90
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.default
+    - field.storage.doc.field_icon
+  module:
+    - font_field_icon
+id: doc.default.field_icon
+field_name: field_icon
+entity_type: doc
+bundle: default
+label: Icon
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: font_field_icon

@@ -1,0 +1,22 @@
+uuid: 5f83a03f-d00d-47ea-a331-85af84e90c32
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: episode
+label: Episode
+type: 'canonical_entities:node'
+pattern: '/episodes/[node:title]'
+selection_criteria:
+  19732b3e-2221-4314-9aa9-137787b6745c:
+    id: node_type
+    bundles:
+      podcast: podcast
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 19732b3e-2221-4314-9aa9-137787b6745c
+selection_logic: and
+weight: -5
+relationships: {  }

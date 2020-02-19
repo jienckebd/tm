@@ -1,0 +1,23 @@
+uuid: 6fa9b095-4430-4c8b-a7de-f2f312a0a7d0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_anon
+    - node.type.article
+id: node.article.field_anon
+field_name: field_anon
+entity_type: node
+bundle: article
+label: 'Anonymous Submission'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

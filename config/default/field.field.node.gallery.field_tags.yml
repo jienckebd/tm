@@ -1,0 +1,35 @@
+uuid: 91a454ed-9ea9-42cf-ae1a-06d90ba48792
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - node.type.gallery
+    - taxonomy.vocabulary.tags
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_tags
+id: node.gallery.field_tags
+field_name: field_tags
+entity_type: node
+bundle: gallery
+label: Tags
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

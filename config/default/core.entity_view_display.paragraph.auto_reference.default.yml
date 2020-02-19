@@ -1,0 +1,71 @@
+uuid: 186a98fb-505d-4569-b229-7e23f8241ac5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.auto_reference.field_empty
+    - field.field.paragraph.auto_reference.field_field_name
+    - field.field.paragraph.auto_reference.field_field_name_check
+    - field.field.paragraph.auto_reference.field_insert
+    - field.field.paragraph.auto_reference.field_string
+    - field.field.paragraph.auto_reference.field_update
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.default
+targetEntityType: paragraph
+bundle: auto_reference
+mode: default
+content:
+  field_empty:
+    weight: 3
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_field_name:
+    weight: 0
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_field_name_check:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_insert:
+    weight: 4
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_string:
+    weight: 2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_update:
+    weight: 5
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+hidden: {  }

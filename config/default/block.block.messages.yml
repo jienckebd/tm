@@ -1,0 +1,24 @@
+uuid: 1ca6bb13-fd38-4e5d-8fae-dea1503f1200
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+    - system
+  theme:
+    - tm_theme_admin
+third_party_settings:
+  block_class:
+    classes: ''
+id: messages
+theme: tm_theme_admin
+region: content
+weight: -5
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: Messages
+  provider: system
+  label_display: '0'
+visibility: {  }

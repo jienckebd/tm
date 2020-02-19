@@ -1,0 +1,30 @@
+uuid: 8d26ae31-521e-4e17-a1e1-4e3c4e74f8f1
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - options
+id: block_content.field_style
+field_name: field_style
+entity_type: block_content
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: plain
+      label: Plain
+    -
+      value: grey_yellow
+      label: 'Grey background / yellow highlight'
+    -
+      value: yellow_bar_white
+      label: 'Yellow bar below title / white background'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

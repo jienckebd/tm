@@ -1,0 +1,19 @@
+uuid: 89fab8b8-c357-4929-94ae-f78dc3455c9b
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'reset vote up/down votes'
+  - 'use vote up/down'
+  - 'view any doc entities'
+  - 'view media'
+  - 'view own doc entities'

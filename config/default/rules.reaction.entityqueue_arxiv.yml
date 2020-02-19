@@ -1,0 +1,15 @@
+uuid: e8c424b2-1bc1-4d6e-a529-3150939bd562
+langcode: en
+status: true
+dependencies: {  }
+id: entityqueue_arxiv
+label: 'Entityqueue: arXiv'
+events:
+  -
+    event_name: 'rules_entity_insert:node'
+description: ''
+tags:
+  - ''
+config_version: '3'
+expression:
+  id: rules_rule

@@ -1,0 +1,316 @@
+diff --git a/core/lib/Drupal/Core/Routing/RequestFormatRouteFilter.php b/core/lib/Drupal/Core/Routing/RequestFormatRouteFilter.php
+index dbfb801b78..5bd62b2bfd 100644
+--- a/core/lib/Drupal/Core/Routing/RequestFormatRouteFilter.php
++++ b/core/lib/Drupal/Core/Routing/RequestFormatRouteFilter.php
+@@ -17,7 +17,6 @@ class RequestFormatRouteFilter implements FilterInterface {
+   public function filter(RouteCollection $collection, Request $request) {
+     // Determine the request format.
+     $default_format = static::getDefaultFormat($collection);
+-    $format = $request->getRequestFormat($default_format);
+ 
+     $routes_with_requirement = [];
+     $routes_without_requirement = [];
+@@ -33,14 +32,29 @@ public function filter(RouteCollection $collection, Request $request) {
+       }
+     }
+ 
+-    foreach ($routes_with_requirement as $name => $route) {
+-      // If the route has no _format specification, we move it to the end. If it
+-      // does, then no match means the route is removed entirely.
+-      if (($supported_formats = array_filter(explode('|', $route->getRequirement('_format')))) && in_array($format, $supported_formats, TRUE)) {
+-        $result_collection->add($name, $route);
++    // If the route has one supported format and the request has no _format
++    // specification then keep the route.
++    if (is_null($request->getRequestFormat(NULL))) {
++      $format = $default_format;
++      foreach ($routes_with_requirement as $name => $route) {
++        if (strpos($route->getRequirement('_format'), '|') === FALSE) {
++          $result_collection->add($name, $route);
++        }
++      }
++    }
++    else {
++      // If the request has a _format specification and it matches the route's
++      // supported formats then keep the route.
++      $format = $request->getRequestFormat($default_format);
++      foreach ($routes_with_requirement as $name => $route) {
++        $supported_formats = array_filter(explode('|', $route->getRequirement('_format')));
++        if ($supported_formats && in_array($format, $supported_formats, TRUE)) {
++          $result_collection->add($name, $route);
++        }
+       }
+     }
+ 
++    // If the route has no _format specification then move it to the end.
+     foreach ($routes_without_requirement as $name => $route) {
+       $result_collection->add($name, $route);
+     }
+diff --git a/core/lib/Drupal/Core/StackMiddleware/NegotiationMiddleware.php b/core/lib/Drupal/Core/StackMiddleware/NegotiationMiddleware.php
+index e3864610f4..f246cce462 100644
+--- a/core/lib/Drupal/Core/StackMiddleware/NegotiationMiddleware.php
++++ b/core/lib/Drupal/Core/StackMiddleware/NegotiationMiddleware.php
+@@ -46,7 +46,9 @@ public function handle(Request $request, $type = self::MASTER_REQUEST, $catch =
+     }
+ 
+     // Determine the request format using the negotiator.
+-    $request->setRequestFormat($this->getContentType($request));
++    if ($requested_format = $this->getContentType($request)) {
++      $request->setRequestFormat($requested_format);
++    }
+     return $this->app->handle($request, $type, $catch);
+   }
+ 
+@@ -88,8 +90,8 @@ protected function getContentType(Request $request) {
+       return $request->query->get('_format');
+     }
+ 
+-    // Do HTML last so that it always wins.
+-    return 'html';
++    // No format was specified in the request.
++    return NULL;
+   }
+ 
+ }
+diff --git a/core/modules/rest/tests/modules/rest_test/rest_test.services.yml b/core/modules/rest/tests/modules/rest_test/rest_test.services.yml
+index d316cf6072..85b418a6c6 100644
+--- a/core/modules/rest/tests/modules/rest_test/rest_test.services.yml
++++ b/core/modules/rest/tests/modules/rest_test/rest_test.services.yml
+@@ -12,3 +12,7 @@ services:
+       public: false
+       tags:
+         - { name: page_cache_request_policy }
++  rest_test.encoder.foobar:
++    class: Drupal\serialization\Encoder\JsonEncoder
++    tags:
++      - { name: encoder, format: foobar }
+diff --git a/core/modules/rest/tests/src/Functional/EntityResource/EntityResourceTestBase.php b/core/modules/rest/tests/src/Functional/EntityResource/EntityResourceTestBase.php
+index 2ab45273d5..b5d7fbb7d4 100644
+--- a/core/modules/rest/tests/src/Functional/EntityResource/EntityResourceTestBase.php
++++ b/core/modules/rest/tests/src/Functional/EntityResource/EntityResourceTestBase.php
+@@ -156,12 +156,22 @@
+ 
+   /**
+    * Provides an entity resource.
++   *
++   * @param bool $single_format
++   *   Provisions a single-format entity REST resource. Defaults to FALSE.
+    */
+-  protected function provisionEntityResource() {
++  protected function provisionEntityResource($single_format = FALSE) {
++    if ($existing = $this->resourceConfigStorage->load(static::$resourceConfigId)) {
++      $existing->delete();
++    }
++
++    $format = $single_format
++      ? [static::$format]
++      : [static::$format, 'foobar'];
+     // It's possible to not have any authentication providers enabled, when
+     // testing public (anonymous) usage of a REST resource.
+     $auth = isset(static::$auth) ? [static::$auth] : [];
+-    $this->provisionResource([static::$format], $auth);
++    $this->provisionResource($format, $auth);
+   }
+ 
+   /**
+@@ -434,20 +444,6 @@ public function testGet() {
+     }
+ 
+     $this->provisionEntityResource();
+-    // Simulate the developer again forgetting the ?_format query string.
+-    $url->setOption('query', []);
+-
+-    // DX: 406 when ?_format is missing, except when requesting a canonical HTML
+-    // route.
+-    $response = $this->request('GET', $url, $request_options);
+-    if ($has_canonical_url && (!static::$auth || static::$auth === 'cookie')) {
+-      $this->assertSame(403, $response->getStatusCode());
+-    }
+-    else {
+-      $this->assert406Response($response);
+-    }
+-
+-    $url->setOption('query', ['_format' => static::$format]);
+ 
+     // DX: forgetting authentication: authentication provider-specific error
+     // response.
+@@ -472,10 +468,44 @@ public function testGet() {
+     unset($request_options[RequestOptions::HEADERS]['REST-test-auth-global']);
+     $request_options = NestedArray::mergeDeep($request_options, $this->getAuthenticationRequestOptions('GET'));
+ 
+-    // DX: 403 when unauthorized.
+-    $response = $this->request('GET', $url, $request_options);
++    // First: single format. Drupal will automatically pick the only format.
++    $this->provisionEntityResource(TRUE);
+     $expected_403_cacheability = $this->getExpectedUnauthorizedAccessCacheability();
+-    $this->assertResourceErrorResponse(403, $this->getExpectedUnauthorizedAccessMessage('GET'), $response, $expected_403_cacheability->getCacheTags(), $expected_403_cacheability->getCacheContexts(), static::$auth ? FALSE : 'MISS', 'MISS');
++    // DX: 403 because unauthorized single-format route, ?_format is omittable.
++    $url->setOption('query', []);
++    $response = $this->request('GET', $url, $request_options);
++    if ($has_canonical_url) {
++      $this->assertSame(403, $response->getStatusCode());
++      $this->assertSame(['text/html; charset=UTF-8'], $response->getHeader('Content-Type'));
++    }
++    else {
++      $this->assertResourceErrorResponse(403, FALSE, $response, $expected_403_cacheability->getCacheTags(), $expected_403_cacheability->getCacheContexts(), static::$auth ? FALSE : 'MISS', 'MISS');
++    }
++    $this->assertSame(static::$auth ? [] : ['MISS'], $response->getHeader('X-Drupal-Cache'));
++    // DX: 403 because unauthorized.
++    $url->setOption('query', ['_format' => static::$format]);
++    $response = $this->request('GET', $url, $request_options);
++    $this->assertResourceErrorResponse(403, FALSE, $response, $expected_403_cacheability->getCacheTags(), $expected_403_cacheability->getCacheContexts(), static::$auth ? FALSE : 'MISS', $has_canonical_url ? 'MISS' : 'HIT');
++
++    // Then, what we'll use for the remainder of the test: multiple formats.
++    $this->provisionEntityResource();
++    // DX: 406 because despite unauthorized, ?_format is not omittable.
++    $url->setOption('query', []);
++    $response = $this->request('GET', $url, $request_options);
++    if ($has_canonical_url) {
++      $this->assertSame(403, $response->getStatusCode());
++      $this->assertSame(['HIT'], $response->getHeader('X-Drupal-Dynamic-Cache'));
++    }
++    else {
++      $this->assertSame(406, $response->getStatusCode());
++      $this->assertSame(['UNCACHEABLE'], $response->getHeader('X-Drupal-Dynamic-Cache'));
++    }
++    $this->assertSame(['text/html; charset=UTF-8'], $response->getHeader('Content-Type'));
++    $this->assertSame(static::$auth ? [] : ['MISS'], $response->getHeader('X-Drupal-Cache'));
++    // DX: 403 because unauthorized.
++    $url->setOption('query', ['_format' => static::$format]);
++    $response = $this->request('GET', $url, $request_options);
++    $this->assertResourceErrorResponse(403, $this->getExpectedUnauthorizedAccessMessage('GET'), $response, $expected_403_cacheability->getCacheTags(), $expected_403_cacheability->getCacheContexts(), static::$auth ? FALSE : 'MISS', 'HIT');
+     $this->assertArrayNotHasKey('Link', $response->getHeaders());
+ 
+     $this->setUpAuthorization('GET');
+diff --git a/core/modules/system/tests/modules/default_format_test/default_format_test.info.yml b/core/modules/system/tests/modules/default_format_test/default_format_test.info.yml
+new file mode 100644
+index 0000000000..0a02a0688a
+--- /dev/null
++++ b/core/modules/system/tests/modules/default_format_test/default_format_test.info.yml
+@@ -0,0 +1,6 @@
++name: 'Default format test'
++type: module
++description: 'Support module for testing default route format.'
++package: Testing
++version: VERSION
++core: 8.x
+diff --git a/core/modules/system/tests/modules/default_format_test/default_format_test.routing.yml b/core/modules/system/tests/modules/default_format_test/default_format_test.routing.yml
+new file mode 100644
+index 0000000000..d29657cfb7
+--- /dev/null
++++ b/core/modules/system/tests/modules/default_format_test/default_format_test.routing.yml
+@@ -0,0 +1,17 @@
++default_format_test.machine:
++  path: '/default_format_test/machine'
++  defaults:
++    # Same controller + method!
++    _controller: '\Drupal\default_format_test\DefaultFormatTestController::content'
++  requirements:
++    _access: 'TRUE'
++    _format: 'json'
++
++default_format_test.human:
++  path: '/default_format_test/human'
++  defaults:
++    # Same controller + method!
++    _controller: '\Drupal\default_format_test\DefaultFormatTestController::content'
++  requirements:
++    _access: 'TRUE'
++    _format: 'html'
+diff --git a/core/modules/system/tests/modules/default_format_test/src/DefaultFormatTestController.php b/core/modules/system/tests/modules/default_format_test/src/DefaultFormatTestController.php
+new file mode 100644
+index 0000000000..6e52eea342
+--- /dev/null
++++ b/core/modules/system/tests/modules/default_format_test/src/DefaultFormatTestController.php
+@@ -0,0 +1,15 @@
++<?php
++
++namespace Drupal\default_format_test;
++
++use Drupal\Core\Cache\CacheableResponse;
++use Symfony\Component\HttpFoundation\Request;
++
++class DefaultFormatTestController {
++
++  public function content(Request $request) {
++    $format = $request->getRequestFormat();
++    return new CacheableResponse('format:' . $format, 200, ['Content-Type' => $request->getMimeType($format)]);
++  }
++
++}
+diff --git a/core/tests/Drupal/FunctionalTests/Routing/DefaultFormatTest.php b/core/tests/Drupal/FunctionalTests/Routing/DefaultFormatTest.php
+new file mode 100644
+index 0000000000..7a05991fa9
+--- /dev/null
++++ b/core/tests/Drupal/FunctionalTests/Routing/DefaultFormatTest.php
+@@ -0,0 +1,27 @@
++<?php
++
++namespace Drupal\FunctionalTests\Routing;
++
++use Drupal\Tests\BrowserTestBase;
++
++/**
++ * @group routing
++ */
++class DefaultFormatTest extends BrowserTestBase {
++
++  /**
++   * {@inheritdoc}
++   */
++  public static $modules = ['system', 'default_format_test'];
++
++  public function testFoo() {
++    $this->drupalGet('/default_format_test/human');
++    $this->assertSame('format:html', $this->getSession()->getPage()->getContent());
++    $this->assertSame('MISS', $this->drupalGetHeader('X-Drupal-Cache'));
++
++    $this->drupalGet('/default_format_test/machine');
++    $this->assertSame('format:json', $this->getSession()->getPage()->getContent());
++    $this->assertSame('MISS', $this->drupalGetHeader('X-Drupal-Cache'));
++  }
++
++}
+diff --git a/core/tests/Drupal/Tests/Core/StackMiddleware/NegotiationMiddlewareTest.php b/core/tests/Drupal/Tests/Core/StackMiddleware/NegotiationMiddlewareTest.php
+index 7b3a0d45da..fad9a76b43 100644
+--- a/core/tests/Drupal/Tests/Core/StackMiddleware/NegotiationMiddlewareTest.php
++++ b/core/tests/Drupal/Tests/Core/StackMiddleware/NegotiationMiddlewareTest.php
+@@ -68,10 +68,10 @@ public function testFormatViaQueryParameter() {
+    *
+    * @covers ::getContentType
+    */
+-  public function testUnknowContentTypeReturnsHtmlByDefault() {
++  public function testUnknowContentTypeReturnsNull() {
+     $request = new Request();
+ 
+-    $this->assertSame('html', $this->contentNegotiation->getContentType($request));
++    $this->assertNull($this->contentNegotiation->getContentType($request));
+   }
+ 
+   /**
+@@ -83,7 +83,7 @@ public function testUnknowContentTypeButAjaxRequest() {
+     $request = new Request();
+     $request->headers->set('X-Requested-With', 'XMLHttpRequest');
+ 
+-    $this->assertSame('html', $this->contentNegotiation->getContentType($request));
++    $this->assertNull($this->contentNegotiation->getContentType($request));
+   }
+ 
+   /**
+@@ -98,7 +98,7 @@ public function testHandle() {
+     $request->setFormat()->shouldNotBeCalled();
+ 
+     // Request format will be set with default format.
+-    $request->setRequestFormat('html')->shouldBeCalled();
++    $request->setRequestFormat()->shouldNotBeCalled();
+ 
+     // Some getContentType calls we don't really care about but have to mock.
+     $request_data = $this->prophesize(ParameterBag::class);
+@@ -127,7 +127,7 @@ public function testSetFormat() {
+     $request->setFormat('david', 'geeky/david')->shouldBeCalled();
+ 
+     // Some calls we don't care about.
+-    $request->setRequestFormat('html')->shouldBeCalled();
++    $request->setRequestFormat()->shouldNotBeCalled();
+     $request_data = $this->prophesize(ParameterBag::class);
+     $request_data->get('ajax_iframe_upload', FALSE)->shouldBeCalled();
+     $request_mock = $request->reveal();

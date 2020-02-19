@@ -1,0 +1,45 @@
+a {
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+section#block-sitebranding {
+  float: left;
+  width: 20%;
+
+  a {
+    padding: 5px 0;
+  }
+}
+
+section#block-tm-theme-alpha-main-menu {
+  float: right;
+  width: 80%;
+  font-family: $font-family-monospace;
+}
+
+footer.footer {
+  position: relative;
+  z-index: 100;
+}
+
+.highlighted.container--inside {
+  background: $off-white;
+  padding: 8px 0;
+  height: 56px;
+}
+
+.region-highlighted {
+  position: relative;
+}
+
+// Page header
+// -------------------------
+
+.page-header {
+  padding: 0;
+  margin: 0;
+}

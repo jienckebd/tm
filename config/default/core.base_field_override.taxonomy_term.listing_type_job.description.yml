@@ -1,0 +1,20 @@
+uuid: aac37373-ef9e-427b-841e-67266b6ec613
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.listing_type_job
+  module:
+    - text
+id: taxonomy_term.listing_type_job.description
+field_name: description
+entity_type: taxonomy_term
+bundle: listing_type_job
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

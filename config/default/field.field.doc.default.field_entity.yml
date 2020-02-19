@@ -1,0 +1,111 @@
+uuid: 3d165c91-6655-4147-8ec4-583851ff2cac
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - block_content.type.plain
+    - eck.eck_type.doc.default
+    - field.storage.doc.field_entity
+    - node.type.doc
+    - node.type.event
+  module:
+    - dynamic_entity_reference
+id: doc.default.field_entity
+field_name: field_entity
+entity_type: doc
+bundle: default
+label: Entity
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  node:
+    handler: 'default:node'
+    handler_settings:
+      target_bundles:
+        doc: doc
+        event: event
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: doc
+  block_content:
+    handler: 'default:block_content'
+    handler_settings:
+      target_bundles:
+        basic: basic
+        plain: plain
+      sort:
+        field: _none
+      auto_create: false
+      auto_create_bundle: basic
+  contact_message:
+    handler: 'default:contact_message'
+    handler_settings: {  }
+  crop:
+    handler: 'default:crop'
+    handler_settings: {  }
+  menu_link_content:
+    handler: 'default:menu_link_content'
+    handler_settings: {  }
+  doc:
+    handler: 'default:doc'
+    handler_settings: {  }
+  entity_subqueue:
+    handler: 'default:entity_subqueue'
+    handler_settings: {  }
+  feeds_feed:
+    handler: 'default:feeds_feed'
+    handler_settings: {  }
+  file:
+    handler: 'default:file'
+    handler_settings: {  }
+  media:
+    handler: 'default:media'
+    handler_settings: {  }
+  paragraph:
+    handler: 'default:paragraph'
+    handler_settings: {  }
+  profile:
+    handler: 'default:profile'
+    handler_settings: {  }
+  scheduled_update:
+    handler: 'default:scheduled_update'
+    handler_settings: {  }
+  search_api_task:
+    handler: 'default:search_api_task'
+    handler_settings: {  }
+  shortcut:
+    handler: 'default:shortcut'
+    handler_settings: {  }
+  feeds_subscription:
+    handler: 'default:feeds_subscription'
+    handler_settings: {  }
+  taxonomy_term:
+    handler: 'default:taxonomy_term'
+    handler_settings: {  }
+  user:
+    handler: 'default:user'
+    handler_settings: {  }
+  vote:
+    handler: 'default:vote'
+    handler_settings: {  }
+  vote_result:
+    handler: 'default:vote_result'
+    handler_settings: {  }
+  autoref:
+    handler: 'default:autoref'
+    handler_settings: {  }
+  feeds_crawler:
+    handler: 'default:feeds_crawler'
+    handler_settings: {  }
+  feeds_crawler_attribute:
+    handler: 'default:feeds_crawler_attribute'
+    handler_settings: {  }
+  feeds_crawler_action:
+    handler: 'default:feeds_crawler_action'
+    handler_settings: {  }
+field_type: dynamic_entity_reference

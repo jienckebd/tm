@@ -1,0 +1,14 @@
+uuid: 29d8cd02-0225-4665-babf-2e2df33e17c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.podcast_reviewer
+  module:
+    - user
+id: user_remove_role_action.podcast_reviewer
+label: 'Remove the Podcast reviewer role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: podcast_reviewer

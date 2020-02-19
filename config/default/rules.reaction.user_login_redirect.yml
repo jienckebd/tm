@@ -1,0 +1,35 @@
+uuid: 9efe9ecd-4e55-45a3-918a-1eee30a5fc14
+langcode: en
+status: true
+dependencies: {  }
+id: user_login_redirect
+label: 'User: Login Redirect'
+events:
+  -
+    event_name: rules_user_login
+description: ''
+tags:
+  - admin
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: e412f5b7-82cb-4584-a736-54b48d3e817e
+  conditions:
+    id: rules_and
+    uuid: 6469d22c-c0e5-4a82-b6bb-2003338c4a7c
+    conditions: {  }
+  actions:
+    id: rules_action_set
+    uuid: 06d43f7a-f466-4f6e-add5-14af44b79176
+    actions:
+      -
+        id: rules_action
+        uuid: 99a1c798-dc2c-42d4-8259-9eb144bb1b27
+        context_values:
+          url: /admin/content
+        context_mapping: {  }
+        context_processors:
+          url:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        action_id: rules_page_redirect

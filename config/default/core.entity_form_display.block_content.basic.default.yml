@@ -1,0 +1,203 @@
+uuid: adb19473-6dcd-4eb8-ad66-d4de55e21c1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.field.block_content.basic.body
+    - field.field.block_content.basic.field_doc
+    - field.field.block_content.basic.field_form_contact
+    - field.field.block_content.basic.field_icon
+    - field.field.block_content.basic.field_image
+    - field.field.block_content.basic.field_label_default
+    - field.field.block_content.basic.field_label_highlight
+    - field.field.block_content.basic.field_role_field_x_action
+    - field.field.block_content.basic.field_style
+    - field.field.block_content.basic.field_view
+    - field.field.block_content.basic.field_x_action
+    - field.field.block_content.basic.field_x_class
+  module:
+    - field_group
+    - font_field_icon
+    - link
+    - text
+    - viewsreference
+third_party_settings:
+  field_group:
+    group_display:
+      children:
+        - field_x_class
+        - field_label_highlight
+        - field_style
+        - field_icon
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: Display
+    group_forms:
+      children:
+        - field_form_contact
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: Forms
+    group_general:
+      children:
+        - field_label_default
+        - info
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'General Settings'
+    group_actions:
+      children:
+        - field_x_action
+        - field_role_field_x_action
+      parent_name: ''
+      weight: 4
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: Actions
+    group_media:
+      children:
+        - body
+        - field_image
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: Media
+_core:
+  default_config_hash: S0f54eS7by2OoFl_NrvBK9UGTPx51cktxKhvwMy0Jls
+id: block_content.basic.default
+targetEntityType: block_content
+bundle: basic
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 3
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    region: content
+  field_doc:
+    weight: 33
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_form_contact:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_icon:
+    weight: 34
+    settings: {  }
+    third_party_settings: {  }
+    type: FontFieldIconDefaultWidget
+    region: content
+  field_label_default:
+    weight: 26
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_label_highlight:
+    weight: 29
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
+    region: content
+  field_role_field_x_action:
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_style:
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_view:
+    weight: 32
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    third_party_settings: {  }
+    type: viewsreference_autocomplete
+    region: content
+  field_x_action:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_x_class:
+    weight: 28
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  info:
+    type: string_textfield
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  field_image: true

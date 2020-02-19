@@ -1,0 +1,42 @@
+uuid: 1d492411-f2bd-4c22-aaa6-5886efc4abf3
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.entity_browser_company
+  module:
+    - entity_browser_entity_form
+    - views
+name: company_browser
+label: 'Company Browser'
+display: iframe
+display_configuration:
+  width: 100%
+  height: '500'
+  link_text: 'Select company'
+  auto_open: true
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  18d1bbaf-b43d-4682-af60-0ea05bccb210:
+    settings:
+      entity_type: node
+      bundle: company
+      form_mode: entity_browser
+      submit_text: 'Save entity'
+    uuid: 18d1bbaf-b43d-4682-af60-0ea05bccb210
+    weight: -9
+    label: 'Create new company'
+    id: entity_form
+  8822fe0d-6b56-44fe-8f24-a9ab20fc1ff6:
+    settings:
+      view: entity_browser_company
+      view_display: entity_browser_1
+      submit_text: 'Select entities'
+      auto_select: false
+    uuid: 8822fe0d-6b56-44fe-8f24-a9ab20fc1ff6
+    weight: -10
+    label: 'Select existing company'
+    id: view

@@ -1,0 +1,18 @@
+uuid: 6dda63ec-2b3b-4828-b937-f61f775295d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.company_type
+id: taxonomy_term.company_type.name
+field_name: name
+entity_type: taxonomy_term
+bundle: company_type
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

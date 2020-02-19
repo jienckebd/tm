@@ -1,0 +1,14 @@
+uuid: 620d12af-f76f-48a2-a3a8-3ed893371758
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - user
+third_party_settings:
+  lightning_core:
+    description: ''
+id: user.teaser
+label: Teaser
+targetEntityType: user
+cache: true

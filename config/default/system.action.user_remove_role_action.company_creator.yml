@@ -1,0 +1,14 @@
+uuid: 731a49f5-b5f3-4bb4-89be-c530f5606ee8
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.company_creator
+  module:
+    - user
+id: user_remove_role_action.company_creator
+label: 'Remove the Company creator role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: company_creator

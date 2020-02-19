@@ -1,0 +1,107 @@
+uuid: e970f01b-dbba-4718-b8d8-f8cb39da3370
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.featured
+    - field.field.node.company.field_address
+    - field.field.node.company.field_company_type
+    - field.field.node.company.field_content
+    - field.field.node.company.field_icon
+    - field.field.node.company.field_image
+    - field.field.node.company.field_meta_tags
+    - field.field.node.company.field_partner
+    - field.field.node.company.field_rel_type
+    - field.field.node.company.field_social_share
+    - field.field.node.company.field_summary
+    - field.field.node.company.field_tags
+    - field.field.node.company.panelizer
+    - node.type.company
+  module:
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - panelizer
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: radix_burr
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      sidebar:
+        - field_image
+      contentmain:
+        - node_title
+        - field_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          wrapper: h3
+          class: ''
+          link: false
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.company.featured
+targetEntityType: node
+bundle: company
+mode: featured
+content:
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: square_small
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: '1'
+    type: entity_reference_entity_view
+    region: sidebar
+  field_summary:
+    weight: 3
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_address: true
+  field_company_type: true
+  field_content: true
+  field_icon: true
+  field_meta_tags: true
+  field_partner: true
+  field_rel_type: true
+  field_social_share: true
+  field_tags: true
+  langcode: true
+  links: true
+  panelizer: true
+  status: true

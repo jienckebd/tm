@@ -1,0 +1,79 @@
+version: "2.1"
+
+services:
+
+  web:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: web
+    volumes:
+      - project_root:/var/www:ro,nocopy  # Project root volume (read-only)
+
+  db:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: mysql
+    volumes:
+      - project_root:/var/www:ro,nocopy  # Project root volume (read-only)
+      - db_data:/var/lib/mysql  # Database data volume
+
+  cli:
+    hostname: cli
+    image: docksal/cli:2.6-php7.2
+    volumes:
+      - project_root:/var/www:rw,nocopy  # Project root volume
+      - docksal_ssh_agent:/.ssh-agent:ro  # Shared ssh-agent socket
+      - cli_home:/home/docker  # Write-heavy directories should be in volumes. See https://github.com/docksal/docksal/issues/325
+    environment:
+      - GIT_USER_EMAIL
+      - GIT_USER_NAME
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_DEFAULT_REGION
+      - AWS_DEFAULT_OUTPUT
+      - HOST_UID=501
+      - HOST_GID=501
+      - DOCROOT
+      - VIRTUAL_HOST
+      - XDEBUG_ENABLED=${XDEBUG_ENABLED:-0}
+      - XDEBUG_CONFIG=remote_connect_back=0 remote_host=${DOCKSAL_HOST_IP}  # Point xdebug to the host IP
+      - PHP_IDE_CONFIG=serverName=${VIRTUAL_HOST}
+      - DRUSH_ALLOW_XDEBUG=${XDEBUG_ENABLED:-0}
+      - BLACKFIRE_CLIENT_ID
+      - BLACKFIRE_CLIENT_TOKEN
+      - SECRET_SSH_PRIVATE_KEY
+      - SECRET_ACAPI_EMAIL
+      - SECRET_ACAPI_KEY
+      - SECRET_PLATFORMSH_CLI_TOKEN
+      - SECRET_TERMINUS_TOKEN
+      - COMPOSER_MEMORY_LIMIT=-1
+      - SYS_CONTEXT=local
+      - NEW_RELIC_LICENSE=abd630697f19e599e5f5d2443b393adb3800eb14
+      - SYS_URI=http://tm.local/
+
+  solr:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: solr
+    volumes:
+      - project_root:/var/www:ro,nocopy  # Project root volume (read-only)
+
+  varnish:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: varnish
+    volumes:
+      - project_root:/var/www:ro,nocopy  # Project root volume (read-only)
+
+  mail:
+    extends:
+      file: ${HOME}/.docksal/stacks/services.yml
+      service: mail
+    volumes:
+      - project_root:/var/www:ro,nocopy  # Project root volume (read-only)
+
+volumes:
+  cli_home:  # /home/docker volume in cli
+  db_data:  # Database data volume (bind)
+  docksal_ssh_agent:  # Shared ssh-agent volume
+    external: true

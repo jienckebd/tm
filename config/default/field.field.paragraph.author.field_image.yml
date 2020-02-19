@@ -1,0 +1,26 @@
+uuid: 5f5c9f6c-1e48-44fa-9fb5-e73c9864415f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_image
+    - paragraphs.paragraphs_type.author
+id: paragraph.author.field_image
+field_name: field_image
+entity_type: paragraph
+bundle: author
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

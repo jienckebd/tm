@@ -1,0 +1,29 @@
+uuid: 2170364f-a53c-4ab2-9228-411e853a830c
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.media
+  module:
+    - system
+    - views
+  theme:
+    - tm_theme_admin
+id: exposedformmediamedia_page_list
+theme: tm_theme_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:media-media_page_list'
+settings:
+  id: 'views_exposed_filter_block:media-media_page_list'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: /admin/content/media
+    negate: false
+    context_mapping: {  }

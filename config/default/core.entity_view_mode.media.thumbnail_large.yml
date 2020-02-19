@@ -1,0 +1,14 @@
+uuid: 2e917188-d1c2-4f1c-903b-e9f1527b2624
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - media
+third_party_settings:
+  lightning_core:
+    description: ''
+id: media.thumbnail_large
+label: 'Thumbnail Large'
+targetEntityType: media
+cache: true

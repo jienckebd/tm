@@ -1,0 +1,135 @@
+uuid: 7a2ca9bc-e010-4346-b48b-e1ce641271e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.anonymous
+    - field.field.node.article.body
+    - field.field.node.article.feeds_item
+    - field.field.node.article.field_anon
+    - field.field.node.article.field_author
+    - field.field.node.article.field_category
+    - field.field.node.article.field_content
+    - field.field.node.article.field_date
+    - field.field.node.article.field_disqus
+    - field.field.node.article.field_document
+    - field.field.node.article.field_entity_queue
+    - field.field.node.article.field_image
+    - field.field.node.article.field_link
+    - field.field.node.article.field_link_download
+    - field.field.node.article.field_meta_tags
+    - field.field.node.article.field_social_share
+    - field.field.node.article.field_summary
+    - field.field.node.article.field_tags
+    - field.field.node.article.field_type
+    - field.field.node.article.panelizer
+    - node.type.article
+  module:
+    - field_group
+    - link
+    - paragraphs
+third_party_settings:
+  field_group:
+    group_general_settings:
+      children:
+        - title
+        - field_type
+        - field_link
+        - field_author
+        - field_content
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        label: 'General Settings'
+        open: true
+        required_fields: true
+        id: ''
+        classes: label-hide
+      label: 'General Settings'
+id: node.article.anonymous
+targetEntityType: node
+bundle: article
+mode: anonymous
+content:
+  field_author:
+    type: entity_reference_paragraphs
+    weight: 4
+    settings:
+      title: Author
+      title_plural: Authors
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: author
+    third_party_settings: {  }
+    region: content
+  field_content:
+    type: entity_reference_paragraphs
+    weight: 5
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: copy
+    third_party_settings: {  }
+    region: content
+  field_link:
+    weight: 3
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_type:
+    type: options_buttons
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  body: true
+  created: true
+  feeds_item: true
+  field_anon: true
+  field_category: true
+  field_date: true
+  field_disqus: true
+  field_document: true
+  field_entity_queue: true
+  field_image: true
+  field_link_download: true
+  field_meta_tags: true
+  field_social_share: true
+  field_summary: true
+  field_tags: true
+  panelizer: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

@@ -1,0 +1,13 @@
+extlink_include: ''
+extlink_exclude: ''
+extlink_alert_text: 'You are about to leave.'
+extlink_alert: false
+extlink_target: true
+extlink_subdomains: false
+extlink_mailto_class: '0'
+extlink_img_class: false
+extlink_class: '0'
+extlink_css_exclude: ''
+extlink_css_explicit: ''
+extlink_label: '(link is external)'
+extlink_mailto_label: '(link sends email)'

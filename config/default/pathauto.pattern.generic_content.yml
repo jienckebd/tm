@@ -1,0 +1,24 @@
+uuid: 9c649b4f-70c2-405b-b8e1-c90b4fe2bad2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: generic_content
+label: 'Generic Content'
+type: 'canonical_entities:node'
+pattern: '/[node:content-type]/[node:field_date]/[node:title]'
+selection_criteria:
+  0d21c1b5-cc70-4f78-b30e-f6c4ad6e9317:
+    id: node_type
+    bundles:
+      article: article
+      event: event
+      job: job
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 0d21c1b5-cc70-4f78-b30e-f6c4ad6e9317
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,63 @@
+definitions:
+  contact__site_page:
+    weight: -44
+    menu_name: footer
+    parent: ''
+    expanded: false
+    enabled: false
+  entity__media__collection:
+    weight: -69
+    menu_name: admin
+    parent: system.admin_content
+    expanded: false
+    enabled: true
+  entity__scheduled_update__collection:
+    weight: -69
+    menu_name: admin
+    parent: system.admin_content
+    enabled: true
+    expanded: false
+  seckit__admin:
+    weight: -70
+    menu_name: admin
+    parent: system.admin_config_system
+    expanded: false
+    enabled: true
+  scheduled_update__config__overview:
+    weight: -70
+    menu_name: admin
+    parent: system.admin_config_workflow
+    expanded: false
+    enabled: true
+  entity__scheduled_update_type__collection:
+    weight: -70
+    menu_name: admin
+    parent: scheduled_update.config.overview
+    expanded: false
+    enabled: true
+  schedule_updates__runner_form:
+    weight: -70
+    menu_name: admin
+    parent: scheduled_update.config.overview
+    expanded: false
+    enabled: true
+  schedule_updates__settings_form:
+    weight: -70
+    menu_name: admin
+    parent: scheduled_update.config.overview
+    expanded: false
+    enabled: true
+  admin_toolbar_tools__add_content:
+    weight: -68
+    menu_name: admin
+    parent: system.admin_content
+    expanded: false
+    enabled: true
+  admin_toolbar_tools__add_media:
+    weight: -67
+    menu_name: admin
+    parent: system.admin_content
+    expanded: false
+    enabled: true
+_core:
+  default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM

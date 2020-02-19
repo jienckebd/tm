@@ -1,0 +1,14 @@
+uuid: f8270b7b-a0bc-4f08-a648-c1ee3638cfa6
+langcode: en
+status: true
+dependencies:
+  module:
+    - feeds
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: ''
+id: feeds_feed.teaser
+label: Teaser
+targetEntityType: feeds_feed
+cache: true

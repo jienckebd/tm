@@ -1,0 +1,55 @@
+uuid: e9f64b16-0bf4-4f50-b5fa-58c0be5c5d7d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+name: taxonomy_term_canonical
+label: 'Taxonomy: Term: Canonical'
+group: entity_display
+description: ''
+requireAllConditions: false
+disabled: false
+conditions:
+  request_path:
+    id: request_path
+    pages: '/taxonomy/term/*'
+    negate: 0
+    uuid: 50255faf-ed6a-4412-bf6f-a97d956585f6
+    context_mapping: {  }
+reactions:
+  blocks:
+    blocks:
+      3d27713d-e771-4031-abc0-b07d0b6b9b97:
+        id: 'views_exposed_filter_block:taxonomy_term_canonical-page_1'
+        label: ''
+        provider: views
+        label_display: 0
+        views_label: ''
+        region: sidebar_left
+        weight: '0'
+        context_mapping: {  }
+        theme: tm_theme_one
+        css_class: ''
+        unique: 0
+        context_id: taxonomy_term_canonical
+        uuid: 3d27713d-e771-4031-abc0-b07d0b6b9b97
+      26f2c52c-bab1-4a89-92a4-403caa77f73a:
+        id: page_title_with_context_block
+        label: 'Page title with Context'
+        provider: cn_display
+        label_display: 0
+        use_page_title: 1
+        region: content
+        weight: '-10'
+        context_mapping: {  }
+        theme: tm_theme_one
+        css_class: ''
+        unique: 0
+        context_id: taxonomy_term_canonical
+        uuid: 26f2c52c-bab1-4a89-92a4-403caa77f73a
+    id: blocks
+    saved: false
+    uuid: 4fea5bde-3a65-4ac7-9c36-b9a8086eb182
+    include_default_blocks: 0
+weight: 0

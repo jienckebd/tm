@@ -1,0 +1,36 @@
+{
+  "name": "tm_theme_one",
+  "description": "A theme based on Radix.",
+  "proxy" : "http://tm.local",
+  "bowerDir": "./bower_components",
+  "css": {
+    "file" : "tm_theme_one.style.scss",
+    "src": [
+      "assets/scss/**/*.scss"
+    ],
+    "dest": "assets/css",
+    "includePaths": [
+      "./bower_components/bootstrap-sass/assets/stylesheets",
+      "./bower_components/font-awesome/scss",
+      "../radix/scss"
+    ]
+  },
+  "js": {
+    "file" : "tm_theme_one.script.js",
+    "src": [
+      "assets/js/**/*.js"
+    ]
+  },
+  "images": {
+    "src": [
+      "assets/images/**/*"
+    ],
+    "dest": "assets/images/"
+  },
+  "fonts": {
+    "src": [
+      "./bower_components/font-awesome/fonts/**.*"
+    ],
+    "dest": "./assets/fonts/"
+  }
+}

@@ -1,0 +1,34 @@
+uuid: 8815ef3f-3dc3-44ea-b434-ee1ce7955d0c
+langcode: en
+status: true
+dependencies:
+  module:
+    - feeds_crawler
+    - user
+label: User
+id: user
+description: ''
+help: null
+import_period: 3600
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: true
+  use_pubsubhubbub: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: crawler
+parser_configuration:
+  crawler_entity_id: ''
+processor: 'entity:user'
+processor_configuration:
+  update_existing: 0
+  update_non_existent: _keep
+  expire: -1
+  skip_hash_check: false
+  owner_id: 0
+  values:
+    '': null
+  authorize: false
+  owner_feed_author: false
+custom_sources: {  }
+mappings: {  }

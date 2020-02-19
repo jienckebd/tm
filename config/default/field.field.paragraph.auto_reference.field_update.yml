@@ -1,0 +1,23 @@
+uuid: 679e6f95-c1a4-428a-9c77-c5bdb00bca18
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_update
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.field_update
+field_name: field_update
+entity_type: paragraph
+bundle: auto_reference
+label: 'Perform on update'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

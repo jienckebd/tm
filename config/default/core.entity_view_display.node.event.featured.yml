@@ -1,0 +1,175 @@
+uuid: 54182cee-1de3-45a5-b8f4-7d0e5bddf2b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.featured
+    - custom_formatters.formatter.address_city
+    - field.field.node.event.field_academic_conference
+    - field.field.node.event.field_address
+    - field.field.node.event.field_anon
+    - field.field.node.event.field_category
+    - field.field.node.event.field_contact_email
+    - field.field.node.event.field_contact_name
+    - field.field.node.event.field_content
+    - field.field.node.event.field_date
+    - field.field.node.event.field_date_end
+    - field.field.node.event.field_disqus
+    - field.field.node.event.field_event_type
+    - field.field.node.event.field_image
+    - field.field.node.event.field_link
+    - field.field.node.event.field_listing_type
+    - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_social_share
+    - field.field.node.event.field_summary
+    - field.field.node.event.field_tags
+    - node.type.event
+  module:
+    - cn_core
+    - custom_formatters
+    - datetime
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - link
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: ds_2col_stacked
+      library: ds/ds_2col_stacked
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        wrappers:
+          header: div
+          left: div
+          right: div
+          footer: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: content
+        link_custom: ''
+        classes:
+          layout_class: {  }
+          header: {  }
+          left: {  }
+          right: {  }
+          footer: {  }
+    regions:
+      left:
+        - field_image
+      right:
+        - node_title
+        - field_summary
+      footer:
+        - field_date
+        - field_address
+        - field_link
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          wrapper: h4
+          class: ''
+          link: false
+id: node.event.featured
+targetEntityType: node
+bundle: event
+mode: featured
+content:
+  field_address:
+    type: 'custom_formatters:address_city'
+    weight: 4
+    region: footer
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_date:
+    weight: 3
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    type: datetime_default
+    region: footer
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: square_small
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: '1'
+    type: entity_reference_entity_view
+    region: left
+  field_link:
+    type: link
+    weight: 5
+    region: footer
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: true
+      target: _blank
+      url_plain: false
+      rel: '0'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+  field_summary:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string_formatted
+    region: right
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_academic_conference: true
+  field_anon: true
+  field_category: true
+  field_contact_email: true
+  field_contact_name: true
+  field_content: true
+  field_date_end: true
+  field_disqus: true
+  field_event_type: true
+  field_listing_type: true
+  field_meta_tags: true
+  field_social_share: true
+  field_tags: true
+  langcode: true
+  links: true
+  status: true

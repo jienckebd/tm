@@ -1,0 +1,20 @@
+uuid: daa0b010-dfa1-4eef-b037-2727905b83ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.api_endpoint
+  module:
+    - path
+id: node.api_endpoint.path
+field_name: path
+entity_type: node
+bundle: api_endpoint
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

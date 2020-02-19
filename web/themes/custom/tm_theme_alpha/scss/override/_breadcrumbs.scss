@@ -1,0 +1,33 @@
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+.block-system-breadcrumb-block {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.breadcrumb {
+  padding: $breadcrumb-padding-vertical $breadcrumb-padding-horizontal;
+  list-style: none;
+  margin-bottom: 20px;
+  background-color: transparent;
+  border-radius: 4px;
+  font-family: $font-family-monospace;
+  font-size: 14px;
+  text-align: right;
+  color: #AAA;
+
+  > li {
+    display: inline-block;
+
+    + li:before {
+      // [converter] Workaround for https://github.com/sass/libsass/issues/1115
+      font-family: $font-family-icon;
+      content: "\f105";
+      padding: 0 5px;
+      color: $breadcrumb-color;
+    }
+  }
+}

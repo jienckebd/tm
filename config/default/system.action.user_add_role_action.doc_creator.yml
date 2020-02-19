@@ -1,0 +1,14 @@
+uuid: 1770f77e-28bf-4ffa-942b-801fef2c1057
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.doc_creator
+  module:
+    - user
+id: user_add_role_action.doc_creator
+label: 'Add the Doc creator role to the selected users'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: doc_creator

@@ -1,0 +1,20 @@
+uuid: 9b36ad73-0e34-4b86-bf4a-cfd84692b086
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - vud
+id: taxonomy_term.field_vote
+field_name: field_vote
+entity_type: taxonomy_term
+type: vote_up_down_field
+settings:
+  widget: updown
+module: vud
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,40 @@
+uuid: 08a64c0f-7ec3-48ed-8deb-919f1d2457b7
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.common_entity
+    - autoref.type.string_match
+    - field.storage.taxonomy_term.field_autoref
+    - taxonomy.vocabulary.tags
+  content:
+    - 'autoref:string_match:fe6015c4-94d7-4e00-82d4-bfe0080dcbed'
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_autoref
+id: taxonomy_term.tags.field_autoref
+field_name: field_autoref
+entity_type: taxonomy_term
+bundle: tags
+label: 'Auto Tagging'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: fe6015c4-94d7-4e00-82d4-bfe0080dcbed
+default_value_callback: ''
+settings:
+  handler: 'default:autoref'
+  handler_settings:
+    target_bundles:
+      common_entity: common_entity
+      string_match: string_match
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: string_match
+field_type: entity_reference

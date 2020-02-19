@@ -1,0 +1,14 @@
+uuid: 25144e09-5152-4cdc-b163-ae8811a4f6af
+langcode: en
+status: true
+dependencies:
+  module:
+    - eck
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: ''
+id: doc.icon
+label: Icon
+targetEntityType: doc
+cache: true

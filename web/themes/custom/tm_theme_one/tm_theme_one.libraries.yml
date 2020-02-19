@@ -1,0 +1,137 @@
+base:
+  version: VERSION
+  css:
+    theme:
+      assets/css/tm_theme_one.style.css: {}
+  js:
+    bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js: {}
+    assets/js/tm_theme_one.script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+    - core/drupal.dialog.ajax
+    - core/drupal.dialog
+
+gtm-event-handler:
+  version: VERSION
+  js:
+    assets/js/gtm-event-handler.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+
+generic:
+  version: VERSION
+  js:
+    assets/js/generic.js: {}
+  css:
+    theme:
+      assets/css/generic.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+    - core/drupal.dialog.ajax
+    - core/drupal.dialog
+
+entity-form:
+  version: VERSION
+  js:
+    assets/js/generic.js: {}
+  css:
+    theme:
+      assets/css/components/entity-form.css: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+    - core/drupal.dialog.ajax
+    - core/drupal.dialog
+
+fonts:
+  version: VERSION
+  css:
+    theme:
+      assets/fonts/fonts.css: {}
+
+font-awesome:
+  version: VERSION
+  css:
+    theme:
+      bower_components/font-awesome/css/font-awesome.min.css: {}
+
+art19:
+  version: VERSION
+  js:
+    assets/js/art19.js: {}
+  css:
+    component:
+      '//web-player.art19.com/assets/current.css': {type: external}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+
+ajax:
+  version: VERSION
+  js:
+    assets/js/ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+
+waypoints:
+  version: VERSION
+  js:
+    lib/waypoints/lib/jquery.waypoints.js: {}
+    lib/waypoints/lib/shortcuts/sticky.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax
+
+webcomponentsjs:
+  version: VERSION
+  js:
+    bower_components/webcomponentsjs/webcomponents-lite.js: {}
+
+document-register-js:
+  version: VERSION
+  js:
+    bower_components/document-register-element/build/document-register-element.js: {}
+
+views-ajax:
+  version: VERSION
+  js:
+    assets/js/views-ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+    - core/jquery.form
+    - core/drupal.ajax

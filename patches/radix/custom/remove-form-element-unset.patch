@@ -1,0 +1,13 @@
+diff --git a/includes/form.inc b/includes/form.inc
+index 8fcb3bb..9bd6b3b 100644
+--- a/includes/form.inc
++++ b/includes/form.inc
+@@ -33,6 +33,7 @@ function radix_preprocess_form_element(&$variables) {
+   // Render the form element inside the label for checkbox and radio.
+   if (in_array($variables['element']['#type'], ['checkbox', 'radio'])) {
+     $variables['label']['#children'] = $variables['children'];
+-    unset($variables['children']);
++    // Checkbox needs to be next to label to style correctly.
++    // unset($variables['children']);
+   }
+ }

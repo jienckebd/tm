@@ -1,0 +1,19 @@
+uuid: 7f772c5d-410d-4554-8a27-3af7269920be
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.string_match
+    - field.storage.autoref.field_string
+id: autoref.string_match.field_string
+field_name: field_string
+entity_type: autoref
+bundle: string_match
+label: String
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

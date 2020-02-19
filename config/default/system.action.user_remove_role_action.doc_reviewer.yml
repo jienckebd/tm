@@ -1,0 +1,14 @@
+uuid: c9498029-c189-4d54-8b17-bef73b15905c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.doc_reviewer
+  module:
+    - user
+id: user_remove_role_action.doc_reviewer
+label: 'Remove the Doc reviewer role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: doc_reviewer

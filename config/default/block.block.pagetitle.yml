@@ -1,0 +1,23 @@
+uuid: 8af900cf-ea5f-4505-91b9-d2fa6bf98340
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_class
+  theme:
+    - tm_theme_admin
+third_party_settings:
+  block_class:
+    classes: ''
+id: pagetitle
+theme: tm_theme_admin
+region: header
+weight: -4
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

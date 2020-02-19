@@ -1,0 +1,25 @@
+uuid: c0c8a996-9ce0-4652-a8e7-bcfd08410e49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_social_share
+    - node.type.event
+  module:
+    - social_media
+id: node.event.field_social_share
+field_name: field_social_share
+entity_type: node
+bundle: event
+label: 'Social Share'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: social_media

@@ -1,0 +1,16 @@
+dev:
+  host: talkingmachine7vftdjsemj.ssh.devcloud.acquia-sites.com
+  options:
+    ac-env: dev
+    ac-realm: devcloud
+    ac-site: talkingmachine
+  paths:
+    drush-script: drush10
+    files: sites/default/files
+  root: /var/www/html/talkingmachine.dev/docroot
+  uri: talkingmachine7vftdjsemj.devcloud.acquia-sites.com
+  user: talkingmachine.dev
+livedev:
+  options:
+    parent: '@talkingmachine.dev'
+  root: /mnt/gfs/talkingmachine.dev/livedev/docroot

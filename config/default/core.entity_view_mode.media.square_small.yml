@@ -1,0 +1,14 @@
+uuid: 14fbf845-fd52-479d-83af-4e0e951ee154
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - media
+third_party_settings:
+  lightning_core:
+    description: ''
+id: media.square_small
+label: 'Square Small'
+targetEntityType: media
+cache: true

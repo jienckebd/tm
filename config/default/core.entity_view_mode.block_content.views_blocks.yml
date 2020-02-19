@@ -1,0 +1,14 @@
+uuid: e03b6a54-0b7c-4b4b-a4f8-c7626b0598c8
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: ''
+id: block_content.views_blocks
+label: 'Views Blocks'
+targetEntityType: block_content
+cache: true

@@ -1,0 +1,14 @@
+api_version: 1
+web_docroot: true
+php_version: 7.1
+
+workflows:
+  deploy:
+    # Each workflow can have a before and after operation.
+    after:
+      # For now, the only "type" available is webphp.
+      - type: webphp
+        # This will show up in output to help you keep track of your operations.
+        description: Run system deploy process.
+        # This is (obviously) the path to the script.
+        script: sys/bin/deploy.php

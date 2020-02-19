@@ -1,0 +1,39 @@
+uuid: 621a803c-19ef-4138-9b53-6ce2f82f4d68
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.company
+    - paragraphs.paragraphs_type.code
+    - paragraphs.paragraphs_type.copy
+  module:
+    - entity_reference_revisions
+id: node.company.field_content
+field_name: field_content
+entity_type: node
+bundle: company
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      code: code
+      copy: copy
+    target_bundles_drag_drop:
+      author:
+        weight: 4
+        enabled: false
+      code:
+        enabled: true
+        weight: 5
+      copy:
+        enabled: true
+        weight: 6
+field_type: entity_reference_revisions

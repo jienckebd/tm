@@ -1,0 +1,28 @@
+uuid: 84cd223a-9491-49c7-a2b5-84599da5db6e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.storage.block_content.field_x_class
+    - taxonomy.vocabulary.class
+id: block_content.basic.field_x_class
+field_name: field_x_class
+entity_type: block_content
+bundle: basic
+label: Classes
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      class: class
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

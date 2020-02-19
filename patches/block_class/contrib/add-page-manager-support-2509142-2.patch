@@ -1,0 +1,91 @@
+diff --git a/block_class.module b/block_class.module
+index c43fde2..ccd8f0e 100644
+--- a/block_class.module
++++ b/block_class.module
+@@ -6,6 +6,7 @@
+  */
+ 
+ use Drupal\block\Entity\Block;
++use Drupal\Core\Form\FormStateInterface;
+ 
+ /**
+  * Implements hook_form_FORM_ID_alter().
+@@ -29,6 +30,52 @@ function block_class_form_block_form_alter(&$form, \Drupal\Core\Form\FormStateIn
+ }
+ 
+ /**
++ * Implements hook_form_alter().
++ */
++function block_class_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
++  switch ($form_id) {
++    case 'page_manager_display_variant_add_block_form':
++    case 'page_manager_display_variant_edit_block_form':
++      if (\Drupal::currentUser()->hasPermission('administer block classes')) {
++        $display_variant_id = $form_state->get('display_variant_id');
++        $block_id = $form_state->get('block_id');
++
++        $page = $form_state->getBuildInfo()['args'][1];
++        $display_variant = $page->getVariant($display_variant_id);
++        $block = $display_variant->getBlock($block_id);
++        $configuration = $block->getConfiguration();
++
++        $form['settings']['classes'] = [
++          '#type' => 'textfield',
++          '#title' => t('CSS class(es)'),
++          '#description' => t('Customize the styling of this block by adding CSS classes. Separate multiple classes by spaces.'),
++          '#default_value' => isset($configuration['classes']) ? $configuration['classes'] : NULL,
++        ];
++
++        $form['#submit'][] = 'block_class_page_manager_display_variant_block_form_submit';
++      }
++      break;
++  }
++}
++
++/**
++ * Submit callback for page manager display variant forms to save class setting.
++ */
++function block_class_page_manager_display_variant_block_form_submit($form, FormStateInterface $form_state) {
++  $display_variant_id = $form_state->get('display_variant_id');
++  $block_id = $form_state->get('block_id');
++
++  $page = $form_state->getBuildInfo()['args'][1];
++  $display_variant = $page->getVariant($display_variant_id);
++  $block = $display_variant->getBlock($block_id);
++  $configuration = $block->getConfiguration();
++  $settings = $form_state->getValue('settings');
++
++  $display_variant->updateBlock($configuration['uuid'], ['classes' => $settings['classes']]);
++  $page->save();
++}
++
++/**
+  * Implements hook_preprocess_HOOK().
+  */
+ function block_class_preprocess_block(&$variables) {
+@@ -39,4 +86,9 @@ function block_class_preprocess_block(&$variables) {
+       $variables['attributes']['class'][] = $classes;
+     }
+   }
++
++  // Page manager classes are stored in #configuration.
++  if(!empty($variables['elements']['#configuration']['classes'])) {
++    $variables['attributes']['class'][] = $variables['elements']['#configuration']['classes'];
++  }
+ }
+diff --git a/config/schema/block_class.schema.yml b/config/schema/block_class.schema.yml
+index cb6e83c..de6df7e 100644
+--- a/config/schema/block_class.schema.yml
++++ b/config/schema/block_class.schema.yml
+@@ -5,3 +5,11 @@ block.block.*.third_party.block_class:
+     classes:
+       type: string
+       label: Additional classes for the block
++
++page_manager.block_plugin.*.block_class:
++  type: mapping
++  label: Block class page manager settings
++  mapping:
++    classes:
++      type: string
++      label: Additional classes for the block

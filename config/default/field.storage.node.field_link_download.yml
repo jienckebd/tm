@@ -1,0 +1,19 @@
+uuid: 056a84dd-2625-4b64-9af1-b5f97b8c678a
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - node
+id: node.field_link_download
+field_name: field_link_download
+entity_type: node
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

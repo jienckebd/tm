@@ -1,0 +1,9 @@
+uuid: 12eff0f2-6663-4cb3-b44d-86218ddd1af2
+langcode: en
+status: true
+dependencies: {  }
+id: auto_reference
+label: 'Auto Reference'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

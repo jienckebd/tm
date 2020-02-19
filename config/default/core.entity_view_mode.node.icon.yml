@@ -1,0 +1,14 @@
+uuid: 38388acf-aec1-4ff7-b139-7ebe2cab80bb
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - node
+third_party_settings:
+  lightning_core:
+    description: ''
+id: node.icon
+label: Icon
+targetEntityType: node
+cache: true

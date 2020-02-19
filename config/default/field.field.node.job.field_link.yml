@@ -1,0 +1,23 @@
+uuid: 92e7ec4c-e2b0-4b14-af22-0949f47d713f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_link
+    - node.type.job
+  module:
+    - link
+id: node.job.field_link
+field_name: field_link
+entity_type: node
+bundle: job
+label: Link
+description: 'Provide a link to this job on your corporate website.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

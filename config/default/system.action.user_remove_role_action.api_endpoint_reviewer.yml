@@ -1,0 +1,14 @@
+uuid: 8a731e36-c243-4f71-ae70-d99408de4780
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.api_endpoint_reviewer
+  module:
+    - user
+id: user_remove_role_action.api_endpoint_reviewer
+label: 'Remove the API Endpoint reviewer role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: api_endpoint_reviewer

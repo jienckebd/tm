@@ -1,0 +1,195 @@
+diff --git a/core/includes/common.inc b/core/includes/common.inc
+index 88d6fd3..13676a8 100644
+--- a/core/includes/common.inc
++++ b/core/includes/common.inc
+@@ -6,6 +6,7 @@
+ use Symfony\Component\Yaml\Parser;
+ use Drupal\Component\PhpStorage\PhpStorageFactory;
+ use Drupal\Component\Utility\NestedArray;
++use Drupal\Component\Utility\SerializableClosure;
+ use Drupal\Core\Cache\CacheBackendInterface;
+ use Drupal\Core\Datetime\DrupalDateTime;
+ use Drupal\Core\Database\Database;
+@@ -4796,6 +4797,36 @@ function drupal_json_decode($var) {
+ }
+ 
+ /**
++ * Ensures serializing a closure doesn't throw an unhandled exception.
++ *
++ * By default this is a simple wrapper for serialize(), if this fails the value
++ * is processed with a special closure handling.
++ *
++ * @ingroup php_wrappers
++ *
++ * @param mixed $value
++ *
++ * @return string
++ *   The serialized value
++ */
++function drupal_serialize($value) {
++  try {
++    return serialize($value);
++  }
++  catch(Exception $e) {
++    $arr = array($value);
++    // Serialize closure elements.
++    array_walk_recursive($arr, function (&$element) {
++      if (is_object($element) && $element instanceof \Closure) {
++        $serializable_closure = new SerializableClosure($element);
++        $element = $serializable_closure->serialize();
++      }
++    });
++    return serialize($arr[0]);
++  }
++}
++
++/**
+  * Gets a salt useful for hardening against SQL injection.
+  *
+  * @return
+diff --git a/core/lib/Drupal/Component/Utility/SerializableClosure.php b/core/lib/Drupal/Component/Utility/SerializableClosure.php
+new file mode 100644
+index 0000000..964ff48
+--- /dev/null
++++ b/core/lib/Drupal/Component/Utility/SerializableClosure.php
+@@ -0,0 +1,38 @@
++<?php
++
++/**
++ * @file
++ * Contains Drupal\Component\Utility\SerializableClosure.
++ */
++
++namespace Drupal\Component\Utility;
++
++/**
++ * Provides a helper to serialize closures.
++ */
++class SerializableClosure implements \Serializable {
++
++  /**
++   * Stores the closure to serialize.
++   * @var
++   */
++  protected $closure;
++
++  public function __construct(\Closure $closure) {
++    $this->closure = $closure;
++  }
++
++  /**
++   * Implements Serializable::serialize().
++   */
++  public function serialize () {
++    $reflection = new \ReflectionFunction($this->closure);
++    return $reflection->name . ' in ' . str_replace(DRUPAL_ROOT, '', $reflection->getFileName()) . ' on line ' . $reflection->getStartLine();
++  }
++
++  /**
++   * Implements Serializable::unserialize().
++   */
++  public function unserialize ($serialized) {
++  }
++}
+diff --git a/core/modules/dblog/dblog.module b/core/modules/dblog/dblog.module
+index a0afcd4..f5fe88a 100644
+--- a/core/modules/dblog/dblog.module
++++ b/core/modules/dblog/dblog.module
+@@ -150,7 +150,7 @@ function dblog_watchdog(array $log_entry) {
+       'uid' => $log_entry['uid'],
+       'type' => substr($log_entry['type'], 0, 64),
+       'message' => $log_entry['message'],
+-      'variables' => serialize($log_entry['variables']),
++      'variables' => drupal_serialize($log_entry['variables']),
+       'severity' => $log_entry['severity'],
+       'link' => substr($log_entry['link'], 0, 255),
+       'location' => $log_entry['request_uri'],
+diff --git a/core/modules/system/lib/Drupal/system/Tests/Common/SerializableClosureUnitTest.php b/core/modules/system/lib/Drupal/system/Tests/Common/SerializableClosureUnitTest.php
+new file mode 100644
+index 0000000..ce1c8b2
+--- /dev/null
++++ b/core/modules/system/lib/Drupal/system/Tests/Common/SerializableClosureUnitTest.php
+@@ -0,0 +1,83 @@
++<?php
++
++/**
++ * @file
++ * Contains \Drupal\system\Tests\Common\SerializableClosureUnitTest.
++ */
++
++namespace Drupal\system\Tests\Common;
++
++use Drupal\Component\Utility\SerializableClosure;
++use Drupal\simpletest\UnitTestBase;
++
++/**
++ * Tests the SerializableClosure helper class.
++ */
++class SerializableClosureUnitTest extends UnitTestBase {
++
++  /**
++   * Holds the closure to test with.
++   * @var \Closure
++   */
++  protected $closure;
++
++  public static function getInfo() {
++    return array(
++      'name' => 'SerializableClosure functionality',
++      'description' => 'Tests the SerializableClosure helper class.',
++      'group' => 'System',
++    );
++  }
++
++  public function setUp(){
++    $this->closure = function($foo = 'bar') {
++      echo $foo;
++    };
++    return parent::setUp();
++  }
++
++  /**
++   * Tests DiffArray::diffAssoc().
++   */
++  public function testSerializableClosure() {
++    $serializable_closure = new SerializableClosure($this->closure);
++    $serialized = serialize($serializable_closure);
++    $this->verbose($serialized);
++    // Use strstr() to avoid failures if the closure is moved.
++    $this->assertTrue(strstr($serialized, '"Drupal\Component\Utility\SerializableClosure":134:{Drupal\system\Tests\Common\{closure} in ' . str_replace(DRUPAL_ROOT, '', __FILE__)) !== FALSE, 'Serialization found');
++  }
++
++  /**
++   * Tests normal serialize().
++   */
++  public function testNormalSerialize() {
++    $e = NULL;
++    $var = array(
++      'foo',
++      $this->closure,
++      'bar',
++    );
++    try {
++      $serialized = serialize($var);
++    }
++    catch(\Exception $e) {
++      $this->assertEqual($e->getMessage(), "Serialization of 'Closure' is not allowed", 'Expected exception found');
++    }
++    $this->assertNotNull($e, 'Exception thrown');
++  }
++
++  /**
++   * Tests drupal_serialize().
++   */
++  public function testDrupalSerialize() {
++    $var = array(
++      'foo',
++      $this->closure,
++      'bar',
++    );
++    $serialized = drupal_serialize($var);
++    $this->verbose($serialized);
++    // Use strstr() to avoid failures if the closure is moved.
++    $this->assertTrue(strstr($serialized, 'a:3:{i:0;s:3:"foo";i:1;s:134:"Drupal\system\Tests\Common\{closure} in ' . str_replace(DRUPAL_ROOT, '', __FILE__)) !== FALSE, 'Serialization found');
++  }
++}

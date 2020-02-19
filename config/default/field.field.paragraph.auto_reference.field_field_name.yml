@@ -1,0 +1,26 @@
+uuid: c831067d-c3ca-4762-b1f6-5f96ddfb08c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_tags
+    - field.storage.paragraph.field_field_name
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.field_field_name
+field_name: field_field_name
+entity_type: paragraph
+bundle: auto_reference
+label: 'Field name'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: cda6051a-cbbe-44b6-9e60-5414aab117f9
+default_value_callback: ''
+settings:
+  handler: 'default:field_storage_config'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

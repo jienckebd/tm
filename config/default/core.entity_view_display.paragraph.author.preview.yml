@@ -1,0 +1,37 @@
+uuid: ef36335f-e39c-4293-94d8-76989ca7bc83
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.preview
+    - field.field.paragraph.author.field_image
+    - field.field.paragraph.author.field_name
+    - paragraphs.paragraphs_type.author
+  module:
+    - ds
+third_party_settings:
+  ds:
+    layout:
+      id: layout_onecol
+      library: layout_discovery/onecol
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      content:
+        - field_name
+id: paragraph.author.preview
+targetEntityType: paragraph
+bundle: author
+mode: preview
+content:
+  field_name:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_image: true

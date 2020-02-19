@@ -1,0 +1,18 @@
+uuid: 4fc7cecb-d662-4b26-8906-2c0e8cfae158
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.default
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: doc.default
+target_entity_type_id: doc
+target_bundle: default
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,30 @@
+unprotected_forms:
+  - user_login_form
+  - search_form
+  - search_block_form
+  - views_exposed_form
+  - honeypot_settings_form
+protect_all_forms: true
+log: false
+element_name: age
+time_limit: 5
+expire: 300
+form_settings:
+  user_register_form: false
+  user_pass: false
+  contact_message_job_alert_form: false
+  contact_message_newsletter_signup_form: false
+  contact_message_personal_form: false
+  contact_message_sitewide_form: false
+  node_api_endpoint_form: false
+  node_article_form: false
+  node_company_form: false
+  node_doc_form: false
+  node_event_form: false
+  node_gallery_form: false
+  node_job_form: false
+  node_landing_page_form: false
+  node_page_form: false
+  node_podcast_form: false
+_core:
+  default_config_hash: 9bVDfWSa_In6VzTXmy04jJ_3ZQobihKjO9isuuUCPaw
