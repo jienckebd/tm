@@ -73,7 +73,7 @@ $settings['hash_salt'] = getenv('HASH_SALT') ?: 'wIpexdHvQeKnveWCYlPINYPyqsuuFwM
 
 $settings['update_free_access'] = FALSE;
 
-# ini_set('memory_limit', '1024M');
+ini_set('memory_limit', '1024M');
 
 // Enable memcache on cloud.
 if (isset($settings['memcache']['servers'])) {
