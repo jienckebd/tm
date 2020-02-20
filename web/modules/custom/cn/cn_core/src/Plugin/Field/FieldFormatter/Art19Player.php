@@ -27,7 +27,7 @@ class Art19Player extends FormatterBase {
     foreach ($items as $delta => $item) {
       $uri = $item->uri;
       $embed_url = "{$uri}/embed";
-      $embed_url = str_replace('https://', 'http://', $embed_url);
+      $embed_url = str_replace('https://', '//', $embed_url);
 
       $elements[$delta] = [
         '#type' => 'html_tag',
@@ -36,6 +36,7 @@ class Art19Player extends FormatterBase {
         '#attributes' => [
           'src' => $embed_url,
           'width' => '100%',
+          'height' => '165px',
         ],
       ];
     }
