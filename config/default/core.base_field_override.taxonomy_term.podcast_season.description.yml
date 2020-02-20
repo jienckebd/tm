@@ -1,0 +1,20 @@
+uuid: 2c1e9e69-104e-4cfb-aea0-b445c2894be5
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.podcast_season
+  module:
+    - text
+id: taxonomy_term.podcast_season.description
+field_name: description
+entity_type: taxonomy_term
+bundle: podcast_season
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,89 @@
+.slick-arrow {
+  &::before {
+    transition: all 0.25s ease 0s;
+    color: $yellow;
+    font-size: 30px;
+  }
+
+  &.slick-prev {
+    left: -60px;
+  }
+
+  &.slick-next {
+    right: -60px;
+  }
+
+  &:hover {
+    &:before {
+      opacity: 1;
+      color: $yellow;
+    }
+  }
+}
+
+.slick--thumbnail-right {
+  padding-right: 10px;
+
+  .slick--main {
+    @include breakpoint($desktop) {
+      float: left;
+      width: 70%;
+    }
+  }
+
+  .slick--thumbnail {
+    padding-left: 10px;
+
+    @include breakpoint($desktop) {
+      width: 30%;
+      float: right;
+      padding-left: 20px;
+    }
+
+    .slick-list {
+      padding: 0;
+    }
+
+    .slick-track {
+      width: initial !important;
+    }
+
+    .slick-slide {
+      display: block;
+      cursor: pointer;
+      width: 100% !important;
+      min-width: initial !important;
+      margin-bottom: 1px;
+      background-color: $yellow;
+      color: $black;
+      font-family: $font-family-monospace;
+      font-size: 1em;
+      transform: none !important;
+      transition: all 0.25s ease 0s;
+      padding: 5px;
+
+      &.slick-current,
+      &:hover {
+        background-color: transparent;
+        box-shadow: none;
+        color: $yellow;
+
+        &:before {
+          display: none;
+        }
+      }
+    }
+
+    .slide__caption {
+      cursor: pointer;
+    }
+  }
+
+  .slick-thumbnail--image {
+    display: none;
+
+    @include breakpoint($desktop) {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+uuid: 578a4779-2fae-4ce6-9b40-4988ee7345f9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.doc
+id: node.doc.field_summary
+field_name: field_summary
+entity_type: node
+bundle: doc
+label: Summary
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

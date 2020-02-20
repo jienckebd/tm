@@ -1,0 +1,9 @@
+uuid: 8b17b2c0-3a96-40b3-8e04-d947fb082aa3
+langcode: en
+status: true
+dependencies: {  }
+id: doc
+label: Doc
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

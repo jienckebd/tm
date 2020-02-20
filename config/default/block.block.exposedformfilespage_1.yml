@@ -1,0 +1,29 @@
+uuid: 49d44c4c-9500-4ab2-b3d2-da7e7dd860a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.files
+  module:
+    - system
+    - views
+  theme:
+    - tm_theme_admin
+id: exposedformfilespage_1
+theme: tm_theme_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:files-page_1'
+settings:
+  id: 'views_exposed_filter_block:files-page_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: /admin/content/files
+    negate: false
+    context_mapping: {  }

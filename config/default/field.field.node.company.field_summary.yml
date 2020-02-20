@@ -1,0 +1,19 @@
+uuid: a507b37b-3668-4d4e-afb2-abdcd91c75a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.company
+id: node.company.field_summary
+field_name: field_summary
+entity_type: node
+bundle: company
+label: Summary
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

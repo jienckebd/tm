@@ -1,0 +1,384 @@
+uuid: 65bdef2b-fba8-40b3-ad97-a5d7e2b5a123
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.job.field_address
+    - field.field.node.job.field_anon
+    - field.field.node.job.field_category
+    - field.field.node.job.field_company
+    - field.field.node.job.field_contact_email
+    - field.field.node.job.field_contact_name
+    - field.field.node.job.field_content
+    - field.field.node.job.field_date
+    - field.field.node.job.field_date_end
+    - field.field.node.job.field_image
+    - field.field.node.job.field_job_level
+    - field.field.node.job.field_job_scope
+    - field.field.node.job.field_link
+    - field.field.node.job.field_listing_type
+    - field.field.node.job.field_meta_tags
+    - field.field.node.job.field_social_share
+    - field.field.node.job.field_summary
+    - field.field.node.job.field_tags
+    - field.field.node.job.field_video
+    - field.field.node.job.panelizer
+    - node.type.job
+  module:
+    - address
+    - datetime
+    - entity_reference_revisions
+    - link
+    - metatag
+    - panelizer
+    - social_media
+    - user
+    - video_embed_field
+third_party_settings:
+  panelizer:
+    enable: true
+    custom: true
+    allow: true
+    default: default
+    displays:
+      default:
+        blocks:
+          c83f04ed-181d-4b9a-87e1-1b48aded7348:
+            id: 'entity_field:node:title'
+            label: Title
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: string
+              settings:
+                link_to_entity: false
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: -2
+            uuid: c83f04ed-181d-4b9a-87e1-1b48aded7348
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+          2441e9fe-d253-4380-8e30-adb925cef587:
+            id: 'block_content:31e98991-ea06-4063-b341-5c215d2321a8'
+            label: 'Job alerts:'
+            provider: block_content
+            label_display: visible
+            status: true
+            info: ''
+            view_mode: full
+            region: column1
+            weight: 0
+            uuid: 2441e9fe-d253-4380-8e30-adb925cef587
+            context_mapping: {  }
+          5b226c91-4351-41c6-ba88-3f6b2c8c22bd:
+            id: 'block_content:cdd0cbc1-4dbd-4003-be5a-c6089a032b08'
+            label: 'Post Job'
+            provider: block_content
+            label_display: visible
+            status: true
+            info: ''
+            view_mode: full
+            region: column3
+            weight: 0
+            uuid: 5b226c91-4351-41c6-ba88-3f6b2c8c22bd
+            context_mapping: {  }
+          0b6cfd8f-dcff-4951-8bd1-bee0e6a0e001:
+            id: 'entity_field:node:field_job_level'
+            label: 'Job Level'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: above
+              type: entity_reference_label
+              settings:
+                link: false
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: -1
+            uuid: 0b6cfd8f-dcff-4951-8bd1-bee0e6a0e001
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+          91aa01ab-c3f4-4482-a100-03a55f83c839:
+            id: 'entity_field:node:field_job_scope'
+            label: 'Job Scope'
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: above
+              type: entity_reference_label
+              settings:
+                link: false
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: 0
+            uuid: 91aa01ab-c3f4-4482-a100-03a55f83c839
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+          64e85462-2f00-4d0a-b490-ee0211c62cc0:
+            id: 'entity_field:node:field_content'
+            label: Content
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: entity_reference_revisions_entity_view
+              settings:
+                view_mode: default
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: 1
+            uuid: 64e85462-2f00-4d0a-b490-ee0211c62cc0
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+          219adec7-97cf-4f6d-9241-912a50bff4aa:
+            id: 'entity_field:node:field_link'
+            label: Link
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: link_buttons
+              settings:
+                trim_length: '80'
+                url_only: ''
+                url_plain: ''
+                link_text: 'Apply Now'
+                rel: 0
+                target: 0
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: 2
+            uuid: 219adec7-97cf-4f6d-9241-912a50bff4aa
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+          3ae860eb-6978-4602-9fae-4bae3a02e973:
+            id: 'entity_field:node:field_company'
+            label: Company
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: entity_reference_entity_view
+              settings:
+                view_mode: logo
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: -3
+            uuid: 3ae860eb-6978-4602-9fae-4bae3a02e973
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+        id: panels_variant
+        label: Default
+        uuid: 3a2d95d5-e5b8-4f6c-9a15-67e526a348c9
+        weight: 0
+        layout: radix_pond
+        layout_settings: {  }
+        page_title: ''
+        storage_type: panelizer_default
+        storage_id: 'node:job:default:default'
+        builder: ipe
+        pattern: panelizer
+        static_context: {  }
+      standard:
+        blocks: {  }
+        id: panels_variant
+        uuid: 771f96de-0a7b-486d-8bb4-89f9b1939073
+        label: Standard
+        weight: 0
+        layout: onecolumn
+        layout_settings: {  }
+        page_title: ''
+        storage_type: panelizer_default
+        storage_id: node__job__default__standard
+        pattern: panelizer
+        builder: ipe
+        static_context: {  }
+id: node.job.default
+targetEntityType: node
+bundle: job
+mode: default
+content:
+  field_address:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_anon:
+    weight: 121
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_category:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_company:
+    weight: 111
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_contact_email:
+    weight: 119
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_contact_name:
+    weight: 118
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_content:
+    weight: 117
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_date:
+    weight: 103
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_date_end:
+    weight: 113
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_image:
+    weight: 106
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_job_level:
+    weight: 112
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_job_scope:
+    weight: 110
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_link:
+    weight: 107
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_listing_type:
+    weight: 120
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_meta_tags:
+    weight: 108
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_social_share:
+    weight: 109
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: social_media_default
+    region: content
+  field_summary:
+    weight: 116
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_tags:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_video:
+    weight: 114
+    label: above
+    settings:
+      responsive: true
+      width: 854
+      height: 480
+      autoplay: true
+    third_party_settings: {  }
+    type: video_embed_field_video
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  panelizer: true
+  search_api_excerpt: true
+  status: true

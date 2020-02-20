@@ -1,0 +1,307 @@
+@import "variables";
+
+.bg--gray--dark {
+  background-color: $gray-darker;
+}
+
+.margin-bottom-30 {
+  margin-bottom: 30px !important;
+}
+
+.margin-top-30 {
+  margin-top: 30px !important;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.padding-10 {
+  padding: 10px;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.padding-40 {
+  padding: 40px;
+}
+
+.padding-80 {
+  padding: 80px;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-top-20 {
+  margin-top: 20px !important;
+}
+
+.inline-fields {
+  padding: 10px 0;
+}
+
+.padding-top-1 {
+  padding-top: 1px;
+}
+
+.padding-left-10 {
+  padding-left: 10px;
+}
+
+.padding-left-20 {
+  padding-left: 20px;
+}
+
+.padding-left-40 {
+  padding-left: 40px;
+}
+
+.padding-right-10 {
+  padding-right: 10px;
+}
+
+.padding-right-20 {
+  padding-right: 20px;
+}
+
+.padding-right-40 {
+  padding-right: 40px;
+}
+
+.padding-top-10 {
+  padding-top: 10px;
+}
+
+.padding-top-20 {
+  padding-top: 20px;
+}
+
+.padding-top-40 {
+  padding-top: 40px;
+}
+
+.padding-bottom-10 {
+  padding-bottom: 10px;
+}
+
+.padding-bottom-20 {
+  padding-bottom: 20px;
+}
+
+.padding-bottom-40 {
+  padding-bottom: 40px;
+}
+
+.width--full {
+  display: block;
+  width: 100%;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.font-size-large {
+  font-size: 1.5em;
+}
+
+.font-family--mono {
+  font-family: $font-family-monospace;
+}
+
+.position--bottom-right {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.inline-fields > .field {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 40px;
+}
+
+.inline-fields > div > .field {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.inline-field {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.dropzone {
+  height: 360px;
+  padding-top: 80px;
+  font-size: 20px;
+  font-family: CPMono;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 38em) {
+  .layout-container {
+    margin: 0;
+  }
+  .layout-column {
+    float: left;  /* LTR */
+    box-sizing: border-box;
+  }
+  [dir="rtl"] .layout-column {
+    float: right;
+  }
+  .layout-column + .layout-column {
+    padding-left: 10px; /* LTR */
+  }
+  [dir="rtl"] .layout-column + .layout-column {
+    padding-right: 10px;
+    padding-left: 0;
+  }
+  .layout-column--half {
+    width: 50%;
+  }
+  .layout-column--quarter {
+    width: 25%;
+  }
+  .layout-column--three-quarter {
+    width: 75%;
+  }
+}
+
+.pond .block--style--grey-yellow .field--name-body {
+  margin-top: 10px !important;
+}
+
+.ui-dialog .tabledrag-toggle-weight {
+  display: none;
+}
+
+.ui-dialog .button {
+  width: initial !important;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+table {
+
+  ul, li {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+}
+
+.clear-both {
+  clear: both;
+}
+
+// @todo move to separate files.
+.contact-form .form-item {
+  margin-bottom: 15px;
+}
+
+.inline--form > .details-wrapper > .form-wrapper {
+  width: 50%;
+  float: left;
+
+  > .form-item {
+    padding: 5px;
+  }
+
+  &:nth-child(2n+1) {
+    clear: both;
+  }
+
+  .address-container-inline {
+    .form-item-field-address-0-address-locality {
+      width: 65% !important;
+      padding-top: 5px;
+      padding-left: 10px;
+    }
+
+    .form-item-field-address-0-address-administrative-area {
+      width: 20% !important;
+    }
+
+    .form-item {
+      width: 45%;
+    }
+  }
+
+  &.field--type-string-long,
+  &.field--type-link {
+    float: none;
+    width: 100%;
+    clear: both;
+  }
+}
+
+.entity-type--user.view-mode--compact {
+  .field--name-field-image {
+    float: left;
+    width: 120px;
+    margin: 0 20px;
+  }
+}
+
+// Sticky scroll.
+.sticky-scroll {
+  top: 0;
+  transition: all 0.5s ease 0s;
+
+  &.stuck {
+    top: 52px;
+    position: fixed;
+    z-index: 99;
+
+    &.block,
+    &.views-exposed-form {
+      padding-top: 30px;
+    }
+  }
+}
+
+body {
+  &.toolbar-fixed {
+    .sticky-scroll {
+      &.stuck {
+        top: 90px;
+      }
+    }
+  }
+
+  &.toolbar-tray-open.toolbar-fixed {
+    .sticky-scroll {
+      &.stuck {
+        top: 130px;
+      }
+    }
+  }
+}

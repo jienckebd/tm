@@ -1,0 +1,18 @@
+uuid: 221da521-1105-4448-89fa-df4a8e2dddce
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.company
+id: node.company.title
+field_name: title
+entity_type: node
+bundle: company
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

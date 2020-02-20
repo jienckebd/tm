@@ -1,0 +1,11 @@
+uuid: 93cad076-53b0-4928-a2dd-aea6a8ca7a67
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.gallery
+id: node.gallery
+target_entity_type_id: node
+target_bundle: gallery
+default_langcode: site_default
+language_alterable: false

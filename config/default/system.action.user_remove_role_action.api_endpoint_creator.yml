@@ -1,0 +1,14 @@
+uuid: 2b556cb4-40bb-4a18-8825-a04f91928623
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.api_endpoint_creator
+  module:
+    - user
+id: user_remove_role_action.api_endpoint_creator
+label: 'Remove the API Endpoint creator role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: api_endpoint_creator

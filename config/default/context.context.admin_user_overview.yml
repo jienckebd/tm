@@ -1,0 +1,41 @@
+uuid: 650b349f-1052-4020-916e-4754be17dccb
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+name: admin_user_overview
+label: 'Admin: User: Overview'
+group: admin
+description: ''
+requireAllConditions: false
+disabled: false
+conditions:
+  request_path:
+    id: request_path
+    pages: /admin/people
+    negate: 0
+    uuid: fe3e2b02-a52f-43e1-a4d2-39e0f36b9576
+    context_mapping: {  }
+reactions:
+  blocks:
+    blocks:
+      a4bf86bb-3d55-4dcb-8fbc-784e3357087e:
+        id: 'views_exposed_filter_block:user_admin_people-page_1'
+        label: ''
+        provider: views
+        label_display: 0
+        views_label: ''
+        region: sidebar_first
+        weight: '0'
+        context_mapping: {  }
+        theme: tm_theme_admin
+        css_class: ''
+        unique: 0
+        context_id: admin_user_overview
+        uuid: a4bf86bb-3d55-4dcb-8fbc-784e3357087e
+    id: blocks
+    saved: false
+    uuid: e9bd3eac-7513-4603-b44f-b10d15df0e32
+    include_default_blocks: 1
+weight: 0

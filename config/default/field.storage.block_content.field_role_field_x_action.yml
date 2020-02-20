@@ -1,0 +1,24 @@
+uuid: ceaf0f2a-973c-4d30-9680-18769c1b079c
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - field_permissions
+    - user
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: block_content.field_role_field_x_action
+field_name: field_role_field_x_action
+entity_type: block_content
+type: entity_reference
+settings:
+  target_type: user_role
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

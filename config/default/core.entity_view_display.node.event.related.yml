@@ -1,0 +1,214 @@
+uuid: 7f547988-ca04-4da3-9be9-19043eafd2d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.related
+    - field.field.node.event.field_academic_conference
+    - field.field.node.event.field_address
+    - field.field.node.event.field_anon
+    - field.field.node.event.field_category
+    - field.field.node.event.field_contact_email
+    - field.field.node.event.field_contact_name
+    - field.field.node.event.field_content
+    - field.field.node.event.field_date
+    - field.field.node.event.field_date_end
+    - field.field.node.event.field_disqus
+    - field.field.node.event.field_event_type
+    - field.field.node.event.field_image
+    - field.field.node.event.field_link
+    - field.field.node.event.field_listing_type
+    - field.field.node.event.field_meta_tags
+    - field.field.node.event.field_social_share
+    - field.field.node.event.field_summary
+    - field.field.node.event.field_tags
+    - node.type.event
+  module:
+    - cn_core
+    - datetime
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - panelizer
+    - smart_trim
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col_stacked
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        layout:
+          wrapper: div
+          link_display: 1
+          classes: {  }
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          top:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+          main:
+            wrapper: div
+            classes: {  }
+            add_region_classes: 1
+            attributes: ''
+          bottom:
+            wrapper: div
+            classes: {  }
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      top:
+        - field_image
+      main:
+        - title
+        - field_date
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.event.related
+targetEntityType: node
+bundle: event
+mode: related
+content:
+  field_date:
+    type: datetime_default
+    weight: 2
+    region: main
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+  field_image:
+    type: entity_reference_entity_view
+    weight: 0
+    region: top
+    label: hidden
+    settings:
+      view_mode: thumbnail
+      link: false
+    third_party_settings:
+      cn_core:
+        delimiter: ''
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: ''
+  title:
+    label: hidden
+    type: smart_trim
+    weight: 1
+    region: main
+    settings:
+      trim_length: 50
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: true
+      wrap_class: 'h5 trimmed'
+      more_text: More
+      more_class: more-link
+      more_link: false
+      trim_options:
+        text: false
+        trim_zero: false
+      summary_handler: full
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+hidden:
+  field_academic_conference: true
+  field_address: true
+  field_anon: true
+  field_category: true
+  field_contact_email: true
+  field_contact_name: true
+  field_content: true
+  field_date_end: true
+  field_disqus: true
+  field_event_type: true
+  field_link: true
+  field_listing_type: true
+  field_meta_tags: true
+  field_social_share: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  links: true
+  status: true

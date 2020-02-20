@@ -1,0 +1,75 @@
+uuid: 4cb9445c-a2e2-4814-b986-55c5190b30d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.node.podcast.title
+    - field.field.node.podcast.field_date
+    - field.field.node.podcast.field_guid
+    - field.field.node.podcast.field_link_download
+    - field.field.node.podcast.field_summary
+    - field.field.node.podcast.field_tags
+    - node.type.podcast
+  module:
+    - cn_feeds
+    - node
+label: 'Node: Podcast: RSS: Crawler'
+id: podcast
+description: ''
+help: ''
+import_period: 0
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: true
+  use_pubsubhubbub: false
+  fallback_hub: ''
+  request_timeout: 30
+parser: podcast
+parser_configuration: {  }
+processor: podcast
+processor_configuration:
+  update_existing: 2
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+  authorize: false
+  skip_hash_check: false
+  values:
+    type: podcast
+custom_sources: {  }
+mappings:
+  -
+    target: title
+    map:
+      value: title
+    unique:
+      value: '1'
+  -
+    target: field_date
+    map:
+      value: timestamp
+    settings:
+      timezone: UTC
+  -
+    target: field_guid
+    map:
+      value: guid
+    unique: {  }
+  -
+    target: field_tags
+    map:
+      target_id: keywords
+    settings:
+      reference_by: name
+      autocreate: '1'
+      feeds_item: false
+  -
+    target: field_summary
+    map:
+      value: description
+  -
+    target: field_link_download
+    map:
+      uri: url
+      title: ''

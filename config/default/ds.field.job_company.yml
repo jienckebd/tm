@@ -1,0 +1,9 @@
+id: job_company
+label: 'Job - Company'
+ui_limit: 'job|*'
+properties:
+  field_id: node.job.field_company
+type: display_field_copy
+type_label: 'Copy field'
+entities:
+  node: node

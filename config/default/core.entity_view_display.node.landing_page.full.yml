@@ -1,0 +1,143 @@
+uuid: 38ceeae1-a82b-43c0-9a85-ecb2ec99846f
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.full
+    - field.field.node.landing_page.field_content
+    - field.field.node.landing_page.field_hide_header
+    - field.field.node.landing_page.field_image
+    - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_summary
+    - field.field.node.landing_page.field_tags
+    - field.field.node.landing_page.panelizer
+    - node.type.landing_page
+  module:
+    - metatag
+    - panelizer
+    - user
+third_party_settings:
+  panelizer:
+    enable: true
+    custom: true
+    displays:
+      default:
+        blocks: {  }
+        id: panels_variant
+        uuid: 1a312aa0-75a2-4467-8421-33670a7bd039
+        label: 'Single Column'
+        weight: 0
+        layout: layout_onecol
+        layout_settings: {  }
+        page_title: '[node:title]'
+        storage_type: panelizer_default
+        storage_id: 'node:landing_page:default:default'
+        pattern: panelizer
+        builder: ipe
+        static_context: {  }
+      two_column:
+        blocks:
+          49de3f3d-9727-45da-b756-23a798a967b0:
+            id: 'entity_field:node:field_content'
+            label: Content
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: entity_reference_revisions_entity_view
+              settings:
+                view_mode: default
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: 1
+            uuid: 49de3f3d-9727-45da-b756-23a798a967b0
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+          2c56fbfa-031a-4dba-b46c-f8dec00e9a98:
+            id: 'entity_field:node:title'
+            label: Title
+            provider: ctools_block
+            label_display: '0'
+            formatter:
+              label: hidden
+              type: string
+              settings:
+                link_to_entity: false
+              third_party_settings: {  }
+              weight: 0
+            region: column2
+            weight: 0
+            uuid: 2c56fbfa-031a-4dba-b46c-f8dec00e9a98
+            context_mapping:
+              entity: '@panelizer.entity_context:entity'
+        id: panels_variant
+        uuid: 91b9d430-7b91-4a22-ac4d-2e5e0376c6a2
+        label: 'Two Column'
+        weight: 0
+        layout: radix_pond
+        layout_settings: {  }
+        page_title: '[node:title]'
+        storage_type: panelizer_default
+        storage_id: 'node:landing_page:full:two_column'
+        pattern: panelizer
+        builder: ipe
+        static_context: {  }
+      three_column:
+        blocks: {  }
+        id: panels_variant
+        uuid: 5af47416-fa98-4dfb-9761-fc497a47a76f
+        label: 'Three Column'
+        weight: 0
+        layout: layout_threecol_25_50_25
+        layout_settings: {  }
+        page_title: '[node:title]'
+        storage_type: panelizer_default
+        storage_id: 'node:landing_page:default:three_column'
+        pattern: panelizer
+        builder: ipe
+        static_context: {  }
+    allow: true
+    default: two_column
+_core:
+  default_config_hash: HTt6ijLzC8bSN_KRgpUA5ZhQ-eJnu021BBQgH_bYgjY
+id: node.landing_page.full
+targetEntityType: node
+bundle: landing_page
+mode: full
+content:
+  field_meta_tags:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  workbench_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_content: true
+  field_hide_header: true
+  field_image: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  panelizer: true
+  search_api_excerpt: true
+  status: true

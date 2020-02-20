@@ -1,0 +1,77 @@
+uuid: 9655bf9f-045c-4135-bfa8-f0f77d456be7
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.compact
+    - field.field.user.user.feeds_item
+    - field.field.user.user.field_bio
+    - field.field.user.user.field_children
+    - field.field.user.user.field_display
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_image
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_parent
+  module:
+    - ds
+    - panelizer
+    - text
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: radix_boxton
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      contentmain:
+        - field_image
+        - realname
+        - field_bio
+id: user.user.compact
+targetEntityType: user
+bundle: user
+mode: compact
+content:
+  field_bio:
+    type: text_summary_or_trimmed
+    weight: 2
+    region: contentmain
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+  field_image:
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: square_small
+      link: false
+    third_party_settings: {  }
+    type: entity_reference_entity_view
+    region: sidebar
+  realname:
+    weight: 1
+    region: contentmain
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  client_profiles: true
+  feeds_item: true
+  field_children: true
+  field_display: true
+  field_first_name: true
+  field_last_name: true
+  field_parent: true
+  langcode: true
+  member_for: true
+  name: true
+  profile_client: true
+  search_api_excerpt: true

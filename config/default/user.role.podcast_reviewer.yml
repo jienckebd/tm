@@ -1,0 +1,18 @@
+uuid: 0d9e15ae-9ae8-45e4-a388-276b422d0daf
+langcode: en
+status: true
+dependencies: {  }
+id: podcast_reviewer
+label: 'Podcast reviewer'
+weight: 15
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'delete any podcast content'
+  - 'edit any podcast content'
+  - 'use draft_published transition'
+  - 'use needs_review_draft transition'
+  - 'use needs_review_published transition'
+  - 'use published_archived transition'
+  - 'use published_published transition'
+  - 'view moderation states'

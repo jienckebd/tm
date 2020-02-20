@@ -1,0 +1,8 @@
+uuid: 4b87a43e-f255-46a6-95d9-41c525c86f4d
+langcode: en
+status: true
+dependencies: {  }
+name: 'API Format'
+vid: api_format
+description: ''
+weight: 0

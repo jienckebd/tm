@@ -1,0 +1,25 @@
+uuid: 938d5b41-616a-453d-9f1e-b03c6afb1b9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.event
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_summary
+id: node.event.field_summary
+field_name: field_summary
+entity_type: node
+bundle: event
+label: 'Event Description'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

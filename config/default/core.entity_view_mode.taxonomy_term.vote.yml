@@ -1,0 +1,14 @@
+uuid: 2473643f-4998-473c-8ae9-573bcff8133d
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - taxonomy
+third_party_settings:
+  lightning_core:
+    description: ''
+id: taxonomy_term.vote
+label: Vote
+targetEntityType: taxonomy_term
+cache: true

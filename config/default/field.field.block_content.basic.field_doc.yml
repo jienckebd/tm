@@ -1,0 +1,28 @@
+uuid: 843e6269-7ac6-4ee6-bc09-019e69746d68
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - eck.eck_type.doc.default
+    - field.storage.block_content.field_doc
+id: block_content.basic.field_doc
+field_name: field_doc
+entity_type: block_content
+bundle: basic
+label: Documentation
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:doc'
+  handler_settings:
+    target_bundles:
+      default: default
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

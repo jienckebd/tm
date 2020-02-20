@@ -1,0 +1,58 @@
+diff --git a/src/Bootstrap.php b/src/Bootstrap.php
+index d30dfc5..f7f53de 100644
+--- a/src/Bootstrap.php
++++ b/src/Bootstrap.php
+@@ -364,11 +364,11 @@ class Bootstrap {
+           t('Uninstall')->render()          => 'danger',
+ 
+           // Success class.
+-          t('Add')->render()                => 'success',
+-          t('Create')->render()             => 'success',
+-          t('Install')->render()            => 'success',
+-          t('Save')->render()               => 'success',
+-          t('Write')->render()              => 'success',
++          t('Add')->render()                => 'primary',
++          t('Create')->render()             => 'primary',
++          t('Install')->render()            => 'primary',
++          t('Save')->render()               => 'primary',
++          t('Write')->render()              => 'primary',
+ 
+           // Warning class.
+           t('Export')->render()             => 'warning',
+@@ -602,26 +602,16 @@ class Bootstrap {
+     // Ensure the icon specified is a valid Bootstrap Glyphicon.
+     // @todo Supply a specific version to _bootstrap_glyphicons() when Icon API
+     // supports versioning.
+-    if (self::getTheme()->hasGlyphicons() && in_array($name, self::glyphicons())) {
+-      // Attempt to use the Icon API module, if enabled and it generates output.
+-      if (\Drupal::moduleHandler()->moduleExists('icon')) {
+-        $icon = [
+-          '#type' => 'icon',
+-          '#bundle' => 'bootstrap',
+-          '#icon' => 'glyphicon-' . $name,
+-        ];
+-      }
+-      else {
+-        $icon = [
+-          '#type' => 'html_tag',
+-          '#tag' => 'span',
+-          '#value' => '',
+-          '#attributes' => [
+-            'class' => ['icon', 'glyphicon', 'glyphicon-' . $name],
+-            'aria-hidden' => 'true',
+-          ],
+-        ];
+-      }
++    if (in_array($name, self::glyphicons())) {
++      $icon = [
++        '#type' => 'html_tag',
++        '#tag' => 'i',
++        '#value' => '',
++        '#attributes' => [
++          'class' => ['icon', 'fa', 'fa-' . $name],
++          'aria-hidden' => 'true',
++        ],
++      ];
+     }
+ 
+     return $icon ?: $default;

@@ -1,0 +1,53 @@
+uuid: 5158e88b-9c9d-4c80-a481-8d1a3965ba68
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.document
+    - views.view.media_document_entity_browser
+  module:
+    - dropzonejs_eb_widget
+    - media
+    - views
+name: document_browser_modal
+label: 'Document Browser Modal'
+display: modal
+display_configuration:
+  width: '720'
+  height: '620'
+  link_text: 'Select Documents'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  f62cc61a-aa5e-43e3-a20c-deedd548b476:
+    settings:
+      form_mode: media_browser
+      media_type: document
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 32M
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select documents'
+    uuid: f62cc61a-aa5e-43e3-a20c-deedd548b476
+    weight: 1
+    label: Upload
+    id: dropzonejs_media_entity_inline_entity_form
+  fa7df724-a606-42a4-b92c-e04418c85723:
+    settings:
+      view: media_document_entity_browser
+      view_display: entity_browser_1
+      submit_text: 'Select entities'
+      auto_select: false
+    uuid: fa7df724-a606-42a4-b92c-e04418c85723
+    weight: 2
+    label: Library
+    id: view

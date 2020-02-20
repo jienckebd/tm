@@ -1,0 +1,26 @@
+uuid: 7a641004-db4a-41fc-9768-4d6e6843133b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_x_feed
+    - node.type.api_endpoint
+id: node.api_endpoint.field_x_feed
+field_name: field_x_feed
+entity_type: node
+bundle: api_endpoint
+label: 'Consumed Feeds'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings:
+    target_bundles: {  }
+    sort:
+      field: _none
+    auto_create: null
+    auto_create_bundle: null
+field_type: entity_reference

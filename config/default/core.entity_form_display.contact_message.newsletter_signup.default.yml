@@ -1,0 +1,29 @@
+uuid: 5c428980-5f3c-4472-a42b-39d0f888cdb5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.newsletter_signup
+id: contact_message.newsletter_signup.default
+targetEntityType: contact_message
+bundle: newsletter_signup
+mode: default
+content:
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  mail:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  message: true
+  name: true
+  preview: true
+  subject: true

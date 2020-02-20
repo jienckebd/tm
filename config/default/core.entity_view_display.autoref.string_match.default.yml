@@ -1,0 +1,60 @@
+uuid: e12ccfac-25fe-493a-998f-2809195eb417
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.string_match
+    - field.field.autoref.string_match.field_entity_label
+    - field.field.autoref.string_match.field_string
+  module:
+    - user
+id: autoref.string_match.default
+targetEntityType: autoref
+bundle: string_match
+mode: default
+content:
+  created:
+    label: hidden
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_entity_label:
+    weight: 2
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_string:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  label:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  uid:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  status: true

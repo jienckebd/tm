@@ -1,0 +1,14 @@
+uuid: f976d6b7-e2fc-4187-b052-8ea24ead4dc9
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.company_reviewer
+  module:
+    - user
+id: user_remove_role_action.company_reviewer
+label: 'Remove the Company reviewer role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: company_reviewer

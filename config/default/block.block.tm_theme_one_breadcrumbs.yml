@@ -1,0 +1,22 @@
+uuid: 2fb699ed-66cd-4f23-86b3-7756e8b2a6ed
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - tm_theme_one
+_core:
+  default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
+id: tm_theme_one_breadcrumbs
+theme: tm_theme_one
+region: navbar_branding
+weight: -3
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  provider: system
+  label_display: '0'
+visibility: {  }

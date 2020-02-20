@@ -1,0 +1,18 @@
+uuid: d816d02e-e004-440b-9456-0bb6b2057e8e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.industry
+id: taxonomy_term.industry.name
+field_name: name
+entity_type: taxonomy_term
+bundle: industry
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

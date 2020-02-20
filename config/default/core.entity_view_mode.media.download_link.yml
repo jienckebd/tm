@@ -1,0 +1,14 @@
+uuid: 5853ac07-f9e7-4101-b700-1c857ff6b011
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - media
+third_party_settings:
+  lightning_core:
+    description: ''
+id: media.download_link
+label: 'Download Link'
+targetEntityType: media
+cache: true

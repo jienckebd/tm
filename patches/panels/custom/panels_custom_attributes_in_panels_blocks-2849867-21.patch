@@ -1,0 +1,162 @@
+diff --git a/config/schema/panels.schema.yml b/config/schema/panels.schema.yml
+index 8adb932..834dbf6 100644
+--- a/config/schema/panels.schema.yml
++++ b/config/schema/panels.schema.yml
+@@ -20,4 +20,13 @@ display_variant.plugin.panels_variant:
+     storage_id:
+       type: string
+       label: Storage Id
+-
++    css_classes:
++      type: string
++      label: The string of the block's classes
++    css_id:
++      type: string
++      label: The id of the block
++    css_styles:
++      type: text
++      label: The inline styles of the block
++
+
+diff --git a/src/Form/PanelsBlockConfigureFormBase.php b/src/Form/PanelsBlockConfigureFormBase.php
+index 6755687..d3fa6f4 100644
+--- a/src/Form/PanelsBlockConfigureFormBase.php
++++ b/src/Form/PanelsBlockConfigureFormBase.php
+@@ -137,6 +137,29 @@ abstract class PanelsBlockConfigureFormBase extends FormBase {
+       '#required' => TRUE,
+     ];
+
++    $settings = $this->block->getConfiguration();
++    $form['css_classes'] = [
++      '#title' => $this->t('CSS classes'),
++      '#type' => 'textfield',
++      '#default_value' => !empty($settings['css_classes']) ? $settings['css_classes'] : NULL,
++      '#description' => $this->t('Customize the style of the block by adding CSS classes. Separate multiple classes by spaces.'),
++    ];
++
++    $form['css_id'] = [
++      '#title' => $this->t('CSS ID'),
++      '#type' => 'textfield',
++      '#default_value' => !empty($settings['css_id']) ? $settings['css_id'] : NULL,
++      '#description' => $this->t('Customize the style of the block by adding CSS #id.'),
++
++    ];
++
++    $form['css_styles'] = [
++      '#title' => $this->t('CSS styles'),
++      '#type' => 'textarea',
++      '#default_value' => !empty($settings['css_styles']) ? $settings['css_styles'] : NULL,
++      '#description' => $this->t('Customize the style of the block by adding inline CSS.'),
++    ];
++
+     $form['actions']['submit'] = [
+       '#type' => 'submit',
+       '#value' => $this->submitText(),
+@@ -177,6 +200,9 @@ abstract class PanelsBlockConfigureFormBase extends FormBase {
+
+     $configuration = $this->block->getConfiguration();
+     $configuration['region'] = $form_state->getValue('region');
++    $configuration['css_classes'] = $form_state->getValue('css_classes');
++    $configuration['css_id'] = $form_state->getValue('css_id');
++    $configuration['css_styles'] = $form_state->getValue('css_styles');
+     $this->getVariantPlugin()->updateBlock($this->block->getConfiguration()['uuid'], $configuration);
+
+     $cached_values = $this->getCachedValues($this->tempstore, $this->tempstore_id, $form_state->get('machine_name'));
+diff --git a/src/Plugin/DisplayVariant/PanelsDisplayVariant.php b/src/Plugin/DisplayVariant/PanelsDisplayVariant.php
+index 08b5ffb..6dedab6 100644
+--- a/src/Plugin/DisplayVariant/PanelsDisplayVariant.php
++++ b/src/Plugin/DisplayVariant/PanelsDisplayVariant.php
+@@ -2,6 +2,8 @@
+
+ namespace Drupal\panels\Plugin\DisplayVariant;
+
++use Drupal\Component\Utility\Html;
++use Drupal\Core\Render\Element;
+ use Drupal\Component\Render\HtmlEscapedText;
+ use Drupal\Component\Uuid\UuidInterface;
+ use Drupal\Core\Block\BlockManager;
+@@ -332,6 +334,30 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
+     // Allow other module to alter the built panel.
+     $this->moduleHandler->alter('panels_build', $build, $this);
+
++    foreach (Element::children($build) as $region_name) {
++      foreach (Element::children($build[$region_name]) as $block_uuid) {
++
++        // Add CSS classes.
++        $css_classes = !empty($this->configuration['blocks'][$block_uuid]['css_classes']) ? $this->configuration['blocks'][$block_uuid]['css_classes'] : '';
++        $classes_array = explode(' ', $css_classes);
++        foreach ($classes_array as $class) {
++          $build[$region_name][$block_uuid]['#attributes']['class'][] = Html::cleanCssIdentifier($class);
++        }
++
++        // Add CSS id.
++        $css_id = !empty($this->configuration['blocks'][$block_uuid]['css_id']) ? $this->configuration['blocks'][$block_uuid]['css_id'] : '';
++        if (!empty($css_id)) {
++          $build[$region_name][$block_uuid]['#attributes']['id'] = Html::getId($css_id);
++        }
++
++        // Add CSS styles.
++        $css_styles = !empty($this->configuration['blocks'][$block_uuid]['css_styles']) ? $this->configuration['blocks'][$block_uuid]['css_styles'] : '';
++        if (!empty($css_styles)) {
++          $build[$region_name][$block_uuid]['#attributes']['style'] = $css_styles;
++        }
++      }
++    }
++
+     return $build;
+   }
+
+@@ -397,6 +423,9 @@ class PanelsDisplayVariant extends BlockDisplayVariant implements PluginWizardIn
+       'page_title' => '',
+       'storage_type' => '',
+       'storage_id' => '',
++      'css_classes' => '',
++      'css_id' => '',
++      'css_styles' => '',
+     ];
+   }
+
+diff --git a/panels_ipe/src/Form/PanelsIPEBlockPluginForm.php b/panels_ipe/src/Form/PanelsIPEBlockPluginForm.php
+index 8d8a8b9..ba71d3d 100644
+--- a/panels_ipe/src/Form/PanelsIPEBlockPluginForm.php
++++ b/panels_ipe/src/Form/PanelsIPEBlockPluginForm.php
+@@ -185,6 +185,28 @@ class PanelsIPEBlockPluginForm extends FormBase {
+       '#default_value' => $region,
+     ];
+
++    $form['flipper']['front']['settings']['css_classes'] = [
++      '#title' => $this->t('CSS classes'),
++      '#type' => 'textfield',
++      '#default_value' => !empty($block_config['css_classes']) ? $block_config['css_classes'] : NULL,
++      '#description' => $this->t('Customize the style of the block by adding CSS classes. Separate multiple classes by spaces.'),
++    ];
++
++    $form['flipper']['front']['settings']['css_id'] = [
++      '#title' => $this->t('CSS ID'),
++      '#type' => 'textfield',
++      '#default_value' => !empty($block_config['css_id']) ? $block_config['css_id'] : NULL,
++      '#description' => $this->t('Customize the style of the block by adding CSS #id.'),
++
++    ];
++
++    $form['flipper']['front']['settings']['css_styles'] = [
++      '#title' => $this->t('CSS styles'),
++      '#type' => 'textarea',
++      '#default_value' => !empty($block_config['css_styles']) ? $block_config['css_styles'] : NULL,
++      '#description' => $this->t('Customize the style of the block by adding inline CSS.'),
++    ];
++
+     // Add an add button, which is only used by our App.
+     $form['submit'] = [
+       '#type' => 'button',
+
+@@ -275,6 +300,11 @@ class PanelsIPEBlockPluginForm extends FormBase {
+     $block_config = $block_instance->getConfiguration();
+     $block_config['region'] = $form_state->getValue(array('settings', 'region'));
++    $block_config['css_classes'] = $form_state->getValue(array('settings', 'css_classes'));
++    $block_config['css_id'] = $form_state->getValue(array('settings', 'css_id'));
++    $block_config['css_styles'] = $form_state->getValue(array('settings', 'css_styles'));
++
+     // Determine if we need to update or add this block.
+     if ($uuid = $form_state->getValue('uuid')) {
+       $this->panelsDisplay->updateBlock($uuid, $block_config);

@@ -1,0 +1,28 @@
+uuid: b507e393-bb8a-4d6d-9cdb-1bf8a286e582
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_api_format
+    - node.type.api_endpoint
+    - taxonomy.vocabulary.api_format
+id: node.api_endpoint.field_api_format
+field_name: field_api_format
+entity_type: node
+bundle: api_endpoint
+label: 'API Format'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      api_format: api_format
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

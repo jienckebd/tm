@@ -1,0 +1,11 @@
+uuid: d4e4555a-ca54-4175-b5f1-acd1a3747482
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds_crawler.type.default
+id: feeds_crawler.default
+target_entity_type_id: feeds_crawler
+target_bundle: default
+default_langcode: site_default
+language_alterable: false

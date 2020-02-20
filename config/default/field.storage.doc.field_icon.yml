@@ -1,0 +1,19 @@
+uuid: 1eb13098-864f-45bd-ac74-f96906268906
+langcode: en
+status: true
+dependencies:
+  module:
+    - eck
+    - font_field_icon
+id: doc.field_icon
+field_name: field_icon
+entity_type: doc
+type: font_field_icon
+settings: {  }
+module: font_field_icon
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

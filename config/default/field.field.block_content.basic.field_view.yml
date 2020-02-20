@@ -1,0 +1,69 @@
+uuid: c51fecff-cc75-4dbd-a915-9afc14723cd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.storage.block_content.field_view
+  module:
+    - viewsreference
+id: block_content.basic.field_view
+field_name: field_view
+entity_type: block_content
+bundle: basic
+label: Views
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:view'
+  handler_settings:
+    target_bundles: null
+    auto_create: 0
+  plugin_types:
+    block: block
+    default: 0
+    page: 0
+    entity_browser: 0
+    feed: 0
+    embed: 0
+  preselect_views:
+    api_endpoint_list: 0
+    block_content: 0
+    company_partner: 0
+    contact_messages: 0
+    content_recent: 0
+    doc_listing: 0
+    doc_tree: 0
+    entity_browser_company: 0
+    events_featured_2: 0
+    event_board_table: 0
+    feeds_feed: 0
+    feed_api_overview: 0
+    files: 0
+    frontpage: 0
+    home_article_arxiv: 0
+    home_article_rss_article: 0
+    job_board_table: 0
+    job_featured_2: 0
+    media: 0
+    media_image_entity_browser: 0
+    moderation_history: 0
+    most_recent_node: 0
+    node_related_tag: 0
+    podcast_all: 0
+    profiles: 0
+    search: 0
+    tagadelic_content: 0
+    tagadelic_terms: 0
+    taxonomy_admin_all: 0
+    taxonomy_term: 0
+    term_node_rank: 0
+    user_admin_people: 0
+    user_team: 0
+    watchdog: 0
+    who_s_new: 0
+    who_s_online: 0
+field_type: viewsreference

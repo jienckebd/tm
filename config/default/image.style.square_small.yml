@@ -1,0 +1,26 @@
+uuid: af5ee38c-846d-457d-9732-68fe2d20ab5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.focal_point
+  module:
+    - crop
+    - focal_point
+name: square_small
+label: 'Square Small'
+effects:
+  46ecc263-ea4a-4380-846e-44ae19f7e742:
+    uuid: 46ecc263-ea4a-4380-846e-44ae19f7e742
+    id: focal_point_scale_and_crop
+    weight: -9
+    data:
+      width: 250
+      height: 250
+      crop_type: focal_point
+  d03127d2-61d6-4e61-a08a-d927f034dd5d:
+    uuid: d03127d2-61d6-4e61-a08a-d927f034dd5d
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: focal_point

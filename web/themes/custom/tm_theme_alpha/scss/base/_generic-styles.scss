@@ -1,0 +1,139 @@
+.style--black {
+  a {
+    color: $white;
+    font-weight: 700;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+}
+
+.style--gray-dark {
+  background-color: $gray-darker;
+  color: $white;
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  .btn {
+    a {
+      color: $black;
+    }
+  }
+}
+
+.style--off-white {
+  background-color: $off-white;
+
+  a {
+    color: $black;
+    font-weight: 700;
+  }
+}
+
+.style--bright {
+  background-color: $yellow;
+
+  a {
+    color: $black;
+    font-weight: 700;
+  }
+}
+
+.style--bright,
+.style--gray-dark {
+  input:not(.btn),
+  .chosen-choices,
+  .chosen-single {
+    background: #333 !important;
+    box-shadow: none;
+    border: 1px solid #333;
+    border-radius: 2px;
+    color: $white;
+    transition: all 0.2s ease 0s;
+
+    &:focus {
+      border-color: $yellow;
+      background-color: #222 !important;
+    }
+  }
+
+  .stuck {
+    input:not(.btn),
+    .chosen-choices,
+    .chosen-single {
+      opacity: 0.9;
+
+      &:focus {
+        opacity: 1;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .chosen-drop {
+    border: none;
+  }
+
+  .chosen-results {
+    background: #333;
+    color: $white;
+  }
+
+  .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    font-family: $font-family-monospace;
+  }
+
+  .chosen-container.form-control.form-select {
+    border: none;
+    background: none;
+  }
+
+  fieldset.fieldgroup {
+    background: #333;
+
+    legend {
+      color: $white;
+    }
+  }
+
+  .panel {
+    background: #444;
+    border-color: #111;
+
+    > .panel-heading {
+      border-color: #111;
+    }
+  }
+
+  .pager--wrapper--black-border {
+    .pager li > a,
+    .block-footer a {
+      border-color: #444;
+    }
+  }
+}
+
+.style--gray-dark {
+  .ajax--wrapper.ajax--processing {
+    &:before {
+      color: $yellow;
+    }
+  }
+}
+
+.block--center-elements {
+  .block-title,
+  h1,
+  .more-link,
+  .pager,
+  .pager a {
+    text-align: center !important;
+  }
+}

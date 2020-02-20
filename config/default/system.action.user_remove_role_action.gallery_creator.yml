@@ -1,0 +1,14 @@
+uuid: f2663056-78c0-4489-bbc6-8c148eec0884
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.gallery_creator
+  module:
+    - user
+id: user_remove_role_action.gallery_creator
+label: 'Remove the Gallery creator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: gallery_creator

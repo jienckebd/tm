@@ -1,0 +1,14 @@
+uuid: 07217bc0-7211-43a1-9a07-508a26d43925
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.job_reviewer
+  module:
+    - user
+id: user_remove_role_action.job_reviewer
+label: 'Remove the Job reviewer role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: job_reviewer

@@ -1,0 +1,82 @@
+
+GridStack 8.x-1.0-dev, 2016-12-27
+---------------------------------
+- Marked it Beta4.
+- Fixed for double gridstacks loaded when "Use customized GridStack library"
+  enabled.
+- Added warning to clear cache when libraries are updated.
+
+GridStack 8.x-1.0-dev, 2016-12-23
+---------------------------------
+- Updated to latest Blazy with vanilla JS.
+
+GridStack 8.x-1.0-dev, 2016-12-14
+---------------------------------
+- Updated to use theme_blazy() for CSS background.
+- Added Field formatters for Image, File ER, and Paragraphs.
+
+GridStack 8.x-1.0-dev, 2016-12-06
+---------------------------------
+- Fixed for coding standards.
+
+GridStack 8.x-1.0-dev, 2016-12-02
+---------------------------------
+- #2832395 by gausarts, Redbrick: Error 500 on gridstack (structure > gridstack).
+
+GridStack 8.x-1.0-dev, 2016-11-29
+---------------------------------
+- Updated .info file.
+
+GridStack 8.x-1.0-dev, 2016-11-21
+---------------------------------
+- Fixed for Blazy integration.
+- Removed spaceless from Twig template.
+
+GridStack 8.x-1.0-dev, 2016-09-07
+---------------------------------
+- Marked it Beta1.
+- Updated description header to be more descriptive.
+
+GridStack 8.x-1.0-dev, 2016-08-30
+---------------------------------
+- Updated the sample.
+
+GridStack 8.x-1.0-dev, 2016-08-29
+---------------------------------
+- A few cleanups.
+
+GridStack 8.x-1.0-dev, 2016-07-14
+---------------------------------
+- Removed deprecated @file docblock as per [#2665992], [#2304909].
+
+GridStack 8.x-1.0-dev, 2016-06-10
+---------------------------------
+- Used blazy rather than lazy blazy for simplicity.
+
+GridStack 8.x-1.0-dev, 2016-04-24
+---------------------------------
+- #2704415 by gausarts, crantisz: Number of columns ignored.
+- #2704409 by crantisz: An error on saving.
+
+GridStack 8.x-1.0-dev, 2016-04-11
+---------------------------------
+- #2703665 by crantisz: An error on adding.
+
+GridStack 8.x-1.0-dev, 2016-04-03
+---------------------------------
+- Fixed for indefined index breakpoints.
+- Added composer.json.
+
+GridStack 8.x-1.0-dev, 2016-03-29
+---------------------------------
+- Fixed for $form['background'] being overriden.
+- Fixed for missing $settings['item_id'].
+
+GridStack 8.x-1.0-dev, 2016-03-28
+---------------------------------
+- Added the module files.
+- Initial commit.
+
+GridStack 8.x-1.0-dev, 2016-02-22
+---------------------------------
+- Initial WIP.

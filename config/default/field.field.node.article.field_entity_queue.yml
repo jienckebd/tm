@@ -1,0 +1,32 @@
+uuid: 2a851653-32ae-4735-947c-9949ee5b4be4
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.homepage_article
+    - field.storage.node.field_entity_queue
+    - node.type.article
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_entity_queue
+id: node.article.field_entity_queue
+field_name: field_entity_queue
+entity_type: node
+bundle: article
+label: 'Entity Queues'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 80e07c10-460e-4dbb-a304-8db7ad12dc9f
+default_value_callback: ''
+settings:
+  handler: 'default:entity_queue'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

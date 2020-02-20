@@ -1,0 +1,18 @@
+diff --git a/modules/mailchimp_lists/mailchimp_lists.module b/modules/mailchimp_lists/mailchimp_lists.module
+index 9da4b4b..368ebd4 100644
+--- a/modules/mailchimp_lists/mailchimp_lists.module
++++ b/modules/mailchimp_lists/mailchimp_lists.module
+@@ -65,13 +65,6 @@ function mailchimp_lists_form_field_storage_config_edit_form_alter(&$form, FormS
+   }
+ }
+ 
+-/**
+- * Implements hook_form_FORM_ID_alter().
+- */
+-function mailchimp_lists_form_field_config_edit_form_alter(&$form, FormStateInterface &$form_state, $form_id) {
+-  $form['default_value']['#weight'] = 99;
+-}
+-
+ /**
+  * Validation handler for mailchimp_lists_form_field_ui_field_edit_form.
+  *

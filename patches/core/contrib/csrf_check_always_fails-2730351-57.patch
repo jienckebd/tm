@@ -1,0 +1,302 @@
+diff --git a/core/core.services.yml b/core/core.services.yml
+index 40c6a8a..c867a10 100644
+--- a/core/core.services.yml
++++ b/core/core.services.yml
+@@ -1138,7 +1138,7 @@ services:
+     class: Drupal\Core\Access\CsrfAccessCheck
+     tags:
+       - { name: access_check, applies_to: _csrf_token, needs_incoming_request: TRUE }
+-    arguments: ['@csrf_token']
++    arguments: ['@csrf_token', '@session_configuration']
+   access_check.header.csrf:
+     class: Drupal\Core\Access\CsrfRequestHeaderAccessCheck
+     arguments: ['@session_configuration', '@csrf_token']
+@@ -1292,7 +1292,7 @@ services:
+     class: Drupal\Core\Access\RouteProcessorCsrf
+     tags:
+       - { name: route_processor_outbound }
+-    arguments: ['@csrf_token']
++    arguments: ['@csrf_token', '@session_configuration', '@request_stack']
+   transliteration:
+     class: Drupal\Core\Transliteration\PhpTransliteration
+     arguments: [null, '@module_handler']
+diff --git a/core/lib/Drupal/Core/Access/CsrfAccessCheck.php b/core/lib/Drupal/Core/Access/CsrfAccessCheck.php
+index 48e75ac..277cb21 100644
+--- a/core/lib/Drupal/Core/Access/CsrfAccessCheck.php
++++ b/core/lib/Drupal/Core/Access/CsrfAccessCheck.php
+@@ -4,6 +4,7 @@
+ 
+ use Drupal\Core\Routing\Access\AccessInterface as RoutingAccessInterface;
+ use Drupal\Core\Routing\RouteMatchInterface;
++use Drupal\Core\Session\SessionConfigurationInterface;
+ use Symfony\Component\Routing\Route;
+ use Symfony\Component\HttpFoundation\Request;
+ 
+@@ -24,13 +25,21 @@ class CsrfAccessCheck implements RoutingAccessInterface {
+   protected $csrfToken;
+ 
+   /**
++   * The Session configuration interface.
++   *
++   * @var \Drupal\Core\Session\SessionConfigurationInterface
++   */
++  protected $sessionConfiguration;
++
++  /**
+    * Constructs a CsrfAccessCheck object.
+    *
+    * @param \Drupal\Core\Access\CsrfTokenGenerator $csrf_token
+    *   The CSRF token generator.
+    */
+-  public function __construct(CsrfTokenGenerator $csrf_token) {
++  public function __construct(CsrfTokenGenerator $csrf_token, SessionConfigurationInterface $session_configuration) {
+     $this->csrfToken = $csrf_token;
++    $this->sessionConfiguration = $session_configuration;
+   }
+ 
+   /**
+@@ -54,7 +63,9 @@ public function access(Route $route, Request $request, RouteMatchInterface $rout
+       $path = str_replace("{{$param}}", $value, $path);
+     }
+ 
+-    if ($this->csrfToken->validate($request->query->get('token', ''), $path)) {
++    // Per https://www.drupal.org/node/2319205 anonymous users do not need
++    // CSRF checking.
++    if (!$this->sessionConfiguration->hasSession($request) || $this->csrfToken->validate($request->query->get('token'), $path)) {
+       $result = AccessResult::allowed();
+     }
+     else {
+diff --git a/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php b/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php
+index 9f2e7d4..69b4f90 100644
+--- a/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php
++++ b/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php
+@@ -5,6 +5,8 @@
+ use Drupal\Component\Utility\Crypt;
+ use Drupal\Core\Render\BubbleableMetadata;
+ use Drupal\Core\RouteProcessor\OutboundRouteProcessorInterface;
++use Drupal\Core\Session\SessionConfigurationInterface;
++use Symfony\Component\HttpFoundation\RequestStack;
+ use Symfony\Component\Routing\Route;
+ 
+ /**
+@@ -20,20 +22,38 @@ class RouteProcessorCsrf implements OutboundRouteProcessorInterface {
+   protected $csrfToken;
+ 
+   /**
++   * The Session configuration interface.
++   *
++   * @var \Drupal\Core\Session\SessionConfigurationInterface
++   */
++  protected $sessionConfiguration;
++
++  /**
++   * The Request stack.
++   *
++   * @var \Symfony\Component\HttpFoundation\RequestStack
++   */
++  protected $requestStack;
++
++  /**
+    * Constructs a RouteProcessorCsrf object.
+    *
+    * @param \Drupal\Core\Access\CsrfTokenGenerator $csrf_token
+    *   The CSRF token generator.
+    */
+-  public function __construct(CsrfTokenGenerator $csrf_token) {
++  public function __construct(CsrfTokenGenerator $csrf_token, SessionConfigurationInterface $session_configuration, RequestStack $request_stack) {
+     $this->csrfToken = $csrf_token;
++    $this->sessionConfiguration = $session_configuration;
++    $this->requestStack = $request_stack;
+   }
+ 
+   /**
+    * {@inheritdoc}
+    */
+   public function processOutbound($route_name, Route $route, array &$parameters, BubbleableMetadata $bubbleable_metadata = NULL) {
+-    if ($route->hasRequirement('_csrf_token')) {
++    // Per https://www.drupal.org/node/2319205 anonymous users do not need
++    // CSRF checking.
++    if ($route->hasRequirement('_csrf_token') && $this->sessionConfiguration->hasSession($this->requestStack->getCurrentRequest())) {
+       $path = ltrim($route->getPath(), '/');
+       // Replace the path parameters with values from the parameters array.
+       foreach ($parameters as $param => $value) {
+diff --git a/core/modules/menu_link_content/tests/src/Kernel/MenuLinkContentCacheabilityBubblingTest.php b/core/modules/menu_link_content/tests/src/Kernel/MenuLinkContentCacheabilityBubblingTest.php
+index c7689d9..9bddf40 100644
+--- a/core/modules/menu_link_content/tests/src/Kernel/MenuLinkContentCacheabilityBubblingTest.php
++++ b/core/modules/menu_link_content/tests/src/Kernel/MenuLinkContentCacheabilityBubblingTest.php
+@@ -53,6 +53,8 @@ public function testOutboundPathAndRouteProcessing() {
+     $request = Request::create('/');
+     $request->attributes->set(RouteObjectInterface::ROUTE_NAME, '<front>');
+     $request->attributes->set(RouteObjectInterface::ROUTE_OBJECT, new Route('/'));
++    // Fake a started session.
++    $request->cookies->add(['SESS' . substr(hash('sha256', $this->getDatabasePrefix()), 0, 32) => '']);
+     $request_stack->push($request);
+     $request_context->fromRequest($request);
+ 
+diff --git a/core/modules/system/src/Tests/Common/UrlTest.php b/core/modules/system/src/Tests/Common/UrlTest.php
+index d72f8e5..0748bb0 100644
+--- a/core/modules/system/src/Tests/Common/UrlTest.php
++++ b/core/modules/system/src/Tests/Common/UrlTest.php
+@@ -43,6 +43,9 @@ public function testLinkXSS() {
+    * Tests that #type=link bubbles outbound route/path processors' metadata.
+    */
+   public function testLinkBubbleableMetadata() {
++    // Fake a started session.
++    \Drupal::request()->cookies->add(['SESS' . substr(hash('sha256', $this->getDatabasePrefix()), 0, 32) => '']);
++
+     $cases = [
+       ['Regular link', 'internal:/user', [], ['contexts' => [], 'tags' => [], 'max-age' => Cache::PERMANENT], []],
+       ['Regular link, absolute', 'internal:/user', ['absolute' => TRUE], ['contexts' => ['url.site'], 'tags' => [], 'max-age' => Cache::PERMANENT], []],
+diff --git a/core/tests/Drupal/Tests/Core/Access/CsrfAccessCheckTest.php b/core/tests/Drupal/Tests/Core/Access/CsrfAccessCheckTest.php
+index edbbfba..a330314 100644
+--- a/core/tests/Drupal/Tests/Core/Access/CsrfAccessCheckTest.php
++++ b/core/tests/Drupal/Tests/Core/Access/CsrfAccessCheckTest.php
+@@ -31,9 +31,9 @@ class CsrfAccessCheckTest extends UnitTestCase {
+   /**
+    * The mock route match.
+    *
+-   * @var \Drupal\Core\RouteMatch\RouteMatchInterface|\PHPUnit_Framework_MockObject_MockObject
++   * @var \Drupal\Core\Session\SessionConfigurationInterface|\PHPUnit_Framework_MockObject_MockObject
+    */
+-  protected $routeMatch;
++  protected $sessionConfiguration;
+ 
+   protected function setUp() {
+     $this->csrfToken = $this->getMockBuilder('Drupal\Core\Access\CsrfTokenGenerator')
+@@ -42,13 +42,17 @@ protected function setUp() {
+ 
+     $this->routeMatch = $this->getMock('Drupal\Core\Routing\RouteMatchInterface');
+ 
+-    $this->accessCheck = new CsrfAccessCheck($this->csrfToken);
++    $this->sessionConfiguration = $this->getMock('Drupal\Core\Session\SessionConfigurationInterface');
++    $this->accessCheck = new CsrfAccessCheck($this->csrfToken, $this->sessionConfiguration);
+   }
+ 
+   /**
+    * Tests the access() method with a valid token.
+    */
+   public function testAccessTokenPass() {
++    $this->sessionConfiguration->expects($this->once())
++      ->method('hasSession')
++      ->willReturn(TRUE);
+     $this->csrfToken->expects($this->once())
+       ->method('validate')
+       ->with('test_query', 'test-path/42')
+@@ -65,6 +69,24 @@ public function testAccessTokenPass() {
+   }
+ 
+   /**
++   * Tests the access() method for anonymous users.
++   */
++  public function testAccessTokenAnonymousPass() {
++    $this->sessionConfiguration->expects($this->once())
++      ->method('hasSession')
++      ->willReturn(FALSE);
++    $this->routeMatch->expects($this->once())
++      ->method('getRawParameters')
++      ->will($this->returnValue(array('node' => 42)));
++
++    $route = new Route('/test-path/{node}', array(), array('_csrf_token' => 'TRUE'));
++    $request = Request::create('/test-path/42?token=test_query');
++    $this->csrfToken->expects($this->never())
++      ->method('validate');
++    $this->assertEquals(AccessResult::allowed()->setCacheMaxAge(0), $this->accessCheck->access($route, $request, $this->routeMatch));
++  }
++
++  /**
+    * @covers ::access
+    */
+   public function testCsrfTokenInvalid() {
+diff --git a/core/tests/Drupal/Tests/Core/Access/RouteProcessorCsrfTest.php b/core/tests/Drupal/Tests/Core/Access/RouteProcessorCsrfTest.php
+index 2fef35f..0a2acec 100644
+--- a/core/tests/Drupal/Tests/Core/Access/RouteProcessorCsrfTest.php
++++ b/core/tests/Drupal/Tests/Core/Access/RouteProcessorCsrfTest.php
+@@ -28,18 +28,36 @@ class RouteProcessorCsrfTest extends UnitTestCase {
+    */
+   protected $processor;
+ 
++  /**
++   * The Session configuration interface.
++   *
++   * @var \Drupal\Core\Session\SessionConfigurationInterface|\PHPUnit_Framework_MockObject_MockObject
++   */
++  protected $sessionConfiguration;
++
+   protected function setUp() {
+     $this->csrfToken = $this->getMockBuilder('Drupal\Core\Access\CsrfTokenGenerator')
+       ->disableOriginalConstructor()
+       ->getMock();
+ 
+-    $this->processor = new RouteProcessorCsrf($this->csrfToken);
++    $this->sessionConfiguration = $this->getMock('Drupal\Core\Session\SessionConfigurationInterface');
++    $request_stack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
++    // The number this is called differs between tests and is completely
++    // irrelevant, the sessionConfiguration mock object will have the exact
++    // number of calls.
++    $request_stack->expects($this->atMost(1))
++      ->method('getCurrentRequest')
++      ->willReturn($this->getMock('Symfony\Component\HttpFoundation\Request'));
++
++    $this->processor = new RouteProcessorCsrf($this->csrfToken, $this->sessionConfiguration, $request_stack);
+   }
+ 
+   /**
+  * Tests the processOutbound() method with no _csrf_token route requirement.
+  */
+   public function testProcessOutboundNoRequirement() {
++    $this->sessionConfiguration->expects($this->never())
++      ->method('hasSession');
+     $this->csrfToken->expects($this->never())
+       ->method('get');
+ 
+@@ -59,6 +77,9 @@ public function testProcessOutboundNoRequirement() {
+    * Tests the processOutbound() method with a _csrf_token route requirement.
+    */
+   public function testProcessOutbound() {
++    $this->sessionConfiguration->expects($this->once())
++      ->method('hasSession')
++      ->willReturn(TRUE);
+     $route = new Route('/test-path', [], ['_csrf_token' => 'TRUE']);
+     $parameters = [];
+ 
+@@ -78,9 +99,30 @@ public function testProcessOutbound() {
+   }
+ 
+   /**
++   * Tests the processOutbound() method for anonymous users.
++   */
++  public function testProcessOutboundForAnonymous() {
++    $this->sessionConfiguration->expects($this->once())
++      ->method('hasSession')
++      ->willReturn(FALSE);
++    $this->csrfToken->expects($this->never())
++      ->method('get');
++    $route = new Route('/test-path', array(), array('_csrf_token' => 'TRUE'));
++    $parameters = array();
++
++    $bubbleable_metadata = new BubbleableMetadata();
++    $this->processor->processOutbound('test', $route, $parameters, $bubbleable_metadata);
++    $this->assertEmpty($parameters);
++    $this->assertEquals((new BubbleableMetadata()), $bubbleable_metadata);
++  }
++
++  /**
+    * Tests the processOutbound() method with a dynamic path and one replacement.
+    */
+   public function testProcessOutboundDynamicOne() {
++    $this->sessionConfiguration->expects($this->once())
++      ->method('hasSession')
++      ->willReturn(TRUE);
+     $route = new Route('/test-path/{slug}', [], ['_csrf_token' => 'TRUE']);
+     $parameters = ['slug' => 100];
+ 
+@@ -100,6 +142,9 @@ public function testProcessOutboundDynamicOne() {
+    * Tests the processOutbound() method with two parameter replacements.
+    */
+   public function testProcessOutboundDynamicTwo() {
++    $this->sessionConfiguration->expects($this->once())
++      ->method('hasSession')
++      ->willReturn(TRUE);
+     $route = new Route('{slug_1}/test-path/{slug_2}', [], ['_csrf_token' => 'TRUE']);
+     $parameters = ['slug_1' => 100, 'slug_2' => 'test'];
+ 

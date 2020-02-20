@@ -1,0 +1,42 @@
+uuid: 2a673d64-9a60-4bc4-b3f4-3b81f366f90f
+langcode: en
+status: true
+dependencies: {  }
+id: autoref_content_tag
+label: 'Autoref: Content Tag'
+events:
+  -
+    event_name: 'rules_entity_presave:node'
+description: ''
+tags:
+  - autoref
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: d96b490a-f888-41d1-b905-eb0f5230535c
+  conditions:
+    id: rules_and
+    uuid: 19527a56-c4bc-464f-b2b9-c91175e56158
+    conditions: {  }
+  actions:
+    id: rules_action_set
+    uuid: 83a5ae29-e3a2-4177-a63d-6fc5b4cad538
+    actions:
+      -
+        id: rules_action
+        uuid: 75d4cd5d-072a-4386-bd98-b377b9f451dd
+        context_values:
+          matcher: ''
+          chained_entity_depth: '0'
+          cron_queue: ''
+        context_mapping:
+          entity: node
+        context_processors:
+          matcher:
+            rules_tokens: {  }
+          chained_entity_depth:
+            rules_tokens: {  }
+          cron_queue:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        action_id: autoref_set

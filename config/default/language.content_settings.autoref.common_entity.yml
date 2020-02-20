@@ -1,0 +1,11 @@
+uuid: 9e56ffca-23d3-430c-9b58-cf7823ad8206
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.common_entity
+id: autoref.common_entity
+target_entity_type_id: autoref
+target_bundle: common_entity
+default_langcode: site_default
+language_alterable: false

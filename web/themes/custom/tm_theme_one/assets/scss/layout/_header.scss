@@ -1,0 +1,378 @@
+// Header Main Menu
+//
+// Header menus styling for main nav
+//
+// Markup: header.twig
+//
+// Style guide: components.header
+
+#header-inner {
+  background-color: $black;
+  color: $white;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  left: 0;
+  right: 0;
+
+  .logo-animated {
+    padding-top: 6px;
+  }
+
+  &.active {
+    border-bottom: 4px solid $yellow;
+  }
+
+  @media (max-width: 990px) {
+    padding: 6px 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: 100%;
+    height: 64px;
+
+    #header-left {
+      width: 100%;
+    }
+  }
+}
+
+.logo-animated {
+  display: none;
+}
+
+.logo-small {
+  display: block;
+  margin: 0 auto;
+  max-width: 340px;
+
+  @media (max-width: 768px) {
+    max-width: 260px;
+    padding-top: 9px;
+  }
+}
+
+@media (min-width: 991px) {
+  .logo-animated {
+    display: block;
+  }
+
+  .logo-small {
+    display: none;
+  }
+}
+
+#header-top {
+  height: 52px;
+  overflow: hidden;
+}
+
+body:not(.header--hide) {
+  .page-wrapper {
+    padding-top: 80px;
+
+    @media (min-width: 990px) {
+      padding-top: 95px;
+    }
+  }
+}
+
+html body.header--hide #header-inner {
+  top: -100%;
+  transition: top 0.5s ease 0s;
+
+  &.active {
+    top: 0;
+  }
+
+  @media (max-width: 990px) {
+    top: 0;
+  }
+}
+
+body.header--hide {
+  @media (max-width: 990px) {
+    padding-top: 60px;
+  }
+}
+
+html body.header--hide #header.active #header-inner {
+  top: 0;
+}
+
+html body.adminimal-admin-toolbar.header--hide #header.active #header-inner {
+  top: 79px;
+}
+
+html body.adminimal-admin-toolbar:not(.header--hide) #header #header-inner {
+  top: 79px;
+}
+
+body.adminimal-admin-toolbar header#header {
+  @media (min-width: 990px) {
+    top: 79px;
+  }
+}
+
+body.frontpage .page-standard header#header {
+  @media (min-width: 990px) {
+    top: -100%;
+    transition: top 0.5s ease 0s;
+
+    &.active {
+      top: 0;
+    }
+  }
+}
+
+body.adminimal-admin-toolbar #pg__c header#header.active {
+  @media (min-width: 990px) {
+    top: 79px;
+  }
+}
+
+
+
+#header-menu {
+  float: right;
+}
+
+@media (max-width: 990px) {
+  #header-menu {
+    left: -100%;
+    transition: all 0.5s ease 0s;
+    background-color: transparent;
+    visibility: hidden;
+    width: 50%;
+
+    ul.navbar-nav li:last-child a:after {
+      border-left: none !important;
+    }
+  }
+  header.responsive {
+    #header-menu {
+      float: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.85);
+      visibility: visible;
+      padding-left: 60px;
+      padding-top: 20px;
+
+      li {
+        display: block;
+        width: 100%;
+      }
+
+      li a {
+        padding: 12px 35px;
+
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+#header-menu {
+  ul {
+    padding: 0;
+    margin: 0;
+
+    li:first-child a::before {
+      display: none;
+    }
+  }
+
+  li {
+    display: block;
+    list-style: none;
+
+    @media (min-width: 990px) {
+      display: inline-block;
+    }
+  }
+
+  a {
+    color: $white;
+    padding: 12px 15px 12px 0;
+    font-family: $mono_font;
+    font-size: 15px;
+    display: block;
+
+    @media (min-width: 990px) {
+      display: inline-block;
+    }
+
+    &:hover {
+      color: $yellow;
+      text-decoration: none;
+    }
+
+    &::before {
+      font-family: $font-family-icon;
+      content: "\f111";
+      padding-right: 20px;
+      font-size: 8px;
+      color: $white !important;
+      vertical-align: 2px;
+    }
+  }
+}
+
+#header-search-toggle {
+  display: none;
+
+  @media (min-width: 990px) {
+    display: block;
+    float: right;
+    cursor: pointer;
+    height: 54px;
+    text-align: center;
+    padding: 0 18px;
+    transition: all 0.5s ease 0s;
+    font-size: 1.2em;
+  }
+
+  &.active {
+    background-color: $yellow;
+    color: $gray-darker;
+  }
+
+  i {
+    padding-top: 18px;
+  }
+}
+
+#header-search-modal {
+  position: fixed;
+  top: -100%;
+  right: 0;
+  left: 0;
+  width: 80em;
+  z-index: 9;
+  background-color: rgba(30, 30, 30, 0.9);
+  transition: all 0.5s ease-out 0s;
+  height: 300px;
+  margin: 0 auto;
+
+  input.form-search {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    height: initial !important;
+    font-family: $mono_font;
+  }
+
+  input.form-submit {
+    display: none;
+  }
+
+  &.active {
+    top: 0;
+    height: 100%;
+  }
+}
+
+#header-search-modal-inner {
+  padding: 100px 50px 50px;
+  color: $white;
+}
+
+#header-mobile-toggle {
+  display: block;
+  position: fixed;
+  font-size: 2em;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 5px;
+  z-index: 9;
+  cursor: pointer;
+  top: 0;
+  right: initial;
+  transition: all 0.25s ease 0s;
+  left: 0;
+  width: 50px;
+  text-align: center;
+
+  @media (min-width: 990px) {
+    display: none;
+  }
+
+  &.active,
+  &:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+#header-mobile-search {
+  display: none;
+  padding-top: 20px;
+
+  input.form-search {
+    width: 100%;
+    padding: 15px 10px;
+    background-color: $gray-dark;
+    border-color: #000;
+    font-family: $mono_font;
+    transition: background-color 0.25s ease 0s;
+
+    &:focus {
+      background-color: $white;
+    }
+  }
+
+  button.form-submit {
+    display: none;
+  }
+
+  @media (min-width: 990px) {
+    display: none;
+  }
+}
+
+#header-mobile-search-inner {
+  padding: 0 10px;
+}
+
+#header-menu ul.navbar-nav {
+
+  li:last-child {
+    a {
+      width: 50px;
+
+      &:hover {
+        &:after {
+          border-color: $yellow;
+          background-color: #555;
+        }
+      }
+    }
+
+    a:after {
+      content: "\f002";
+      font-family: $font-family-icon;
+      color: #FFF;
+      font-size: 20px;
+      border-left: 1px solid #555;
+      height: 70px;
+      display: block;
+      position: absolute;
+      top: -5px;
+      padding: 15px 20px 15px 16px;
+      right: -10px;
+      transition: all 0.25s ease 0s;
+    }
+
+    a:before {
+      display: none;
+    }
+  }
+
+  li:last-child a {
+    font-size: 0;
+  }
+}

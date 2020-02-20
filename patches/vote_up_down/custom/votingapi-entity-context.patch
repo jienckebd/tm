@@ -1,0 +1,320 @@
+diff --git a/src/Controller/VotingApiController.php b/src/Controller/VotingApiController.php
+index b02b94a..36fdd01 100644
+--- a/src/Controller/VotingApiController.php
++++ b/src/Controller/VotingApiController.php
+@@ -27,12 +27,15 @@ class VotingApiController extends ControllerBase {
+    *  EntityTypeId of the referenced entity
+    * @param $vote_value
+    *  Value of vote to be stored.
++   * @param string $context_entity_type
++   *   The type of context entity.
++   * @param int $context_entity_id
++   *   The ID of the entity context.
+    * @param \Symfony\Component\HttpFoundation\Request $request
+    *
+    * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+    */
+-  public function vote($entity_id, $entity_type_id, $vote_value, Request $request) {
+-
++  public function vote($entity_id, $entity_type_id, $vote_value, $context_entity_type = NULL, $context_entity_id = NULL, Request $request) {
+     $entity = $this->entityTypeManager()
+       ->getStorage($entity_type_id)
+       ->load($entity_id);
+@@ -46,7 +49,10 @@ class VotingApiController extends ControllerBase {
+       $this->currentUser()->id(),
+       $voteTypeId,
+       $entity_type_id,
+-      $entity_id
++      $entity_id,
++      NULL,
++      $context_entity_type,
++      $context_entity_id
+     );
+ 
+     $this->entityTypeManager()
+@@ -54,6 +60,10 @@ class VotingApiController extends ControllerBase {
+       ->resetCache([$entity]);
+ 
+     $vote = Vote::create(['type' => $voteTypeId]);
++    if ($context_entity_type && $context_entity_id) {
++      $vote->setContextVotedEntityType($context_entity_type);
++      $vote->setContextVotedEntityId($context_entity_id);
++    }
+     $vote->setVotedEntityId($entity_id);
+     $vote->setVotedEntityType($entity_type_id);
+     $vote->setValueType($voteType->getValueType());
+@@ -88,11 +98,15 @@ class VotingApiController extends ControllerBase {
+    *  EntityId of the referenced entity
+    * @param $entity_type_id
+    *  EntityTypeId of the referenced entity
++   * @param string $context_entity_type
++   *   The type of context entity.
++   * @param int $context_entity_id
++   *   The ID of the entity context.
+    * @param \Symfony\Component\HttpFoundation\Request $request
+    *
+    * @return \Symfony\Component\HttpFoundation\JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse
+    */
+-  public function resetVote($entity_type_id, $entity_id, Request $request){
++  public function resetVote($entity_type_id, $entity_id, $context_entity_type = NULL, $context_entity_id = NULL, Request $request){
+     $entity = $this->entityTypeManager()
+       ->getStorage($entity_type_id)
+       ->load($entity_id);
+@@ -105,7 +119,10 @@ class VotingApiController extends ControllerBase {
+       $this->currentUser()->id(),
+       $voteTypeId,
+       $entity_type_id,
+-      $entity_id
++      $entity_id,
++      NULL,
++      $context_entity_type,
++      $context_entity_id
+     );
+ 
+     $this->entityTypeManager()
+diff --git a/src/Plugin/VoteUpDownWidgetBase.php b/src/Plugin/VoteUpDownWidgetBase.php
+index 4dcfc05..3729b10 100644
+--- a/src/Plugin/VoteUpDownWidgetBase.php
++++ b/src/Plugin/VoteUpDownWidgetBase.php
+@@ -56,6 +56,26 @@ abstract class VoteUpDownWidgetBase extends PluginBase implements VoteUpDownWidg
+    */
+   public function build($entity) {
+ 
++    $route_match = \Drupal::routeMatch();
++    $route_params = $route_match->getParameters();
++
++    $context_entity_type = $route_params->get('context_entity_type');
++    $context_entity_id = $route_params->get('context_entity_id');
++
++    if (!$context_entity_type || !$context_entity_id) {
++      $node = $route_params->get('node');
++      if (!empty($node)) {
++        $context_entity_id = $node->id();
++        $context_entity_type = 'node';
++      }
++    }
++
++    if (!$context_entity_type || !$context_entity_id) {
++      $request = \Drupal::request();
++      $context_entity_type = $request->request->get('context_entity_type');
++      $context_entity_id = $request->request->get('context_entity_id');
++    }
++
+     $vote_storage = \Drupal::service('entity.manager')->getStorage('vote');
+ 
+     $currentUser =  \Drupal::currentUser();
+@@ -66,18 +86,38 @@ abstract class VoteUpDownWidgetBase extends PluginBase implements VoteUpDownWidg
+     $module_handler = \Drupal::service('module_handler');
+     $module_path = $module_handler->getModule('vud')->getPath();
+ 
+-    $up_points = \Drupal::entityQuery('vote')
+-      ->condition('value', 1)
+-      ->condition('entity_type', $entityTypeId)
+-      ->condition('entity_id', $entityId)
+-      ->count()
+-      ->execute();
+-    $down_points = \Drupal::entityQuery('vote')
+-      ->condition('value', -1)
+-      ->condition('entity_type', $entityTypeId)
+-      ->condition('entity_id', $entityId)
+-      ->count()
+-      ->execute();
++    if ($context_entity_type && $context_entity_id) {
++      $up_points = \Drupal::entityQuery('vote')
++        ->condition('value', 1)
++        ->condition('entity_type', $entityTypeId)
++        ->condition('entity_id', $entityId)
++        ->condition('context_entity_type', $context_entity_type)
++        ->condition('context_entity_id', $context_entity_id)
++        ->count()
++        ->execute();
++      $down_points = \Drupal::entityQuery('vote')
++        ->condition('value', -1)
++        ->condition('entity_type', $entityTypeId)
++        ->condition('entity_id', $entityId)
++        ->condition('context_entity_type', $context_entity_type)
++        ->condition('context_entity_id', $context_entity_id)
++        ->count()
++        ->execute();
++    }
++    else {
++      $up_points = \Drupal::entityQuery('vote')
++        ->condition('value', 1)
++        ->condition('entity_type', $entityTypeId)
++        ->condition('entity_id', $entityId)
++        ->count()
++        ->execute();
++      $down_points = \Drupal::entityQuery('vote')
++        ->condition('value', -1)
++        ->condition('entity_type', $entityTypeId)
++        ->condition('entity_id', $entityId)
++        ->count()
++        ->execute();
++    }
+ 
+     $points = $up_points - $down_points;
+     $unsigned_points = $up_points + $down_points;
+@@ -114,29 +154,62 @@ abstract class VoteUpDownWidgetBase extends PluginBase implements VoteUpDownWidg
+         $currentUser->id(),
+         $vote_type,
+         $entityTypeId,
+-        $entityId
++        $entityId,
++        NULL,
++        $context_entity_type,
++        $context_entity_id
+       );
+ 
+-      $variables += [
+-        '#link_up' => Url::fromRoute('vud.vote', [
+-          'entity_type_id' => $entityTypeId,
+-          'entity_id' => $entityId,
+-          'vote_value' => 1,
+-        ]),
+-        '#link_down' => Url::fromRoute('vud.vote', [
+-          'entity_type_id' => $entityTypeId,
+-          'entity_id' => $entityId,
+-          'vote_value' => -1,
+-        ]),
+-        '#link_reset' => Url::fromRoute('vud.reset', [
+-          'entity_type_id' => $entityTypeId,
+-          'entity_id' => $entityId,
+-        ]),
+-        '#show_reset' => TRUE,
+-        '#reset_long_text' => t('Reset your vote'),
+-        '#reset_short_text' => t('(reset)'),
+-        '#link_class_reset' => 'reset element-invisible',
+-      ];
++      if ($context_entity_type && $context_entity_id) {
++        $variables += [
++          '#link_up' => Url::fromRoute('vud.vote.context', [
++            'entity_type_id' => $entityTypeId,
++            'entity_id' => $entityId,
++            'context_entity_type' => $context_entity_type,
++            'context_entity_id' => $context_entity_id,
++            'vote_value' => 1,
++          ]),
++          '#link_down' => Url::fromRoute('vud.vote.context', [
++            'entity_type_id' => $entityTypeId,
++            'entity_id' => $entityId,
++            'context_entity_type' => $context_entity_type,
++            'context_entity_id' => $context_entity_id,
++            'vote_value' => -1,
++          ]),
++          '#link_reset' => Url::fromRoute('vud.reset.context', [
++            'entity_type_id' => $entityTypeId,
++            'entity_id' => $entityId,
++            'context_entity_type' => $context_entity_type,
++            'context_entity_id' => $context_entity_id,
++          ]),
++          '#show_reset' => TRUE,
++          '#reset_long_text' => t('Reset your vote'),
++          '#reset_short_text' => t('(reset)'),
++          '#link_class_reset' => 'reset element-invisible',
++        ];
++      }
++      else {
++        $variables += [
++          '#link_up' => Url::fromRoute('vud.vote', [
++            'entity_type_id' => $entityTypeId,
++            'entity_id' => $entityId,
++            'vote_value' => 1,
++          ]),
++          '#link_down' => Url::fromRoute('vud.vote', [
++            'entity_type_id' => $entityTypeId,
++            'entity_id' => $entityId,
++            'vote_value' => -1,
++          ]),
++          '#link_reset' => Url::fromRoute('vud.reset', [
++            'entity_type_id' => $entityTypeId,
++            'entity_id' => $entityId,
++          ]),
++          '#show_reset' => TRUE,
++          '#reset_long_text' => t('Reset your vote'),
++          '#reset_short_text' => t('(reset)'),
++          '#link_class_reset' => 'reset element-invisible',
++        ];
++      }
+ 
+       if($user_votes_current_entity != NULL){
+         $user_vote_id = (int)array_values($user_votes_current_entity)[0];
+@@ -167,7 +240,14 @@ abstract class VoteUpDownWidgetBase extends PluginBase implements VoteUpDownWidg
+         $variables['#class_down'] = 'down inactive';
+       }
+     }
++
++    $variables['#link_class_up'] .= ' use-ajax ajax--wrapper';
++    $variables['#link_class_down'] .= ' use-ajax ajax--wrapper';
++    $variables['#link_class_reset'] .= ' use-ajax ajax--wrapper';
++
++    $variables['#id'] = VoteUpDownWidgetManager::widgetWrapperId($entityTypeId, $entityId, $context_entity_type, $context_entity_id);
++
+     return $variables;
+   }
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/src/Plugin/VoteUpDownWidgetManager.php b/src/Plugin/VoteUpDownWidgetManager.php
+index 811a4df..0e9a225 100644
+--- a/src/Plugin/VoteUpDownWidgetManager.php
++++ b/src/Plugin/VoteUpDownWidgetManager.php
+@@ -5,6 +5,7 @@ namespace Drupal\vud\Plugin;
+ use Drupal\Core\Plugin\DefaultPluginManager;
+ use Drupal\Core\Cache\CacheBackendInterface;
+ use Drupal\Core\Extension\ModuleHandlerInterface;
++use Drupal\Component\Utility\Html;
+ 
+ /**
+  * Provides the Vote Up/Down widget plugin manager.
+@@ -29,4 +30,21 @@ class VoteUpDownWidgetManager extends DefaultPluginManager {
+     $this->setCacheBackend($cache_backend, 'vud_widget_plugins');
+   }
+ 
++  /**
++   * @param $entity_type
++   * @param $entity_id
++   * @param null $context_entity_type
++   * @param null $context_entity_id
++   * @return string
++   */
++  public static function widgetWrapperId($entity_type, $entity_id, $context_entity_type = NULL, $context_entity_id = NULL) {
++    if ($context_entity_type && $context_entity_id) {
++      $id = "vud-widget-entity-{$entity_type}-{$entity_id}-{$context_entity_type}-{$context_entity_id}";
++    }
++    else {
++      $id = "vud-widget-entity-{$entity_type}-{$entity_id}";
++    }
++    return $id;
++  }
++
+ }
+diff --git a/vud.routing.yml b/vud.routing.yml
+index 0d31115..bb13908 100644
+--- a/vud.routing.yml
++++ b/vud.routing.yml
+@@ -26,3 +26,24 @@ vud.reset:
+     entity_type_id: ^[A-z]+
+     entity_id: ^[0-9_]+
+     _csrf_token: 'TRUE'
++
++vud.vote.context:
++  path: /vote/{entity_type_id}/{entity_id}/{context_entity_type}/{context_entity_id}/{vote_value}
++  defaults:
++    _controller: \Drupal\vud\Controller\VotingApiController::vote
++  requirements:
++    _custom_access: \Drupal\vud\Controller\VotingApiController::voteAccess
++    entity_type_id: ^[A-z]+
++    entity_id: ^[0-9_]+
++    vote_value: ^[-]?1+
++    _csrf_token: 'TRUE'
++
++vud.reset.context:
++  path: /votereset/{entity_type_id}/{entity_id}/{context_entity_type}/{context_entity_id}
++  defaults:
++    _controller: \Drupal\vud\Controller\VotingApiController::resetVote
++  requirements:
++    _custom_access: \Drupal\vud\Controller\VotingApiController::resetVoteAccess
++    entity_type_id: ^[A-z]+
++    entity_id: ^[0-9_]+
++    _csrf_token: 'TRUE'

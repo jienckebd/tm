@@ -1,0 +1,23 @@
+uuid: 3ea19c73-d0a8-423c-aa0b-1e9ae64ad4a8
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.storage.block_content.field_label_highlight
+id: block_content.basic.field_label_highlight
+field_name: field_label_highlight
+entity_type: block_content
+bundle: basic
+label: 'Highlight Label'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

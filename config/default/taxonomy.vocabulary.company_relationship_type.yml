@@ -1,0 +1,8 @@
+uuid: a1c00810-0d52-4b0a-84e6-3676f610ba3a
+langcode: en
+status: true
+dependencies: {  }
+name: 'Company Relationship Type'
+vid: company_relationship_type
+description: ''
+weight: 0

@@ -1,0 +1,9 @@
+uuid: 0f932b7c-4c4a-4fc1-b502-4d2a299d917e
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_entity_type.doc
+name: Internal
+type: internal
+description: ''

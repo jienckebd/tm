@@ -1,0 +1,40 @@
+uuid: d69faac0-b79b-421b-918e-9d0d19e01f2c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+name: taxonomy_admin_all
+label: 'Term: Admin: All'
+group: admin
+description: ''
+requireAllConditions: false
+disabled: false
+conditions:
+  request_path:
+    id: request_path
+    pages: '/admin/structure/taxonomy/manage/*/overview'
+    negate: 0
+    uuid: 787e613b-f58f-4819-ae2d-75dc7b7555c4
+    context_mapping: {  }
+reactions:
+  blocks:
+    blocks:
+      20d9350d-6637-48df-a628-d1f0c22070ea:
+        id: 'views_exposed_filter_block:term_admin-page_1'
+        label: ''
+        provider: views
+        label_display: 0
+        views_label: ''
+        context_mapping: {  }
+        region: sidebar_first
+        theme: tm_theme_admin
+        css_class: ''
+        unique: 0
+        context_id: taxonomy_admin_all
+        uuid: 20d9350d-6637-48df-a628-d1f0c22070ea
+    id: blocks
+    saved: false
+    uuid: a93ece8f-b189-49be-8ea2-f1d78e4f23e1
+    include_default_blocks: 1
+weight: 0

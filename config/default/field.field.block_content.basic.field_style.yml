@@ -1,0 +1,21 @@
+uuid: cb874efc-81f2-415a-94af-c4b3fc7a5ba5
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.storage.block_content.field_style
+  module:
+    - options
+id: block_content.basic.field_style
+field_name: field_style
+entity_type: block_content
+bundle: basic
+label: Style
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

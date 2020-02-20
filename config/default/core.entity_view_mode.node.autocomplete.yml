@@ -1,0 +1,14 @@
+uuid: df9dd3ca-05d1-47d1-865a-94a46ad1e61c
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - node
+third_party_settings:
+  lightning_core:
+    description: ''
+id: node.autocomplete
+label: Autocomplete
+targetEntityType: node
+cache: true

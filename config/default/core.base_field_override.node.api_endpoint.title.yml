@@ -1,0 +1,18 @@
+uuid: 2f2485b7-0f59-422b-b254-e48c0e5ffc9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.api_endpoint
+id: node.api_endpoint.title
+field_name: title
+entity_type: node
+bundle: api_endpoint
+label: Title
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

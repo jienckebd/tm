@@ -1,0 +1,7 @@
+uuid: 17b402ed-90e4-40c7-8f57-dfb1d8e998bb
+langcode: en
+status: true
+dependencies: {  }
+formId: node_event_modal_form
+captchaType: captcha/Math
+label: node_event_modal_form

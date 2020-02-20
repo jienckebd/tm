@@ -1,0 +1,29 @@
+cache.clear.start:
+  all: true
+
+config.delete.action:
+  - system.action.media_delete_action
+  - system.action.media_publish_action
+  - system.action.media_save_action
+  - system.action.media_unpublish_action
+
+database.update.main:
+  entity_update: true
+
+install.module.field_permissions:
+  - field_permissions
+
+install.module.cn_core:
+  - cn_core
+
+config.import.main:
+  all: true
+
+install.module.sys_core:
+  - sys_core
+
+function.exec.post_deploy:
+  - '\Drupal::service("deploy.internal")->postDeploy()'
+
+cache.clear.end:
+  all: true

@@ -1,0 +1,18 @@
+uuid: ec086c06-fc2d-44a2-87fe-9338b70bd67e
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.internal
+id: doc.internal.changed
+field_name: changed
+entity_type: doc
+bundle: internal
+label: Changed
+description: 'The time that the entity was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

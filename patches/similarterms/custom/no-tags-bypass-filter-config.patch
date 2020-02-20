@@ -1,0 +1,51 @@
+diff --git a/src/Plugin/views/argument/SimilarTermsArgument.php b/src/Plugin/views/argument/SimilarTermsArgument.php
+index 9d0a0a9..7935ed5 100644
+--- a/src/Plugin/views/argument/SimilarTermsArgument.php
++++ b/src/Plugin/views/argument/SimilarTermsArgument.php
+@@ -68,6 +68,7 @@ class SimilarTermsArgument extends NumericArgument implements ContainerFactoryPl
+     $options = parent::defineOptions();
+     $options['vocabularies'] = array('default' => array());
+     $options['include_args'] = array('default' => FALSE);
++    $options['no_tags_bypass_filter'] = array('default' => FALSE);
+ 
+     return $options;
+   }
+@@ -99,6 +100,13 @@ class SimilarTermsArgument extends NumericArgument implements ContainerFactoryPl
+       '#description' => $this->t('If selected, the node(s) passed as the argument will be included in the view results.'),
+       '#default_value' => !empty($this->options['include_args']),
+     );
++
++    $form['no_tags_bypass_filter'] = array(
++      '#type' => 'checkbox',
++      '#title' => $this->t('Bypass filter if the passed content has no tags'),
++      '#description' => $this->t('If there are no tags for the passed content, the filter will not be applied.'),
++      '#default_value' => !empty($this->options['no_tags_bypass_filter']),
++    );
+   }
+ 
+   /**
+@@ -134,7 +142,9 @@ class SimilarTermsArgument extends NumericArgument implements ContainerFactoryPl
+     $this->view->tids = $this->tids;
+ 
+     if (count($this->tids) == 0) {
+-      return FALSE;
++      if ($this->options['no_tags_bypass_filter'] != TRUE) {
++        return FALSE;
++      }
+     }
+ 
+     return TRUE;
+@@ -146,8 +156,11 @@ class SimilarTermsArgument extends NumericArgument implements ContainerFactoryPl
+   public function query() {
+     $this->ensureMyTable();
+ 
+-    $this->query->addTable('taxonomy_index', NULL, NULL, 'similarterms_taxonomy_index');
+-    $this->query->addWhere(0, "similarterms_taxonomy_index.tid", $this->tids, 'IN');
++    $tids = $this->tids;
++    if (!empty($tids) && ($this->options['no_tags_bypass_filter'] !== TRUE)) {
++      $this->query->addTable('taxonomy_index', NULL, NULL, 'similarterms_taxonomy_index');
++      $this->query->addWhere(0, "similarterms_taxonomy_index.tid", $tids, 'IN');
++    }
+ 
+     // Exclude the current node(s)
+     if (empty($this->options['include_args'])) {

@@ -1,0 +1,82 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for \Drupal\node\NodeForm.
+ *
+ * Changes vertical tabs to container and adds meta information.
+ * Code borrowed from Seven theme.
+ */
+function tm_theme_admin_form_node_form_alter(&$form, FormStateInterface $form_state) {
+  $form['#theme'] = ['entity_form'];
+  $node = $form_state->getFormObject()->getEntity();
+  $form['advanced']['#type'] = 'container';
+  $is_new = !$node->isNew() ? format_date($node->getChangedTime(), 'short') : t('Not saved yet');
+  $form['meta'] = [
+    '#attributes' => ['class' => ['entity-meta__header']],
+    '#type'       => 'container',
+    '#group'      => 'advanced',
+    '#weight'     => -100,
+    'published'   => [
+      '#type'       => 'html_tag',
+      '#tag'        => 'h3',
+      '#value'      => $node->isPublished() ? t('Published') : t('Not published'),
+      '#access'     => !$node->isNew(),
+      '#attributes' => [
+        'class' => 'entity-meta__title',
+      ],
+    ],
+    'changed'     => [
+      '#type'               => 'item',
+      '#wrapper_attributes' => [
+        'class' => [
+          'entity-meta__last-saved',
+          'container-inline',
+        ],
+      ],
+      '#markup'             => '<h4 class="label inline">' . t('Last saved') . '</h4> ' . $is_new,
+    ],
+    'author'      => [
+      '#type'               => 'item',
+      '#wrapper_attributes' => [
+        'class' => [
+          'author',
+          'container-inline',
+        ],
+      ],
+      '#markup'             => '<h4 class="label inline">' . t('Author') . '</h4> ' . $node->getOwner()
+          ->getUsername(),
+    ],
+  ];
+  $form['revision_information']['#type'] = 'container';
+  $form['revision_information']['#group'] = 'meta';
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function tm_theme_admin_preprocess_html(&$variables) {
+  // Add information about the number of sidebars.
+  if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+    $variables['attributes']['class'][] = 'layout-two-sidebars';
+  }
+  elseif (!empty($variables['page']['sidebar_first'])) {
+    $variables['attributes']['class'][] = 'layout-one-sidebar';
+    $variables['attributes']['class'][] = 'layout-sidebar-first';
+  }
+  elseif (!empty($variables['page']['sidebar_second'])) {
+    $variables['attributes']['class'][] = 'layout-one-sidebar';
+    $variables['attributes']['class'][] = 'layout-sidebar-second';
+  }
+  else {
+    $variables['attributes']['class'][] = 'layout-no-sidebars';
+  }
+
+  if (!empty($variables['page']['featured_top'])) {
+    $variables['attributes']['class'][] = 'has-featured-top';
+  }
+
+}

@@ -1,0 +1,122 @@
+uuid: 2212460e-db0a-40fa-9411-440a9d44a7ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds_crawler.type.default
+    - field.field.feeds_crawler.default.field_selector
+  module:
+    - entity_browser_entity_form
+    - field_group
+    - inline_entity_form
+third_party_settings:
+  field_group:
+    group_general_settings:
+      children:
+        - field_selector
+        - weight
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'General Settings'
+    group_advanced:
+      children:
+        - label
+        - uid
+        - created
+        - status
+      parent_name: ''
+      weight: 3
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: false
+        required_fields: true
+      label: Advanced
+    group_child_crawlers:
+      children:
+        - children
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        label: 'Child Crawlers'
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Child Crawlers'
+id: feeds_crawler.default.default
+targetEntityType: feeds_crawler
+bundle: default
+mode: default
+content:
+  children:
+    type: inline_entity_form_complex
+    weight: 1
+    region: content
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: _none
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_selector:
+    weight: 4
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  label:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+      match_limit: 10
+    region: content
+    third_party_settings: {  }
+  weight:
+    type: number
+    weight: 5
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  langcode: true

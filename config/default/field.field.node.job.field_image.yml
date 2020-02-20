@@ -1,0 +1,28 @@
+uuid: 4c6ce736-f2f7-4a5d-a284-e8ff92c6d5ae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - media.type.image
+    - node.type.job
+id: node.job.field_image
+field_name: field_image
+entity_type: node
+bundle: job
+label: Image
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

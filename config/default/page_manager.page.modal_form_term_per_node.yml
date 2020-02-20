@@ -1,0 +1,20 @@
+uuid: 99539f8a-532b-4a5d-879b-8132d2847ec7
+langcode: en
+status: true
+dependencies: {  }
+id: modal_form_term_per_node
+label: 'Modal: Form: Term per node'
+description: ''
+use_admin_theme: false
+path: '/system/form/{taxonomy_term}/{node}'
+access_logic: and
+access_conditions: {  }
+parameters:
+  taxonomy_term:
+    machine_name: taxonomy_term
+    type: 'entity:taxonomy_term'
+    label: ''
+  node:
+    machine_name: node
+    type: 'entity:node'
+    label: ''

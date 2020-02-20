@@ -1,0 +1,131 @@
+uuid: 0c2dd0f6-1c89-4a46-8c41-25a236fb1e76
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.original
+    - field.field.media.image.field_autoref
+    - field.field.media.image.field_content
+    - field.field.media.image.field_default
+    - field.field.media.image.field_height
+    - field.field.media.image.field_media_image
+    - field.field.media.image.field_summary
+    - field.field.media.image.field_tags
+    - field.field.media.image.field_width
+    - media.type.image
+  module:
+    - blazy
+    - cn_core
+    - empty_fields
+    - fico
+    - field_formatter_class
+id: media.image.original
+targetEntityType: media
+bundle: image
+mode: original
+content:
+  field_media_image:
+    type: blazy
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      thumbnail_style: ''
+      responsive_image_style: ''
+      media_switch: ''
+      ratio: ''
+      sizes: ''
+      breakpoints:
+        xs:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        sm:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        md:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        lg:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        xl:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+      current_view_mode: original
+      background: false
+      caption:
+        title: '0'
+        alt: '0'
+      iframe_lazy: true
+      icon: ''
+      layout: ''
+      view_mode: ''
+      cache: 0
+      optionset: default
+      skin: ''
+      style: ''
+      box_caption: ''
+      box_caption_custom: ''
+      box_style: ''
+      box_media_style: ''
+      grid: 0
+      grid_header: ''
+      grid_medium: 0
+      grid_small: 0
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+hidden:
+  created: true
+  field_autoref: true
+  field_content: true
+  field_default: true
+  field_height: true
+  field_summary: true
+  field_tags: true
+  field_width: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

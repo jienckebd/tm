@@ -1,0 +1,108 @@
+uuid: 254f1df1-2779-470e-9914-ee0af3cb1087
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.entity_browser
+    - field.field.node.company.field_address
+    - field.field.node.company.field_company_type
+    - field.field.node.company.field_content
+    - field.field.node.company.field_icon
+    - field.field.node.company.field_image
+    - field.field.node.company.field_meta_tags
+    - field.field.node.company.field_partner
+    - field.field.node.company.field_rel_type
+    - field.field.node.company.field_social_share
+    - field.field.node.company.field_summary
+    - field.field.node.company.field_tags
+    - field.field.node.company.panelizer
+    - node.type.company
+  module:
+    - ds
+    - empty_fields
+    - field_formatter_class
+    - panelizer
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: ds_2col_stacked
+      library: ds/ds_2col_stacked
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        wrappers:
+          header: div
+          left: div
+          right: div
+          footer: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        classes:
+          layout_class:
+            image-saturate: image-saturate
+          header: {  }
+          left: {  }
+          right: {  }
+          footer: {  }
+    regions:
+      header:
+        - field_image
+      footer:
+        - node_title
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.company.entity_browser
+targetEntityType: node
+bundle: company
+mode: entity_browser
+content:
+  field_image:
+    type: entity_reference_entity_view
+    weight: 0
+    region: header
+    label: hidden
+    settings:
+      view_mode: thumbnail_small
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: ''
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_address: true
+  field_company_type: true
+  field_content: true
+  field_icon: true
+  field_meta_tags: true
+  field_partner: true
+  field_rel_type: true
+  field_social_share: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  links: true
+  panelizer: true
+  status: true

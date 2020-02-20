@@ -1,0 +1,14 @@
+uuid: 381d846d-8ada-46e6-94ce-2c769d42e939
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - node
+third_party_settings:
+  lightning_core:
+    description: ''
+id: node.entity_browser
+label: 'Entity Browser'
+targetEntityType: node
+cache: true

@@ -1,0 +1,11 @@
+uuid: c37b4b69-77f0-42ca-82af-4055a6a73ef9
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.string_match
+id: autoref.string_match
+target_entity_type_id: autoref
+target_bundle: string_match
+default_langcode: site_default
+language_alterable: false

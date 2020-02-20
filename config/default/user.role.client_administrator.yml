@@ -1,0 +1,60 @@
+uuid: bff227b9-09dc-4dae-86b7-7978cb819690
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+third_party_settings:
+  lightning_core:
+    description: ''
+id: client_administrator
+label: 'Client Administrator'
+weight: 28
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access company_browser entity browser pages'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access document_browser entity browser pages'
+  - 'access files overview'
+  - 'access image_browser entity browser pages'
+  - 'access image_browser_modal entity browser pages'
+  - 'access in-place editing'
+  - 'access media overview'
+  - 'access media_browser entity browser pages'
+  - 'access profile overview'
+  - 'access shortcuts'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'administer blocks'
+  - 'administer disqus'
+  - 'administer media'
+  - 'administer nodes'
+  - 'administer profile'
+  - 'administer taxonomy'
+  - 'administer users'
+  - 'bypass node access'
+  - 'create media'
+  - 'create url aliases'
+  - 'delete all revisions'
+  - 'delete any media'
+  - 'delete media'
+  - 'display disqus comments on profile'
+  - 'dropzone upload files'
+  - 'manipulate all entityqueues'
+  - 'manipulate entityqueues'
+  - 'revert all revisions'
+  - 'toggle disqus comments'
+  - 'update any media'
+  - 'update media'
+  - 'use menu link attributes'
+  - 'use text format rich_text'
+  - 'view all revisions'
+  - 'view any profile'
+  - 'view disqus comments'
+  - 'view media'
+  - 'view own profile'
+  - 'view own unpublished content'
+  - 'view the administration theme'

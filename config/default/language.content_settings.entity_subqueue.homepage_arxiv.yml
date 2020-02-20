@@ -1,0 +1,11 @@
+uuid: bf6f25f8-2840-46e9-8a6b-f07e9b28bb3d
+langcode: en
+status: true
+dependencies:
+  config:
+    - entityqueue.entity_queue.homepage_arxiv
+id: entity_subqueue.homepage_arxiv
+target_entity_type_id: entity_subqueue
+target_bundle: homepage_arxiv
+default_langcode: site_default
+language_alterable: false

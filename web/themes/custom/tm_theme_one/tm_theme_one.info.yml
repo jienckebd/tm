@@ -1,0 +1,39 @@
+name: Talking Machines Theme One
+description: An extension of Radix.
+screenshot: screenshot.png
+# core: 8.x
+# version: VERSION
+engine: twig
+type: theme
+base theme: radix
+
+regions:
+  navbar_branding: 'Navbar branding'
+  navbar_left:  'Navbar left'
+  navbar_right: 'Navbar right'
+  highlight: 'Highlighted'
+  sidebar_left:  'Sidebar Left'
+  sidebar_right:  'Sidebar Right'
+  content: Content
+  footer: Footer
+
+libraries:
+  - tm_theme_one/base
+  - tm_theme_one/generic
+  - tm_theme_one/fonts
+  - tm_theme_one/art19
+  - tm_theme_one/ajax
+  - tm_theme_one/waypoints
+  - tm_theme_one/webcomponentsjs
+  - tm_theme_one/font-awesome
+  - tm_theme_one/gtm-event-handler
+
+libraries-override:
+  radix/bootstrap: false
+  radix/style: false
+
+# Information added by Drupal.org packaging script on 2017-02-02
+version: '8.x-3.1'
+core: '8.x'
+project: 'radix'
+datestamp: 1486028890

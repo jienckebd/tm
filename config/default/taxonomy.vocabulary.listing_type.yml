@@ -1,0 +1,8 @@
+uuid: 69b0ed06-43cc-4334-86fb-176e56d133af
+langcode: en
+status: true
+dependencies: {  }
+name: 'Listing Type Event'
+vid: listing_type
+description: ''
+weight: 0

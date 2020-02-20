@@ -1,0 +1,20 @@
+uuid: 2df1ca93-4161-4b2a-8eeb-5a4215f78ddc
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.default
+id: doc.default.uid
+field_name: uid
+entity_type: doc
+bundle: default
+label: 'Authored by'
+description: 'The username of the entity author.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: default
+  handler_settings: {  }
+field_type: entity_reference

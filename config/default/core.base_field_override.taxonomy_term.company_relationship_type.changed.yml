@@ -1,0 +1,18 @@
+uuid: 5bddbd73-9d78-4b01-b3f3-65cc29122a24
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.company_relationship_type
+id: taxonomy_term.company_relationship_type.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: company_relationship_type
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

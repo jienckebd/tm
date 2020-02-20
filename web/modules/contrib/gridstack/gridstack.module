@@ -1,0 +1,119 @@
+<?php
+
+/**
+ * @file
+ * Provides GridStack integration to have multi-column grids with drag-and-drop.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function gridstack_theme() {
+  $themes = [];
+  foreach (['gridstack', 'box', 'admin', 'dummy'] as $item) {
+    $key = $item == 'gridstack' ? $item : 'gridstack_' . $item;
+    $themes[$key] = [
+      'render element' => 'element',
+      'file' => 'templates/gridstack.theme.inc',
+    ];
+  }
+  return $themes;
+}
+
+/**
+ * Implements hook_library_info_build().
+ */
+function gridstack_library_info_build() {
+  $path = drupal_get_path('module', 'gridstack');
+  $libraries = [];
+  if ($skins = \Drupal::service('gridstack.manager')->getSkins()) {
+    foreach ($skins as $key => $skin) {
+      $provider = isset($skin['provider']) ? $skin['provider'] : 'gridstack';
+      $id = $provider . '.' . $key;
+      if (isset($skin['css']) && is_array($skin['css'])) {
+        $libraries[$id]['css'] = $skin['css'];
+      }
+      if (isset($skin['js']) && is_array($skin['js'])) {
+        $libraries[$id]['js'] = $skin['js'];
+      }
+    }
+  }
+
+  foreach (range(1, 12) as $key) {
+    $libraries['gridstack.' . $key] = [
+      'css' => [
+        'layout' => ['css/layout/grid-stack-' . $key . '.css' => []],
+      ],
+    ];
+  }
+  return $libraries;
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function gridstack_field_formatter_info_alter(array &$info) {
+  // Supports Media Entity via VEM within VEF if available.
+  if (function_exists('video_embed_media_media_bundle_insert')) {
+    $info['gridstack_file'] = [
+      'id'          => 'gridstack_file',
+      'label'       => t('GridStack Image with Media'),
+      'description' => t('Display the images associated to VEM/ME as a simple mix of GridStack image/video.'),
+      'class'       => 'Drupal\gridstack\Plugin\Field\FieldFormatter\GridStackFileFormatter',
+      'field_types' => ['entity_reference', 'image'],
+      'quickedit'   => ['editor' => 'disabled'],
+      'provider'    => 'gridstack',
+    ];
+
+    $info['gridstack_media'] = [
+      'id'          => 'gridstack_media',
+      'label'       => t('GridStack Media'),
+      'description' => t('Display the VEM/ME as a simple mix of GridStack image/video.'),
+      'class'       => 'Drupal\gridstack\Plugin\Field\FieldFormatter\GridStackMediaFormatter',
+      'field_types' => ['entity_reference'],
+      'quickedit'   => ['editor' => 'disabled'],
+      'provider'    => 'gridstack',
+    ];
+  }
+
+  if (function_exists('paragraphs_theme')) {
+    $info['gridstack_paragraphs'] = [
+      'id'          => 'gridstack_paragraphs',
+      'label'       => t('GridStack Paragraphs'),
+      'description' => t('Display the Paragraphs as a GridStack.'),
+      'class'       => 'Drupal\gridstack\Plugin\Field\FieldFormatter\GridStackParagraphsFormatter',
+      'field_types' => ['entity_reference_revisions'],
+      'quickedit'   => ['editor' => 'disabled'],
+      'provider'    => 'gridstack',
+    ];
+  }
+}
+
+/**
+ * Implements hook_hook_info().
+ */
+function gridstack_hook_info() {
+  $hooks['gridstack_skins_info'] = ['group' => 'gridstack'];
+  return $hooks;
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function gridstack_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'gridstack' && function_exists('libraries_get_path')) {
+    $libraries['gridstack']['js'] = ['/' . libraries_get_path('gridstack') . '/dist/gridstack.min.js' => []];
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function gridstack_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.gridstack':
+      return check_markup(file_get_contents(dirname(__FILE__) . '/README.txt'));
+  }
+}

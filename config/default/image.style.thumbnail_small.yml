@@ -1,0 +1,26 @@
+uuid: 599ff0d5-effb-4880-80cd-0237733c3a40
+langcode: en
+status: true
+dependencies:
+  config:
+    - crop.type.focal_point
+  module:
+    - crop
+    - focal_point
+name: thumbnail_small
+label: 'Thumbnail Small'
+effects:
+  781acfd6-3376-4391-84dc-b715a33b3dc1:
+    uuid: 781acfd6-3376-4391-84dc-b715a33b3dc1
+    id: focal_point_scale_and_crop
+    weight: -9
+    data:
+      width: 240
+      height: 150
+      crop_type: focal_point
+  5bb0e7b4-9b9a-4bec-9d14-d0703369a5d2:
+    uuid: 5bb0e7b4-9b9a-4bec-9d14-d0703369a5d2
+    id: crop_crop
+    weight: -10
+    data:
+      crop_type: focal_point

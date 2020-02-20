@@ -1,0 +1,23 @@
+uuid: cce74126-4c66-4196-80db-75924ae7a458
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.job_alert
+id: contact_message.job_alert.default
+targetEntityType: contact_message
+bundle: job_alert
+mode: default
+content:
+  mail:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  copy: true
+  langcode: true
+  message: true
+  name: true
+  preview: true
+  subject: true

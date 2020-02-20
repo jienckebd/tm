@@ -1,0 +1,32 @@
+display_variant.plugin.panels_variant:
+  type: ctools.block_display_variant
+  label: 'Panels display variant'
+  mapping:
+    page_title:
+      type: label
+      label: 'Page title'
+    layout:
+      type: string
+      label: Layout
+    layout_settings:
+      type: layout_plugin.settings.[%parent.layout]
+      label: Layout settings
+    builder:
+      type: string
+      label: Builder
+    storage_type:
+      type: string
+      label: Storage type
+    storage_id:
+      type: string
+      label: Storage Id
+    css_classes:
+      type: string
+      label: The string of the block's classes
+    css_id:
+      type: string
+      label: The id of the block
+    css_styles:
+      type: text
+      label: The inline styles of the block
+

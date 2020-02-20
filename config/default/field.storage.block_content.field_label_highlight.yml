@@ -1,0 +1,18 @@
+uuid: 7e2e7cf6-fa4d-4cf0-89bd-815857ead56e
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.field_label_highlight
+field_name: field_label_highlight
+entity_type: block_content
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

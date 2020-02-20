@@ -1,0 +1,37 @@
+uuid: d5fc8a79-aeb2-4bca-b909-dc53624a5c50
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_author
+    - node.type.podcast
+    - paragraphs.paragraphs_type.author
+  module:
+    - entity_reference_revisions
+id: node.podcast.field_author
+field_name: field_author
+entity_type: node
+bundle: podcast
+label: Author
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      author: author
+    target_bundles_drag_drop:
+      author:
+        enabled: true
+        weight: 4
+      code:
+        weight: 5
+        enabled: false
+      copy:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

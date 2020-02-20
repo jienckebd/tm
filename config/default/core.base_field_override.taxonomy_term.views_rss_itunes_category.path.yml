@@ -1,0 +1,20 @@
+uuid: 76f845b0-b439-45a2-99ee-7ab61749e790
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.views_rss_itunes_category
+  module:
+    - path
+id: taxonomy_term.views_rss_itunes_category.path
+field_name: path
+entity_type: taxonomy_term
+bundle: views_rss_itunes_category
+label: 'URL alias'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: path

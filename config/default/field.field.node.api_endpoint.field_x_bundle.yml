@@ -1,0 +1,23 @@
+uuid: 17b345a4-8086-4bc7-9743-6c2ff389269f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_x_bundle
+    - node.type.api_endpoint
+id: node.api_endpoint.field_x_bundle
+field_name: field_x_bundle
+entity_type: node
+bundle: api_endpoint
+label: 'Content Types'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node_type'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,100 @@
+uuid: d248ac63-e1b4-44f1-b07d-2ffff914a000
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_browser
+    - field.field.media.image.field_autoref
+    - field.field.media.image.field_content
+    - field.field.media.image.field_default
+    - field.field.media.image.field_height
+    - field.field.media.image.field_media_image
+    - field.field.media.image.field_summary
+    - field.field.media.image.field_tags
+    - field.field.media.image.field_width
+    - image.style.thumbnail_small
+    - media.type.image
+  module:
+    - autocomplete_deluxe
+    - field_group
+    - image_widget_crop
+third_party_settings:
+  field_group:
+    group_images:
+      children:
+        - name
+        - field_tags
+        - field_default
+        - field_media_image
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        label: 'Configure Image'
+        open: true
+        required_fields: true
+        id: ''
+        classes: ''
+      label: 'Configure Image'
+id: media.image.media_browser
+targetEntityType: media
+bundle: image
+mode: media_browser
+content:
+  field_default:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_media_image:
+    type: image_widget_crop
+    weight: 4
+    region: content
+    settings:
+      show_default_crop: true
+      preview_image_style: thumbnail_small
+      crop_preview_image_style: crop_thumbnail
+      crop_list:
+        - focal_point
+      progress_indicator: throbber
+      show_crop_area: false
+      warn_multiple_usages: false
+    third_party_settings: {  }
+  field_tags:
+    type: autocomplete_deluxe
+    weight: 2
+    region: content
+    settings:
+      limit: '10'
+      min_length: '0'
+      delimiter: ''
+      not_found_message: 'The term ''@term'' will be added'
+      new_terms: '1'
+      not_found_message_allow: 0
+      match_operator: CONTAINS
+      autocomplete_route_name: autocomplete_deluxe.autocomplete
+      target_type: taxonomy_term
+      size: 60
+      selection_handler: default
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_autoref: true
+  field_content: true
+  field_height: true
+  field_summary: true
+  field_width: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

@@ -1,0 +1,26 @@
+{
+  "name": "tm_theme_one",
+  "description": "A theme based on Radix.",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "includes",
+    "kits",
+    "node_modules",
+    "templates",
+    "*.json",
+    "*.js",
+    "*.png",
+    "*.inc",
+    "*.info",
+    "*.md",
+    "*.php"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "juicy-ace-editor": "^2.0.4",
+    "document-register-element": "^1.7.0"
+  }
+}

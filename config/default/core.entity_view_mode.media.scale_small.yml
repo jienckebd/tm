@@ -1,0 +1,14 @@
+uuid: 069dffcd-d08d-49e3-97d8-3c273a866192
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - media
+third_party_settings:
+  lightning_core:
+    description: ''
+id: media.scale_small
+label: 'Scale Small'
+targetEntityType: media
+cache: true

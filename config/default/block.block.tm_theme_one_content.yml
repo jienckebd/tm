@@ -1,0 +1,22 @@
+uuid: e1310c15-2b4b-4758-bf7c-1d284ddd1d75
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - tm_theme_one
+_core:
+  default_config_hash: 9EoWV2Lot6FVSr50t4hoKgiz1LIXYWNG-IIPYsWxBqo
+id: tm_theme_one_content
+theme: tm_theme_one
+region: content
+weight: -1
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

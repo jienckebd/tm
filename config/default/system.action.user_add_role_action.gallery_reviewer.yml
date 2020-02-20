@@ -1,0 +1,14 @@
+uuid: 9a35e099-5a42-445e-98a6-4d6283b25473
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.gallery_reviewer
+  module:
+    - user
+id: user_add_role_action.gallery_reviewer
+label: 'Add the Gallery reviewer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: gallery_reviewer

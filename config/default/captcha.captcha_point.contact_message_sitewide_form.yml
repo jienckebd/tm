@@ -1,0 +1,7 @@
+uuid: ca178929-98d5-4c7e-9901-76b1cdf05a30
+langcode: en
+status: true
+dependencies: {  }
+formId: contact_message_sitewide_form
+captchaType: captcha/Math
+label: contact_message_sitewide_form

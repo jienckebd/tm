@@ -1,0 +1,22 @@
+uuid: 9f604392-c3e6-49e2-9437-94d655a1c177
+langcode: en
+status: true
+dependencies:
+  module:
+    - autoref
+    - field_permissions
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: autoref.field_entity_label
+field_name: field_entity_label
+entity_type: autoref
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

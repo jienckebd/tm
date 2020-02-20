@@ -1,0 +1,18 @@
+uuid: 8049943b-18b0-45f3-a8f2-77dfdcdc829c
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.podcast_season
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: taxonomy_term.podcast_season
+target_entity_type_id: taxonomy_term
+target_bundle: podcast_season
+default_langcode: site_default
+language_alterable: false

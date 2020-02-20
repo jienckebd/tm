@@ -1,0 +1,96 @@
+diff --git a/config/schema/views_ajax_history.schema.yml b/config/schema/views_ajax_history.schema.yml
+new file mode 100644
+index 000000000..d471ed53f
+--- /dev/null
++++ b/config/schema/views_ajax_history.schema.yml
+@@ -0,0 +1,6 @@
++views.display_extender.views_ajax_history:
++  type: views_display_extender
++  mapping:
++    history:
++      type: Boolean
++      label: 'Use ajax history'
+diff --git a/src/Plugin/views/display_extender/ViewsAjax.php b/src/Plugin/views/display_extender/ViewsAjax.php
+new file mode 100644
+index 000000000..395eb9681
+--- /dev/null
++++ b/src/Plugin/views/display_extender/ViewsAjax.php
+@@ -0,0 +1,63 @@
++<?php
++
++namespace Drupal\views_ajax_history\Plugin\views\display_extender;
++
++use Drupal\Core\Form\FormStateInterface;
++use Drupal\views\Plugin\views\display_extender\DisplayExtenderPluginBase;
++
++/**
++ * Defines a display extender for views_ajax_history.
++ *
++ * @ViewsDisplayExtender(
++ *   id = "views_ajax_history",
++ *   title = @Translation("Views ajax history")
++ * )
++ */
++class ViewsAjax extends DisplayExtenderPluginBase {
++
++  /**
++   * {@inheritdoc}
++   */
++  protected function defineOptions() {
++    $options = parent::defineOptions();
++
++    $options['history'] = ['default' => TRUE];
++
++    return $options;
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
++    parent::buildOptionsForm($form, $form_state);
++
++    if ($form_state->get('section') === 'use_ajax') {
++      $form['history'] = [
++        '#type' => 'checkbox',
++        '#title' => $this->t('Use ajax history'),
++        '#default_value' => $this->options['history'],
++      ];
++    }
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function submitOptionsForm(&$form, FormStateInterface $form_state) {
++    parent::submitOptionsForm($form, $form_state);
++    switch ($form_state->get('section')) {
++      case 'use_ajax':
++        $this->options['history'] = $form_state->getValue('history');
++        break;
++    }
++  }
++
++  /**
++   * {@inheritdoc}
++   */
++  public function defaultableSections(&$sections, $section = NULL) {
++    $sections['history'] = ['history'];
++  }
++
++}
+diff --git a/views_ajax_history.module b/views_ajax_history.module
+index d335bdaea..34b57f6b0 100644
+--- a/views_ajax_history.module
++++ b/views_ajax_history.module
+@@ -11,7 +11,9 @@
+  * Implements hook_views_pre_render().
+  */
+ function views_ajax_history_views_pre_render(ViewExecutable $view) {
+-  if ($view->ajaxEnabled() && empty($view->is_attachment) && empty($view->live_preview)) {
++  if ($view->ajaxEnabled() && empty($view->is_attachment) && empty($view->live_preview) &&
++    !empty($view->display_handler->getExtenders()['views_ajax_history']) && $view->display_handler->getExtenders()['views_ajax_history']->options['history']
++  ) {
+     // @TODO add option to views form for html4+html5 or html5 only
+     $view->element['#attached']['library'][] = 'views_ajax_history/history';
+     $view->element['#attached']['drupalSettings']['viewsAjaxHistory'] = ['renderPageItem' => pager_find_page()];

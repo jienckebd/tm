@@ -1,0 +1,14 @@
+uuid: 6bd3fdb4-0de9-434b-aeea-9b355f09b4a4
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - node
+third_party_settings:
+  lightning_core:
+    description: ''
+id: node.related
+label: Related
+targetEntityType: node
+cache: true

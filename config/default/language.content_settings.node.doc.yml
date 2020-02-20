@@ -1,0 +1,18 @@
+uuid: cffd95f9-30c4-4c84-8518-6ca011cd33a3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.doc
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: false
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+id: node.doc
+target_entity_type_id: node
+target_bundle: doc
+default_langcode: site_default
+language_alterable: false

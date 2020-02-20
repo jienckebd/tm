@@ -1,0 +1,147 @@
+uuid: 7d4fbc23-d8ff-43be-bb4b-8cc3938b8c52
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.landing_page.field_content
+    - field.field.node.landing_page.field_hide_header
+    - field.field.node.landing_page.field_image
+    - field.field.node.landing_page.field_meta_tags
+    - field.field.node.landing_page.field_summary
+    - field.field.node.landing_page.field_tags
+    - field.field.node.landing_page.panelizer
+    - node.type.landing_page
+  module:
+    - cn_core
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - panelizer
+    - smart_trim
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: radix_brenham
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      sidebar:
+        - field_image
+      contentmain:
+        - node_title
+        - field_summary
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 1
+        label: hidden
+        formatter: default
+        settings:
+          link: true
+          wrapper: h3
+          class: ''
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+_core:
+  default_config_hash: xijQrKwUeO-kPfuEz8O-5ENVTENA6wApi7MKGjcirL4
+id: node.landing_page.search_index
+targetEntityType: node
+bundle: landing_page
+mode: search_index
+content:
+  field_image:
+    type: entity_reference_entity_view
+    weight: 0
+    region: sidebar
+    label: hidden
+    settings:
+      view_mode: square_small
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: ''
+  field_summary:
+    weight: 2
+    label: hidden
+    settings:
+      trim_length: 300
+      trim_type: chars
+      trim_suffix: ...
+      wrap_class: trimmed
+      more_text: More
+      more_class: more-link
+      wrap_output: false
+      more_link: false
+      trim_options:
+        text: false
+        trim_zero: false
+      summary_handler: full
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+    type: smart_trim
+    region: contentmain
+  workbench_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_content: true
+  field_hide_header: true
+  field_meta_tags: true
+  field_tags: true
+  langcode: true
+  links: true
+  panelizer: true
+  status: true
+  title: true

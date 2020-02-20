@@ -1,0 +1,29 @@
+uuid: 2bc27a2d-63ab-409f-b490-ca9ff9a6353f
+langcode: en
+status: true
+dependencies:
+  config:
+    - autoref.type.string_match
+    - field.storage.autoref.field_entity_label
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_entity_label
+id: autoref.string_match.field_entity_label
+field_name: field_entity_label
+entity_type: autoref
+bundle: string_match
+label: 'Entity Label'
+description: 'Check the entity label as a matching string.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

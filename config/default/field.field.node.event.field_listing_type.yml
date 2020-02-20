@@ -1,0 +1,32 @@
+uuid: 4eeb4bac-f676-473f-9fdb-54b31478bc64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_listing_type
+    - node.type.event
+    - taxonomy.vocabulary.listing_type
+  content:
+    - 'taxonomy_term:listing_type:ca9a0a7d-4bcb-46d3-8ce6-2d6450134967'
+id: node.event.field_listing_type
+field_name: field_listing_type
+entity_type: node
+bundle: event
+label: 'Listing Type'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: ca9a0a7d-4bcb-46d3-8ce6-2d6450134967
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      listing_type: listing_type
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

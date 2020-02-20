@@ -1,0 +1,8 @@
+uuid: cabed014-89e5-4ae0-9ff2-627943a2d6ce
+langcode: en
+status: true
+dependencies: {  }
+name: 'Listing Type Job'
+vid: listing_type_job
+description: ''
+weight: 0

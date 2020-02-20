@@ -1,0 +1,18 @@
+uuid: eb39e081-c2a8-42a6-8a77-42940660eb66
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.internal
+id: doc.internal.title
+field_name: title
+entity_type: doc
+bundle: internal
+label: Title
+description: 'The title of the entity.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

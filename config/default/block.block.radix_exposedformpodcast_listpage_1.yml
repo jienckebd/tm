@@ -1,0 +1,26 @@
+uuid: 7f14dee6-7ff1-498d-8591-94f68ba6f242
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - radix
+id: radix_exposedformpodcast_listpage_1
+theme: radix
+region: navbar_branding
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:podcast_list-page_1'
+settings:
+  id: 'views_exposed_filter_block:podcast_list-page_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: /podcasts
+    negate: false
+    context_mapping: {  }

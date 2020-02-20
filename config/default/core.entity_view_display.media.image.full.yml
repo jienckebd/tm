@@ -1,0 +1,101 @@
+uuid: 82bacea0-6f5b-45cc-aaed-d1fc6f878562
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.full
+    - field.field.media.image.field_autoref
+    - field.field.media.image.field_content
+    - field.field.media.image.field_default
+    - field.field.media.image.field_height
+    - field.field.media.image.field_media_image
+    - field.field.media.image.field_summary
+    - field.field.media.image.field_tags
+    - field.field.media.image.field_width
+    - media.type.image
+  module:
+    - blazy
+    - empty_fields
+    - fico
+    - field_formatter_class
+id: media.image.full
+targetEntityType: media
+bundle: image
+mode: full
+content:
+  field_media_image:
+    type: blazy
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      image_style: ''
+      thumbnail_style: ''
+      responsive_image_style: ''
+      media_switch: ''
+      ratio: ''
+      sizes: ''
+      breakpoints:
+        xs:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        sm:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        md:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        lg:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+        xl:
+          image_style: ''
+          width: ''
+          breakpoint: ''
+      current_view_mode: full
+      background: false
+      caption:
+        title: '0'
+        alt: '0'
+      iframe_lazy: true
+      icon: ''
+      layout: ''
+      view_mode: ''
+      cache: 0
+      optionset: default
+      skin: ''
+      style: ''
+      box_caption: ''
+      box_caption_custom: ''
+      box_style: ''
+      box_media_style: ''
+      grid: 0
+      grid_header: ''
+      grid_medium: 0
+      grid_small: 0
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+hidden:
+  created: true
+  field_autoref: true
+  field_content: true
+  field_default: true
+  field_height: true
+  field_summary: true
+  field_tags: true
+  field_width: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

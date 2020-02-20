@@ -1,0 +1,23 @@
+uuid: 1c360291-f9b9-4d6e-8a5c-cc99e4f8c977
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_academic_conference
+    - node.type.event
+id: node.event.field_academic_conference
+field_name: field_academic_conference
+entity_type: node
+bundle: event
+label: 'Academic Conference'
+description: 'Discounts are available to academic conferences. Standard listings are free and featured listings cost $200.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

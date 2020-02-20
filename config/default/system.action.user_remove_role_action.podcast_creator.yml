@@ -1,0 +1,14 @@
+uuid: c151a8c7-63d5-4ee5-8186-b8b039179e45
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.podcast_creator
+  module:
+    - user
+id: user_remove_role_action.podcast_creator
+label: 'Remove the Podcast creator role from the selected users'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: podcast_creator

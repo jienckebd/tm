@@ -1,0 +1,21 @@
+uuid: 8951b535-4577-4236-9af4-e9a1e391ca08
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    submit_text: 'Sign me up!'
+    show_preview: false
+    disabled_form_message: 'This contact form has been disabled.'
+    maximum_submissions_user: 0
+    page_autoreply_format: plain_text
+id: newsletter_signup
+label: 'Newsletter Signup'
+recipients:
+  - thetalkingmachines@gmail.com
+reply: ''
+weight: 0
+message: ''
+redirect: ''

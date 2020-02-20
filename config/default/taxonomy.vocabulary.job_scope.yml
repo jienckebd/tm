@@ -1,0 +1,8 @@
+uuid: abab320d-ca60-4b7d-b423-4eb9e5b0fb1a
+langcode: en
+status: true
+dependencies: {  }
+name: 'Job Scope'
+vid: job_scope
+description: ''
+weight: 0

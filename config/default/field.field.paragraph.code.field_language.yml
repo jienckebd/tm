@@ -1,0 +1,28 @@
+uuid: 6bf30609-2586-4a12-b686-9f84553e3ee4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_language
+    - paragraphs.paragraphs_type.code
+    - taxonomy.vocabulary.language
+id: paragraph.code.field_language
+field_name: field_language
+entity_type: paragraph
+bundle: code
+label: Language
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      language: language
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

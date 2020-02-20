@@ -1,0 +1,28 @@
+uuid: 31223159-3ff9-462d-a956-93a77a0e1ebd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_duration
+    - node.type.podcast
+  module:
+    - duration_field
+id: node.podcast.field_duration
+field_name: field_duration
+entity_type: node
+bundle: podcast
+label: Duration
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  granularity:
+    hour: true
+    minute: true
+    second: true
+    year: false
+    month: false
+    day: false
+field_type: duration

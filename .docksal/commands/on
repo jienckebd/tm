@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Starting the system..."
+
+docker-sync start &&
+fin up
+
+echo "Finished starting the system..."

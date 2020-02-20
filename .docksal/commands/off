@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Stopping the system..."
+
+fin stop &&
+docker-sync stop
+
+echo "Finished stopping the system..."
+

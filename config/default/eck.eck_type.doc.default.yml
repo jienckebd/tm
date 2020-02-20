@@ -1,0 +1,9 @@
+uuid: aa66885b-eed3-4dbd-a5d1-ccb37ed8e1b2
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_entity_type.doc
+name: Default
+type: default
+description: ''

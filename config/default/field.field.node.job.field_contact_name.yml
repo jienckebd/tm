@@ -1,0 +1,19 @@
+uuid: 012dc5a0-774c-404d-b1dd-8f845c9e519e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contact_name
+    - node.type.job
+id: node.job.field_contact_name
+field_name: field_contact_name
+entity_type: node
+bundle: job
+label: Name
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

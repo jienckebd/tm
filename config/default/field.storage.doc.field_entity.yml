@@ -1,0 +1,25 @@
+uuid: 05b7f18a-2a09-40e1-abfb-73301909cae7
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+    - dynamic_entity_reference
+    - eck
+    - node
+id: doc.field_entity
+field_name: field_entity
+entity_type: doc
+type: dynamic_entity_reference
+settings:
+  exclude_entity_types: false
+  entity_type_ids:
+    node: node
+    block_content: block_content
+module: dynamic_entity_reference
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

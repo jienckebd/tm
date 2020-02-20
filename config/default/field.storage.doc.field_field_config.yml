@@ -1,0 +1,19 @@
+uuid: c7e02be8-1b28-4a91-b64b-673778b7d574
+langcode: en
+status: true
+dependencies:
+  module:
+    - eck
+id: doc.field_field_config
+field_name: field_field_config
+entity_type: doc
+type: entity_reference
+settings:
+  target_type: field_config
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

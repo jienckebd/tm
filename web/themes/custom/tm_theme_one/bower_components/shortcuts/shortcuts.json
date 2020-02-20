@@ -1,0 +1,43 @@
+{
+  "common": {
+    "current": {
+      "shortcut": "f9",
+      "label": "Current shortcuts",
+      "description": "See shortcuts available on this screen"
+    },
+    "shortcuthelp": {
+      "shortcut": "/",
+      "label": "Shortcut help",
+      "description": "See all shortcuts. This is limited to your current area, for example: Decision Support"
+    },
+    "help": {
+      "shortcut": "h",
+      "label": "Help",
+      "description": "Display Help for the current screen"
+    }
+  },
+  "chart": {
+    "daily": {
+      "shortcut": "d",
+      "label": "Show daily",
+      "description": "Show daily interval for charts"
+    },
+    "decision": {
+      "shortcut": "i",
+      "label": "Show intraday",
+      "description": "Show intraday interval for charts"
+    }
+  },
+  "trade": {
+    "action": {
+      "shortcut": "b",
+      "label": "Buy",
+      "description": "Buy the current scrip in chart"
+    },
+    "back": {
+      "shortcut": "s",
+      "label": "Sell",
+      "description": "Sell the current scrip"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+diff --git a/realname.module b/realname.module
+index c0051b8..d893255 100644
+--- a/realname.module
++++ b/realname.module
+@@ -114,7 +114,7 @@ function realname_user_delete(EntityInterface $account) {
+  * Implements hook_ENTITY_TYPE_view() for user entities.
+  */
+ function realname_user_view(array &$build, EntityInterface $account, EntityViewDisplayInterface $display, $view_mode) {
+-  if ($display->getComponent('realname')) {
++  if ($realname_component = $display->getComponent('realname')) {
+     if ($account->access('view')) {
+       $url = Url::fromRoute('entity.user.canonical', ['user' => $account->id()]);
+       $markup = Link::fromTextAndUrl($account->realname, $url)->toString();
+@@ -126,7 +126,7 @@ function realname_user_view(array &$build, EntityInterface $account, EntityViewD
+     $build['realname'] = [
+       '#theme' => 'field',
+       '#title' => t('Real name'),
+-      '#label_display' => 'inline',
++      '#label_display' => !empty($realname_component['label']) ? $realname_component['label'] : 'inline',
+       '#view_mode' => '_custom',
+       '#field_name' => 'realname',
+       '#field_type' => 'text',
+@@ -245,6 +245,11 @@ function realname_update(User $account) {
+   // Allow modules to react to the realname being updated.
+   \Drupal::moduleHandler()->invokeAll('realname_update', [$realname, $account]);
+ 
++  // Only if the real name is a non-empty string the name is altered.
++  if (Unicode::strlen($realname)) {
++    $account->setUsername($realname);
++  }
++
+   // Clear the entity cache.
+   /** @var \Drupal\user\UserStorageInterface $user_storage */
+   $user_storage = \Drupal::getContainer()->get('entity.manager')->getStorage('user');

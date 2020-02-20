@@ -1,0 +1,49 @@
+uuid: a656fee8-dbfb-42e8-b1ee-f7bff881e5b6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.doc.field_content
+    - field.field.paragraph.doc.field_image
+    - field.field.paragraph.doc.field_links
+    - field.field.paragraph.doc.field_name
+    - paragraphs.paragraphs_type.doc
+  module:
+    - link
+    - text
+id: paragraph.doc.default
+targetEntityType: paragraph
+bundle: doc
+mode: default
+content:
+  field_content:
+    weight: 1
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+    region: content
+  field_links:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_name:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  created: true
+  field_image: true
+  status: true
+  uid: true

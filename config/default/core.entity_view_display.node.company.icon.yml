@@ -1,0 +1,87 @@
+uuid: 5c0c0794-c3b3-4498-99cc-be34ce526736
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.icon
+    - field.field.node.company.field_address
+    - field.field.node.company.field_company_type
+    - field.field.node.company.field_content
+    - field.field.node.company.field_icon
+    - field.field.node.company.field_image
+    - field.field.node.company.field_meta_tags
+    - field.field.node.company.field_partner
+    - field.field.node.company.field_rel_type
+    - field.field.node.company.field_social_share
+    - field.field.node.company.field_summary
+    - field.field.node.company.field_tags
+    - field.field.node.company.panelizer
+    - node.type.company
+  module:
+    - ds
+    - empty_fields
+    - font_field_icon
+    - panelizer
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: ds_1col_wrapper
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        wrappers:
+          ds_content: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+        classes:
+          layout_class: {  }
+          ds_content: {  }
+    regions:
+      ds_content:
+        - field_icon
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.company.icon
+targetEntityType: node
+bundle: company
+mode: icon
+content:
+  field_icon:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      empty_fields:
+        handler: nbsp
+    type: FontFieldIconShowFormatter
+    region: ds_content
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_address: true
+  field_company_type: true
+  field_content: true
+  field_image: true
+  field_meta_tags: true
+  field_partner: true
+  field_rel_type: true
+  field_social_share: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  links: true
+  panelizer: true
+  status: true

@@ -1,0 +1,15 @@
+uuid: 40a0e007-0bd9-4e67-84ee-53a70d791284
+langcode: en
+status: true
+dependencies: {  }
+name: scale_small
+label: 'Scale Small'
+effects:
+  d5c3f8f9-5824-453b-8732-cd3ae7059518:
+    uuid: d5c3f8f9-5824-453b-8732-cd3ae7059518
+    id: image_scale
+    weight: 1
+    data:
+      width: 200
+      height: 200
+      upscale: false

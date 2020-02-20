@@ -1,0 +1,18 @@
+uuid: 0faf33ff-b543-4324-9b7e-614d1995d0d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.job_scope
+id: taxonomy_term.job_scope.name
+field_name: name
+entity_type: taxonomy_term
+bundle: job_scope
+label: Name
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

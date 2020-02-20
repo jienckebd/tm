@@ -1,0 +1,41 @@
+uuid: 3a2d9462-25df-4953-b719-fc909e8f2f91
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_content
+    - media.type.video
+  module:
+    - entity_reference_revisions
+id: media.video.field_content
+field_name: field_content
+entity_type: media
+bundle: video
+label: Content
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles: null
+    target_bundles_drag_drop:
+      author:
+        weight: 6
+        enabled: false
+      auto_reference:
+        weight: 7
+        enabled: false
+      code:
+        weight: 8
+        enabled: false
+      copy:
+        weight: 9
+        enabled: false
+      doc:
+        weight: 10
+        enabled: false
+field_type: entity_reference_revisions

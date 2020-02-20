@@ -1,0 +1,51 @@
+diff --git a/core/misc/dialog/dialog.position.js b/core/misc/dialog/dialog.position.js
+index 7ff530f..fbe76a0 100644
+--- a/core/misc/dialog/dialog.position.js
++++ b/core/misc/dialog/dialog.position.js
+@@ -17,24 +17,28 @@
+     var adjustedValue = void 0;
+     for (var n = 0; n < positionOptions.length; n++) {
+       option = positionOptions[n];
+-      optionValue = event.data.settings[option];
+-      if (optionValue) {
+-        if (typeof optionValue === 'string' && /%$/.test(optionValue) && /height/i.test(option)) {
+-          windowHeight -= displace.offsets.top + displace.offsets.bottom;
+-          adjustedValue = parseInt(0.01 * parseInt(optionValue, 10) * windowHeight, 10);
++      if (event.data !== null && typeof event.data !== 'undefined') {
++        optionValue = event.data.settings[option];
++        if (optionValue) {
++          if (typeof optionValue === 'string' && /%$/.test(optionValue) && /height/i.test(option)) {
++            windowHeight -= displace.offsets.top + displace.offsets.bottom;
++            adjustedValue = parseInt(0.01 * parseInt(optionValue, 10) * windowHeight, 10);
+ 
+-          if (option === 'height' && event.data.$element.parent().outerHeight() < adjustedValue) {
+-            adjustedValue = 'auto';
++            if (option === 'height' && event.data.$element.parent().outerHeight() < adjustedValue) {
++              adjustedValue = 'auto';
++            }
++            adjustedOptions[option] = adjustedValue;
+           }
+-          adjustedOptions[option] = adjustedValue;
+         }
+       }
+     }
+ 
+-    if (!event.data.settings.modal) {
+-      adjustedOptions = resetPosition(adjustedOptions);
++    if (event.data !== null && typeof event.data !== 'undefined') {
++      if (!event.data.settings.modal) {
++        adjustedOptions = resetPosition(adjustedOptions);
++      }
++      event.data.$element.dialog('option', adjustedOptions).trigger('dialogContentResize');
+     }
+-    event.data.$element.dialog('option', adjustedOptions).trigger('dialogContentResize');
+   }
+ 
+   function resetPosition(options) {
+@@ -66,4 +70,4 @@
+       $(document).off('.dialogResize');
+     }
+   });
+-})(jQuery, Drupal, drupalSettings, Drupal.debounce, Drupal.displace);
+\ No newline at end of file
++})(jQuery, Drupal, drupalSettings, Drupal.debounce, Drupal.displace);

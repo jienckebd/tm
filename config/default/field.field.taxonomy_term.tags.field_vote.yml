@@ -1,0 +1,23 @@
+uuid: bff97bed-f404-42cf-9a00-86f7d2376a6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_vote
+    - taxonomy.vocabulary.tags
+  module:
+    - vud
+id: taxonomy_term.tags.field_vote
+field_name: field_vote
+entity_type: taxonomy_term
+bundle: tags
+label: Vote
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: null
+default_value_callback: ''
+settings: {  }
+field_type: vote_up_down_field

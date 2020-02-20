@@ -1,0 +1,18 @@
+uuid: 7489f5a6-cd80-4d1a-a01f-d2a0d38a4abf
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.podcast_category
+id: taxonomy_term.podcast_category.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: podcast_category
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

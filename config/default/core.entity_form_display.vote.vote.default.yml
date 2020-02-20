@@ -1,0 +1,12 @@
+uuid: 98583bfe-14df-4139-b9a3-006e80365f0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - votingapi.vote_type.vote
+id: vote.vote.default
+targetEntityType: vote
+bundle: vote
+mode: default
+content: {  }
+hidden: {  }

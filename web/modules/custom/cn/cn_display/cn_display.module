@@ -1,0 +1,184 @@
+<?php
+
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Field\FormatterInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_field_info_alter().
+ */
+function cn_display_field_info_alter(&$info) {
+  if (!empty($info['FontFieldIcon'])) {
+    $info['FontFieldIcon']['class'] = \Drupal\cn_display\Plugin\Field\FieldType\FontFieldIcon::class;
+  }
+}
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function cn_display_field_widget_info_alter(array &$info) {
+  if (!empty($info['FontFieldIconDefaultWidget'])) {
+    $info['FontFieldIconDefaultWidget']['class'] = \Drupal\cn_display\Plugin\Field\FieldWidget\FontFieldIconDefaultWidget::class;
+  }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function cn_display_field_formatter_info_alter(array &$info) {
+  $info['string']['class'] = \Drupal\cn_display\Plugin\Field\FieldFormatter\StringFormatter::class;
+  if (!empty($info['FontFieldIconDefaultFormatter'])) {
+    $info['FontFieldIconDefaultFormatter']['class'] = \Drupal\cn_display\Plugin\Field\FieldFormatter\FontFieldIconDefaultFormatter::class;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_load().
+ */
+function cn_display_node_load(array $entities) {
+  \Drupal::service('entity.default_field_value')->setDefaults($entities);
+}
+
+/**
+ * Implements hook_bootstrap_layouts_class_options_alter().
+ */
+function cn_display_bootstrap_layouts_class_options_alter(&$classes, &$groups) {
+  $groups['layout'] = t('Layout');
+  $classes['layout']['container'] = t('Container');
+  $classes['layout']['container--inside'] = t('Container Inside');
+  $classes['layout']['block--center-elements'] = t('Center Elements');
+  $classes['layout']['sidebar'] = t('Sidebar');
+  $classes['layout']['sidebar--right'] = t('Sidebar Right');
+  $classes['layout']['sidebar--left'] = t('Sidebar Left');
+
+  $groups['style'] = t('Style');
+  $classes['style']['style--gray-dark'] = t('Dark Gray');
+  $classes['style']['style--off-white'] = t('Off White');
+  $classes['style']['style--bright'] = t('Bright');
+
+  $groups['block_style'] = t('Block Style');
+  $classes['block_style']['block--style--white'] = t('White');
+  $classes['block_style']['block--style--gray-darker'] = t('Gray Darker');
+
+  $groups['padding'] = t('Padding');
+  $classes['padding']['padding-10'] = t('Padding 10');
+  $classes['padding']['padding-20'] = t('Padding 20');
+  $classes['padding']['padding-40'] = t('Padding 40');
+  $classes['padding']['padding-80'] = t('Padding 80');
+  $classes['padding']['padding-left-10'] = t('Padding Left 10');
+  $classes['padding']['padding-left-20'] = t('Padding Left 20');
+  $classes['padding']['padding-left-40'] = t('Padding Left 40');
+  $classes['padding']['padding-right-10'] = t('Padding Right 10');
+  $classes['padding']['padding-right-20'] = t('Padding Right 20');
+  $classes['padding']['padding-right-40'] = t('Padding Right 40');
+  $classes['padding']['padding-top-10'] = t('Padding Top 10');
+  $classes['padding']['padding-top-20'] = t('Padding Top 20');
+  $classes['padding']['padding-top-40'] = t('Padding Top 40');
+  $classes['padding']['padding-bottom-10'] = t('Padding Bottom 10');
+  $classes['padding']['padding-bottom-20'] = t('Padding Bottom 20');
+  $classes['padding']['padding-bottom-40'] = t('Padding Bottom 40');
+
+  // Fields.
+  $groups['field'] = t('Fields');
+  $classes['field']['field--display--standard'] = t('Field Display Standard');
+
+  $groups['font-family'] = t('Font Family');
+  $classes['font-family']['font-family--mono'] = t('Mono');
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary_alter().
+ * Targets multivalued fields only.
+ *
+ * @param array $summary
+ * @param array $context
+ */
+function cn_display_field_formatter_settings_summary_alter(array &$summary, array $context) {
+
+  if (($context['field_definition'] instanceof FieldDefinitionInterface)
+    && $context['field_definition']->getFieldStorageDefinition()->isMultiple()) {
+
+    $setting = $context['formatter']->getThirdPartySetting('cn_display', 'delimiter');
+
+    // Sanitize delimiter, allow a few reasonable HTML elements.
+    $safe_delimiter = Xss::filter($setting, array('br', 'hr', 'span', 'img', 'wbr'));
+
+    if (!empty($safe_delimiter)) {
+      $summary[] = t('Delimited by: @delimiter', array('@delimiter' => $safe_delimiter));
+    }
+  }
+}
+
+/**
+ * Implements hook_field_formatter_third_party_settings_form().
+ */
+function cn_display_field_formatter_third_party_settings_form(FormatterInterface $plugin, FieldDefinitionInterface $field_definition, $view_mode, $form, FormStateInterface $form_state) {
+  $element = [];
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  $settings = $plugin->getThirdPartySettings('cn_display');
+
+  if ($field_definition->getFieldStorageDefinition()->isMultiple()) {
+    $setting = !empty($settings['delimter']) ? $settings['delimter'] : NULL;
+    $element['delimiter'] = [
+      '#type' => 'textfield',
+      '#size' => 5,
+      '#title' => t('Field Delimiter'),
+      '#default_value' => Xss::filter($setting, ['br', 'hr', 'span', 'img', 'wbr']),
+    ];
+  }
+
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+
+  $element['access'] = [
+    '#type' => 'details',
+    '#title' => t('Access'),
+    '#open' => FALSE,
+  ];
+
+  $options_roles = [];
+  foreach ($roles as $role) {
+    $options_roles[$role->id()] = $role->label();
+  }
+
+  $element['roles'] = [
+    '#type' => 'checkboxes',
+    '#title' => t('Roles'),
+    '#options' => $options_roles,
+  ];
+
+  $element['fallback_field'] = [
+    '#type' => 'textfield',
+    '#title' => t('Fallback Field'),
+    '#default_value' => !empty($settings['fallback_field']) ? $settings['fallback_field'] : NULL,
+  ];
+
+  return $element;
+}
+
+/**
+ * Implements hook_entity_display_build_alter().
+ */
+function cn_display_entity_display_build_alter(&$build, $context) {
+  /** @var \Drupal\Core\Entity\EntityInterface $entity */
+  $entity = $context['entity'];
+
+  /** @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display */
+  $display = $context['display'];
+
+  foreach (Element::children($build) as $field_name) {
+    $renderer = $display->getRenderer($field_name);
+    if ($entity->get($field_name)->isEmpty() && ($fallback_field_name = $renderer->getThirdPartySetting('cn_display', 'fallback_field'))) {
+      // If the field specifies a fallback field, check if that field is empty.
+      $fallback_field = $entity->get($fallback_field_name);
+      if (!$fallback_field->isEmpty()) {
+        // Fallback field is not empty. Render that in this field's place.
+        $build[$field_name] = $fallback_field->view();
+      }
+    }
+  }
+
+}

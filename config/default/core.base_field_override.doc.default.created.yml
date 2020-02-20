@@ -1,0 +1,18 @@
+uuid: 09de7085-a76a-4a57-ab2c-6f952eb4052c
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.default
+id: doc.default.created
+field_name: created
+entity_type: doc
+bundle: default
+label: 'Authored on'
+description: 'The time that the entity was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

@@ -1,0 +1,13 @@
+.sidebar {
+  .block {
+    margin-bottom: 20px;
+  }
+
+  &.sidebar--left {
+    padding-right: 20px;
+  }
+
+  &.sidebar--right {
+    padding-left: 20px;
+  }
+}

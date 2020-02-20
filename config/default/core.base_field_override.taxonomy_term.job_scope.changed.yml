@@ -1,0 +1,18 @@
+uuid: 7d7517d9-3cb3-43d3-9f59-09c5dc6da874
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.job_scope
+id: taxonomy_term.job_scope.changed
+field_name: changed
+entity_type: taxonomy_term
+bundle: job_scope
+label: Changed
+description: 'The time that the term was last edited.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: changed

@@ -1,0 +1,206 @@
+uuid: 9ee40ef9-67b4-43dc-9313-320865e277f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.related
+    - field.field.node.podcast.feeds_item
+    - field.field.node.podcast.field_author
+    - field.field.node.podcast.field_content
+    - field.field.node.podcast.field_date
+    - field.field.node.podcast.field_document
+    - field.field.node.podcast.field_duration
+    - field.field.node.podcast.field_episode
+    - field.field.node.podcast.field_guid
+    - field.field.node.podcast.field_image
+    - field.field.node.podcast.field_link_download
+    - field.field.node.podcast.field_meta_tags
+    - field.field.node.podcast.field_season
+    - field.field.node.podcast.field_social_share
+    - field.field.node.podcast.field_summary
+    - field.field.node.podcast.field_tags
+    - node.type.podcast
+  module:
+    - cn_core
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - panelizer
+    - smart_trim
+    - user
+third_party_settings:
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+  ds:
+    layout:
+      id: bs_1col_stacked
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        layout:
+          wrapper: div
+          link_display: 1
+          classes: {  }
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          top:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+          main:
+            wrapper: div
+            classes: {  }
+            add_region_classes: 1
+            attributes: ''
+          bottom:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      top:
+        - 'dynamic_token_field:node-content_type'
+        - field_image
+      main:
+        - title
+    fields:
+      'dynamic_token_field:node-content_type':
+        plugin_id: 'dynamic_token_field:node-content_type'
+        weight: 0
+        label: hidden
+        formatter: default
+id: node.podcast.related
+targetEntityType: node
+bundle: podcast
+mode: related
+content:
+  field_image:
+    type: entity_reference_entity_view
+    weight: 1
+    region: top
+    label: hidden
+    settings:
+      view_mode: thumbnail
+      link: false
+    third_party_settings:
+      cn_core:
+        delimiter: ''
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: ''
+  title:
+    label: hidden
+    type: smart_trim
+    weight: 2
+    region: main
+    settings:
+      trim_length: 50
+      trim_type: chars
+      trim_suffix: ...
+      wrap_output: true
+      wrap_class: 'h5 trimmed'
+      more_text: More
+      more_class: more-link
+      more_link: false
+      trim_options:
+        text: false
+        trim_zero: false
+      summary_handler: full
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      cn_core:
+        access:
+          role:
+            anonymous: 0
+            authenticated: 0
+            administrator: 0
+            page_creator: 0
+            layout_manager: 0
+            page_reviewer: 0
+            landing_page_creator: 0
+            landing_page_reviewer: 0
+            media_creator: 0
+            media_manager: 0
+            article_creator: 0
+            article_reviewer: 0
+            event_creator: 0
+            event_reviewer: 0
+            content_admin: 0
+            podcast_creator: 0
+            podcast_reviewer: 0
+            job_creator: 0
+            job_reviewer: 0
+            company_creator: 0
+            company_reviewer: 0
+            api_endpoint_creator: 0
+            api_endpoint_reviewer: 0
+            doc_creator: 0
+            doc_reviewer: 0
+            client_administrator: 0
+hidden:
+  feeds_item: true
+  field_author: true
+  field_content: true
+  field_date: true
+  field_document: true
+  field_duration: true
+  field_episode: true
+  field_guid: true
+  field_link_download: true
+  field_meta_tags: true
+  field_season: true
+  field_social_share: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  links: true
+  status: true

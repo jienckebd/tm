@@ -1,0 +1,27 @@
+uuid: 3231a1aa-6287-4456-9177-814259bcd19c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.embedded
+    - entity_browser.browser.media_browser_iframe
+  module:
+    - entity_embed
+    - media
+_core:
+  default_config_hash: t5RloB_VKSNiTH5ZuoOxvVOQSlVBcyG0pcQOr0IA15k
+label: 'Media browser'
+id: media_browser
+type_id: entity
+type_settings:
+  entity_type: media
+  bundles: {  }
+  display_plugins:
+    - 'view_mode:media.embedded'
+  entity_browser: media_browser_iframe
+  entity_browser_settings:
+    display_review: true
+icon:
+  data: ''
+  uri: 'public://embed_buttons/icon-image_0_14_0.png'
+icon_uuid: null

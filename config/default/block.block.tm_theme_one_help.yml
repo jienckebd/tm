@@ -1,0 +1,22 @@
+uuid: 7d7a115d-69b9-46b1-a681-1c4e2a400c31
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - tm_theme_one
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: tm_theme_one_help
+theme: tm_theme_one
+region: content
+weight: -4
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

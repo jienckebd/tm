@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the cn_core module.
+ */
+
+/**
+ * Release 2018.3.
+ */
+function sys_core_update_8001() {
+
+  /** @var \Drupal\cn_core\Service\SysInternal $sys_manager_internal */
+  $sys_manager_internal = \Drupal::service('sys.internal');
+
+  // Delete all tm_theme_alpha configs.
+  $sys_manager_internal->database->query("DELETE FROM config WHERE name LIKE '%tm_theme_alpha%';");
+
+  $sys_manager_internal->moveModule("feeds_crawler", "modules/contrib/feeds_crawler");
+  $sys_manager_internal->moveModule("autoref", "modules/contrib/autoref");
+  $sys_manager_internal->moveModule("attribute", "modules/contrib/attribute");
+
+  $config = $sys_manager_internal->configFactory->getEditable('views.settings');
+  $display_extenders = $config->get('display_extenders') ?: array();
+  $display_extenders[] = 'views_ajax_history';
+  $config->set('display_extenders', $display_extenders);
+  $config->save();
+
+  $removed_modules = [
+    'search_api_pantheon',
+    'tm_core',
+    'realname',
+  ];
+
+  // Bulk resave users to regenerate real names and then generate aliases.
+
+  // Set social media field on event, landing page, job nodes.
+}

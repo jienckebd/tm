@@ -1,0 +1,23 @@
+uuid: 2248a2eb-efdf-4dd1-a247-d1548545957e
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.default
+    - field.storage.doc.field_field_config
+id: doc.default.field_field_config
+field_name: field_field_config
+entity_type: doc
+bundle: default
+label: 'Field Config'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:field_config'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

@@ -1,0 +1,42 @@
+uuid: 7f8bdcd5-0e3c-42bb-91f4-c782cd40fc4c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.taxonomy_term.tags.name
+    - taxonomy.vocabulary.tags
+  module:
+    - feeds_crawler
+    - taxonomy
+label: 'Term: Tag: Crawler'
+id: term_tag_crawler
+description: ''
+help: null
+import_period: 3600
+fetcher: crawler
+fetcher_configuration:
+  auto_detect_feeds: 1
+  use_pubsubhubbub: 0
+  fallback_hub: ''
+  request_timeout: '30'
+parser: crawler
+parser_configuration:
+  crawler_entity_id: ''
+processor: crawler
+processor_configuration:
+  update_existing: 0
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: false
+  owner_id: 0
+  authorize: false
+  skip_hash_check: false
+  values:
+    vid: tags
+custom_sources: {  }
+mappings:
+  -
+    target: name
+    map:
+      value: name
+    unique: {  }

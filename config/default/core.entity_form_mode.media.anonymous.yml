@@ -1,0 +1,14 @@
+uuid: 984f184b-f722-44e8-8aac-d401d913840f
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - media
+third_party_settings:
+  lightning_core:
+    description: ''
+id: media.anonymous
+label: Anonymous
+targetEntityType: media
+cache: true

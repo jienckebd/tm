@@ -1,0 +1,35 @@
+uuid: 4b2b1ec2-0952-4ea0-ac54-d86c9e4956db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.doc
+  module:
+    - entity_reference_revisions
+id: node.doc.field_content
+field_name: field_content
+entity_type: node
+bundle: doc
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles: null
+    target_bundles_drag_drop:
+      author:
+        weight: 4
+        enabled: false
+      code:
+        weight: 5
+        enabled: false
+      copy:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

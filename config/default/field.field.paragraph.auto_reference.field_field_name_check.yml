@@ -1,0 +1,26 @@
+uuid: b9214810-b39f-4f04-935a-edbfa4a53260
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - field.storage.paragraph.field_field_name_check
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.field_field_name_check
+field_name: field_field_name_check
+entity_type: paragraph
+bundle: auto_reference
+label: 'Fields to check'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    target_uuid: 8678127b-c9d4-412e-84ae-09f9b92d879a
+default_value_callback: ''
+settings:
+  handler: 'default:field_storage_config'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

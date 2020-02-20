@@ -1,0 +1,169 @@
+uuid: 6aff3842-03f1-4ca4-8bd5-16d26ab8a7ee
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.node.anonymous
+    - field.field.node.job.field_address
+    - field.field.node.job.field_anon
+    - field.field.node.job.field_category
+    - field.field.node.job.field_company
+    - field.field.node.job.field_contact_email
+    - field.field.node.job.field_contact_name
+    - field.field.node.job.field_content
+    - field.field.node.job.field_date
+    - field.field.node.job.field_date_end
+    - field.field.node.job.field_image
+    - field.field.node.job.field_job_level
+    - field.field.node.job.field_job_scope
+    - field.field.node.job.field_link
+    - field.field.node.job.field_listing_type
+    - field.field.node.job.field_meta_tags
+    - field.field.node.job.field_social_share
+    - field.field.node.job.field_summary
+    - field.field.node.job.field_tags
+    - field.field.node.job.field_video
+    - field.field.node.job.panelizer
+    - node.type.job
+  module:
+    - address
+    - field_group
+third_party_settings:
+  field_group:
+    group_job_details:
+      children:
+        - title
+        - field_address
+        - field_job_scope
+        - field_job_level
+        - field_summary
+      parent_name: ''
+      weight: 1
+      format_type: details
+      format_settings:
+        label: 'Job Details'
+        open: true
+        required_fields: true
+        id: ''
+        classes: inline--form
+      label: 'Job Details'
+    group_contact_info:
+      children:
+        - field_contact_name
+        - field_contact_email
+      parent_name: ''
+      weight: 2
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'Contact Info'
+    group_listing_type:
+      children:
+        - field_listing_type
+      parent_name: ''
+      weight: 0
+      format_type: details
+      format_settings:
+        id: ''
+        classes: ''
+        open: true
+        required_fields: true
+      label: 'Listing Type'
+id: node.job.anonymous
+targetEntityType: node
+bundle: job
+mode: anonymous
+content:
+  field_address:
+    type: address_default
+    weight: 6
+    region: content
+    settings:
+      default_country: US
+    third_party_settings: {  }
+  field_contact_email:
+    type: email_default
+    weight: 11
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_contact_name:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_job_level:
+    weight: 8
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_job_scope:
+    weight: 7
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_listing_type:
+    type: options_buttons
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_summary:
+    type: string_textarea
+    weight: 9
+    region: content
+    settings:
+      rows: 18
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 121
+    third_party_settings: {  }
+    region: content
+  title:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_anon: true
+  field_category: true
+  field_company: true
+  field_content: true
+  field_date: true
+  field_date_end: true
+  field_image: true
+  field_link: true
+  field_meta_tags: true
+  field_social_share: true
+  field_tags: true
+  field_video: true
+  panelizer: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

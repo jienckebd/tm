@@ -1,0 +1,68 @@
+uuid: 7cd593af-5499-4fa0-a6e0-7b8273c08c1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.embedded
+    - field.field.media.video.field_content
+    - field.field.media.video.field_media_in_library
+    - field.field.media.video.field_media_video_embed_field
+    - field.field.media.video.field_summary
+    - field.field.media.video.field_tags
+    - media.type.video
+  module:
+    - ds
+    - video_embed_field
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        layout:
+          wrapper: div
+          link_display: 0
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - field_media_video_embed_field
+_core:
+  default_config_hash: i2E4ZZHpumAn53rC5NR5T9AOY30loPWRBhGV_beGGqE
+id: media.video.embedded
+targetEntityType: media
+bundle: video
+mode: embedded
+content:
+  field_media_video_embed_field:
+    type: video_embed_field_video
+    weight: 0
+    region: main
+    label: hidden
+    settings:
+      responsive: true
+      width: 854
+      height: 480
+      autoplay: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_content: true
+  field_media_in_library: true
+  field_summary: true
+  field_tags: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true

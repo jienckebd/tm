@@ -1,0 +1,36 @@
+.node--type-article.node--view-mode-full {
+
+  .field--name-field-link .field__item {
+    width: 240px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .block-footer {
+    margin-top: 60px;
+  }
+
+  .field--name-field-document {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+}
+
+.bundle--article.view-mode--featured {
+  margin-bottom: 20px;
+
+  .field--name-node-title {
+    margin-bottom: 5px;
+  }
+}
+
+.view-mode--teaser.bundle--article {
+  margin-bottom: 10px;
+  margin-right: 10px;
+
+  .field--name-node-title {
+    margin-top: 10px;
+  }
+}

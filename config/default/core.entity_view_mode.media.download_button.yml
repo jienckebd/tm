@@ -1,0 +1,14 @@
+uuid: cc7daf6f-b7fb-409c-af30-56c1a9952fa3
+langcode: en
+status: true
+dependencies:
+  module:
+    - lightning_core
+    - media
+third_party_settings:
+  lightning_core:
+    description: ''
+id: media.download_button
+label: 'Download Button'
+targetEntityType: media
+cache: true

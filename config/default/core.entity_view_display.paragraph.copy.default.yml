@@ -1,0 +1,51 @@
+uuid: 8e5930a5-477c-47e0-b21e-7748735778c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.copy.field_content
+    - field.field.paragraph.copy.field_name
+    - paragraphs.paragraphs_type.copy
+  module:
+    - ds
+    - text
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        classes: {  }
+        wrappers:
+          main: div
+        outer_wrapper: div
+        attributes: ''
+        link_attribute: ''
+        link_custom: ''
+    regions:
+      main:
+        - field_name
+        - field_content
+id: paragraph.copy.default
+targetEntityType: paragraph
+bundle: copy
+mode: default
+content:
+  field_content:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_name:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

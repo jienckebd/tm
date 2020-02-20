@@ -1,0 +1,19 @@
+uuid: 9e52d85c-70d6-4441-8ed6-1aec671cfc6a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_summary
+    - node.type.podcast
+id: node.podcast.field_summary
+field_name: field_summary
+entity_type: node
+bundle: podcast
+label: Summary
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

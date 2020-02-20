@@ -1,0 +1,53 @@
+uuid: 68051268-1535-4bf0-a253-5ecf28bf6671
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.image
+    - views.view.media_image_entity_browser
+  module:
+    - dropzonejs_eb_widget
+    - media
+    - views
+name: image_browser
+label: 'Image Browser'
+display: iframe
+display_configuration:
+  width: 100%
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: true
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  8cc6a35b-9615-4e58-937e-5f1c1c91f2ef:
+    settings:
+      form_mode: media_browser
+      media_type: image
+      upload_location: 'public://[date:custom:Y]-[date:custom:m]'
+      dropzone_description: 'Drop files here to upload them'
+      max_filesize: 32M
+      extensions: 'jpg jpeg gif png txt doc xls pdf ppt pps odt ods odp'
+      clientside_resize: false
+      resize_width: null
+      resize_height: null
+      resize_quality: !!float 1
+      resize_method: contain
+      thumbnail_method: contain
+      submit_text: 'Select images'
+    uuid: 8cc6a35b-9615-4e58-937e-5f1c1c91f2ef
+    weight: 1
+    label: Upload
+    id: dropzonejs_media_entity_inline_entity_form
+  7a5a2b45-ce46-4e92-a9e9-91c4c4a5fb9a:
+    settings:
+      view: media_image_entity_browser
+      view_display: entity_browser_1
+      submit_text: 'Select images'
+      auto_select: false
+    uuid: 7a5a2b45-ce46-4e92-a9e9-91c4c4a5fb9a
+    weight: 2
+    label: Library
+    id: view

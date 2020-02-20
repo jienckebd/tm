@@ -1,0 +1,22 @@
+uuid: 130fde6c-7d9f-42c0-b5eb-f28da2f08464
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.copy
+id: paragraph.copy.status
+field_name: status
+entity_type: paragraph
+bundle: copy
+label: Published
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

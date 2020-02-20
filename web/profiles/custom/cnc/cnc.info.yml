@@ -1,0 +1,17 @@
+name: 'Collective Next Community Distribution'
+type: profile
+version: 8.x-dev
+core: '8.x'
+
+dependencies:
+  - admin_toolbar
+
+themes:
+  - bartik
+  - seven
+  - cog
+  - tm_theme
+  - adminimal_theme
+
+base profile:
+  name: lightning

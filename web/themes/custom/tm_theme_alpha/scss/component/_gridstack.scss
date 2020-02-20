@@ -1,0 +1,36 @@
+.gridstack {
+  .box {
+
+    .media {
+      background-color: #000;
+    }
+
+    img {
+      min-width: 100%;
+      max-width: initial;
+      width: initial;
+      min-height: 100%;
+      max-height: initial;
+      height: initial;
+      opacity: 0.8;
+      transition: all 0.25s ease 0s;
+    }
+
+    a {
+      color: #FFF !important;
+      font-size: 30px;
+      text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
+      line-height: 1;
+    }
+
+    h2 {
+      line-height: 1;
+    }
+
+    &:hover {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}

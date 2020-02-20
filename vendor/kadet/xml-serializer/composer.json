@@ -1,0 +1,24 @@
+{
+    "name": "kadet/xml-serializer",
+    "type": "library",
+    "description": "PHP Xml Serializer, with annotation support.",
+    "keywords": ["xml","serialization","annotations"],
+    "homepage": "https://github.com/kadet1090/XmlSerializer",
+    "license": "CC BY-NA",
+    "authors": [
+        {
+            "name": "Kacper \"Kadet\" Donat",
+            "email": "kadet1090@gmail.com",
+            "homepage": "http://kadet.pipe-software.xaa.pl",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Kadet\\XmlSerializer\\": "."
+        }
+    }
+}

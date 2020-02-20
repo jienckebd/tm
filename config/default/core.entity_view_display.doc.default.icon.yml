@@ -1,0 +1,73 @@
+uuid: 46d043c0-df94-481e-baab-3bd2fbc79fbe
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.doc.icon
+    - eck.eck_type.doc.default
+    - field.field.doc.default.field_content
+    - field.field.doc.default.field_entity
+    - field.field.doc.default.field_field_config
+    - field.field.doc.default.field_icon
+  module:
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - font_field_icon
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        layout:
+          wrapper: div
+          classes:
+            row: row
+          add_layout_class: 0
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 0
+            attributes: ''
+    regions:
+      main:
+        - field_icon
+id: doc.default.icon
+targetEntityType: doc
+bundle: default
+mode: icon
+content:
+  field_icon:
+    weight: 0
+    label: hidden
+    settings:
+      icon_attribute:
+        class: ''
+      link: '1'
+      link_ajax: '1'
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+    type: FontFieldIconDefaultFormatter
+    region: main
+hidden:
+  changed: true
+  created: true
+  field_content: true
+  field_entity: true
+  field_field_config: true
+  langcode: true
+  title: true
+  uid: true

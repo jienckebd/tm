@@ -1,0 +1,76 @@
+add_page_meta: true
+output_terms: true
+output_fields: true
+group: false
+lib_helper: true
+entity_meta:
+  langcode: '0'
+  vid: '0'
+  name: '0'
+  uid: '0'
+  created: '0'
+  status: '0'
+  roles: '0'
+enable_ia: false
+ia_depth: '3'
+ia_category_primary: primaryCategory
+ia_category_sub: subCategory
+vocabs:
+  api_access: '0'
+  api_format: '0'
+  article_type: '0'
+  class: '0'
+  company_relationship_type: '0'
+  company_type: '0'
+  content_category: '0'
+  event_type: '0'
+  industry: '0'
+  job_level: '0'
+  job_scope: '0'
+  language: '0'
+  listing_type: '0'
+  listing_type_job: '0'
+  podcast_category: '0'
+  podcast_season: '0'
+  tags: '0'
+  user_status: '0'
+  views_rss_itunes_category: '0'
+expose_user_details: ''
+expose_user_details_roles:
+  authenticated: '0'
+  administrator: '0'
+  page_creator: '0'
+  layout_manager: '0'
+  page_reviewer: '0'
+  landing_page_creator: '0'
+  landing_page_reviewer: '0'
+  media_creator: '0'
+  media_manager: '0'
+  article_creator: '0'
+  article_reviewer: '0'
+  event_creator: '0'
+  event_reviewer: '0'
+  content_admin: '0'
+  podcast_creator: '0'
+  podcast_reviewer: '0'
+  job_creator: '0'
+  job_reviewer: '0'
+  company_creator: '0'
+  company_reviewer: '0'
+  api_endpoint_creator: '0'
+  api_endpoint_reviewer: '0'
+  doc_creator: '0'
+  doc_reviewer: '0'
+  client_administrator: '0'
+expose_user_details_fields: false
+entity_title: entityTitle
+entity_type: entityType
+entity_bundle: entityBundle
+entity_identifier: entityId
+group_key: groupLabel
+drupal_language: drupalLanguage
+drupal_country: drupalCountry
+site_name: siteName
+key_replacements: {  }
+_core:
+  default_config_hash: 5HzMwTFN-AaoQ2r_UmGvyMhvIwmbgyWKsPiB11y-MwU

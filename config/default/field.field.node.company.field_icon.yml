@@ -1,0 +1,24 @@
+uuid: 8ae6849d-22d7-4b5e-8564-e5eec2456cf3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_icon
+    - node.type.company
+  module:
+    - font_field_icon
+id: node.company.field_icon
+field_name: field_icon
+entity_type: node
+bundle: company
+label: Icon
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    font_field_icon: facebook-official
+    font_field_icon_link: ''
+default_value_callback: ''
+settings: {  }
+field_type: font_field_icon

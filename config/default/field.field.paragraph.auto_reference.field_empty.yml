@@ -1,0 +1,23 @@
+uuid: d047a885-4c01-41fe-820b-e7c0e3fd2b1d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_empty
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.field_empty
+field_name: field_empty
+entity_type: paragraph
+bundle: auto_reference
+label: 'Only auto reference empty fields'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

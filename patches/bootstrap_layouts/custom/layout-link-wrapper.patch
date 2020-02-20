@@ -1,0 +1,813 @@
+diff --git a/bootstrap_layouts.module b/bootstrap_layouts.module
+index 6f0dba5..a90e7ea 100644
+--- a/bootstrap_layouts.module
++++ b/bootstrap_layouts.module
+@@ -112,6 +112,10 @@ function _bootstrap_layouts_preprocess_layout(array &$variables) {
+     $attributes->addClass(Html::cleanCssIdentifier($layout->getId()));
+   }
+ 
++  if ($layout->getSetting('layout.link_display')) {
++    $variables['wrapper_link'] = $entity->toUrl()->toString();
++  }
++
+   // Unfortunately since Display Suite doesn't abstract this bit of code, it
+   // must be duplicated in this module to support it from the UI.
+   if ($entity_type && isset($variables['content']['#ds_configuration'])) {
+diff --git a/src/Plugin/Layout/BootstrapLayoutsBase.php b/src/Plugin/Layout/BootstrapLayoutsBase.php
+index 1c84a5b..a85ebaf 100644
+--- a/src/Plugin/Layout/BootstrapLayoutsBase.php
++++ b/src/Plugin/Layout/BootstrapLayoutsBase.php
+@@ -47,6 +47,7 @@ class BootstrapLayoutsBase extends LayoutDefault implements PluginFormInterface
+         'wrapper' => 'div',
+         'classes' => ['row'],
+         'attributes' => '',
++        'link_display' => FALSE,
+         'add_layout_class' => TRUE,
+       ],
+       'regions' => [],
+@@ -120,6 +121,12 @@ class BootstrapLayoutsBase extends LayoutDefault implements PluginFormInterface
+       '#default_value' => $complete_form_state->getValue(['layout', 'wrapper'], $configuration['layout']['wrapper']),
+     ];
+ 
++    $form['layout']['link_display'] = [
++      '#type' => 'checkbox',
++      '#title' => $this->t('Link entire display to the entity'),
++      '#default_value' => (int) $complete_form_state->getValue(['layout', 'link_display'], $configuration['layout']['link_display']),
++    ];
++
+     $form['layout']['classes'] = [
+       '#type' => 'select',
+       '#title' => $this->t('Classes'),
+diff --git a/templates/3.0.0/bs-1col-stacked.html.twig b/templates/3.0.0/bs-1col-stacked.html.twig
+index f4346c1..4e4c665 100644
+--- a/templates/3.0.0/bs-1col-stacked.html.twig
++++ b/templates/3.0.0/bs-1col-stacked.html.twig
+@@ -18,25 +18,34 @@
+  * - content: The content to go inside the wrapper for this region.
+  */
+ #}
++
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if main.content %}
+-  <{{ main.wrapper }}{{ main.attributes }}>
+-    {{ main.content }}
+-  </{{ main.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
++
++    {% if main.content %}
++    <{{ main.wrapper }}{{ main.attributes }}>
++      {{ main.content }}
++    </{{ main.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-1col.html.twig b/templates/3.0.0/bs-1col.html.twig
+index caa67d3..e167927 100644
+--- a/templates/3.0.0/bs-1col.html.twig
++++ b/templates/3.0.0/bs-1col.html.twig
+@@ -18,7 +18,17 @@
+ #}
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+-  <{{ main.wrapper }}{{ main.attributes }}>
+-    {{ main.content }}
+-  </{{ main.wrapper }}>
++
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
++  {% endif %}
++
++    <{{ main.wrapper }}{{ main.attributes }}>
++      {{ main.content }}
++    </{{ main.wrapper }}>
++
++  {% if wrapper_link %}
++  </a>
++  {% endif %}
++
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-2col-bricked.html.twig b/templates/3.0.0/bs-2col-bricked.html.twig
+index 210125d..bbf01cf 100644
+--- a/templates/3.0.0/bs-2col-bricked.html.twig
++++ b/templates/3.0.0/bs-2col-bricked.html.twig
+@@ -25,46 +25,54 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if top_left.content %}
+-  <{{ top_left.wrapper }}{{ top_left.attributes }}>
+-    {{ top_left.content }}
+-  </{{ top_left.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
+ 
+-  {% if top_right.content %}
+-  <{{ top_right.wrapper }}{{ top_right.attributes }}>
+-    {{ top_right.content }}
+-  </{{ top_right.wrapper }}>
+-  {% endif %}
++    {% if top_left.content %}
++    <{{ top_left.wrapper }}{{ top_left.attributes }}>
++      {{ top_left.content }}
++    </{{ top_left.wrapper }}>
++    {% endif %}
+ 
+-  {% if middle.content %}
+-  <{{ middle.wrapper }}{{ middle.attributes }}>
+-    {{ middle.content }}
+-  </{{ middle.wrapper }}>
+-  {% endif %}
++    {% if top_right.content %}
++    <{{ top_right.wrapper }}{{ top_right.attributes }}>
++      {{ top_right.content }}
++    </{{ top_right.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_left.content %}
+-  <{{ bottom_left.wrapper }}{{ bottom_left.attributes }}>
+-    {{ bottom_left.content }}
+-  </{{ bottom_left.wrapper }}>
+-  {% endif %}
++    {% if middle.content %}
++    <{{ middle.wrapper }}{{ middle.attributes }}>
++      {{ middle.content }}
++    </{{ middle.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_right.content %}
+-  <{{ bottom_right.wrapper }}{{ bottom_right.attributes }}>
+-    {{ bottom_right.content }}
+-  </{{ bottom_right.wrapper }}>
+-  {% endif %}
++    {% if bottom_left.content %}
++    <{{ bottom_left.wrapper }}{{ bottom_left.attributes }}>
++      {{ bottom_left.content }}
++    </{{ bottom_left.wrapper }}>
++    {% endif %}
++
++    {% if bottom_right.content %}
++    <{{ bottom_right.wrapper }}{{ bottom_right.attributes }}>
++      {{ bottom_right.content }}
++    </{{ bottom_right.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-2col-stacked.html.twig b/templates/3.0.0/bs-2col-stacked.html.twig
+index 20f0a13..c833644 100644
+--- a/templates/3.0.0/bs-2col-stacked.html.twig
++++ b/templates/3.0.0/bs-2col-stacked.html.twig
+@@ -22,28 +22,36 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if left.content %}
+-  <{{ left.wrapper }}{{ left.attributes }}>
+-    {{ left.content }}
+-  </{{ left.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
+ 
+-  {% if right.content %}
+-  <{{ right.wrapper }}{{ right.attributes }}>
+-    {{ right.content }}
+-  </{{ right.wrapper }}>
+-  {% endif %}
++    {% if left.content %}
++    <{{ left.wrapper }}{{ left.attributes }}>
++      {{ left.content }}
++    </{{ left.wrapper }}>
++    {% endif %}
++
++    {% if right.content %}
++    <{{ right.wrapper }}{{ right.attributes }}>
++      {{ right.content }}
++    </{{ right.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-2col.html.twig b/templates/3.0.0/bs-2col.html.twig
+index b2c2dc3..74cb49f 100644
+--- a/templates/3.0.0/bs-2col.html.twig
++++ b/templates/3.0.0/bs-2col.html.twig
+@@ -20,16 +20,24 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if left.content %}
+-  <{{ left.wrapper }}{{ left.attributes }}>
+-    {{ left.content }}
+-  </{{ left.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if right.content %}
+-  <{{ right.wrapper }}{{ right.attributes }}>
+-    {{ right.content }}
+-  </{{ right.wrapper }}>
++    {% if left.content %}
++    <{{ left.wrapper }}{{ left.attributes }}>
++      {{ left.content }}
++    </{{ left.wrapper }}>
++    {% endif %}
++
++    {% if right.content %}
++    <{{ right.wrapper }}{{ right.attributes }}>
++      {{ right.content }}
++    </{{ right.wrapper }}>
++    {% endif %}
++
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-3col-bricked.html.twig b/templates/3.0.0/bs-3col-bricked.html.twig
+index 1d9dc76..bb6b046 100644
+--- a/templates/3.0.0/bs-3col-bricked.html.twig
++++ b/templates/3.0.0/bs-3col-bricked.html.twig
+@@ -27,58 +27,66 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if top_left.content %}
+-  <{{ top_left.wrapper }}{{ top_left.attributes }}>
+-    {{ top_left.content }}
+-  </{{ top_left.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
+ 
+-  {% if top_middle.content %}
+-  <{{ top_middle.wrapper }}{{ top_middle.attributes }}>
+-    {{ top_middle.content }}
+-  </{{ top_middle.wrapper }}>
+-  {% endif %}
++    {% if top_left.content %}
++    <{{ top_left.wrapper }}{{ top_left.attributes }}>
++      {{ top_left.content }}
++    </{{ top_left.wrapper }}>
++    {% endif %}
+ 
+-  {% if top_right.content %}
+-  <{{ top_right.wrapper }}{{ top_right.attributes }}>
+-    {{ top_right.content }}
+-  </{{ top_right.wrapper }}>
+-  {% endif %}
++    {% if top_middle.content %}
++    <{{ top_middle.wrapper }}{{ top_middle.attributes }}>
++      {{ top_middle.content }}
++    </{{ top_middle.wrapper }}>
++    {% endif %}
+ 
+-  {% if middle.content %}
+-  <{{ middle.wrapper }}{{ middle.attributes }}>
+-    {{ middle.content }}
+-  </{{ middle.wrapper }}>
+-  {% endif %}
++    {% if top_right.content %}
++    <{{ top_right.wrapper }}{{ top_right.attributes }}>
++      {{ top_right.content }}
++    </{{ top_right.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_left.content %}
+-  <{{ bottom_left.wrapper }}{{ bottom_left.attributes }}>
+-    {{ bottom_left.content }}
+-  </{{ bottom_left.wrapper }}>
+-  {% endif %}
++    {% if middle.content %}
++    <{{ middle.wrapper }}{{ middle.attributes }}>
++      {{ middle.content }}
++    </{{ middle.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_middle.content %}
+-  <{{ bottom_middle.wrapper }}{{ bottom_middle.attributes }}>
+-    {{ bottom_middle.content }}
+-  </{{ bottom_middle.wrapper }}>
+-  {% endif %}
++    {% if bottom_left.content %}
++    <{{ bottom_left.wrapper }}{{ bottom_left.attributes }}>
++      {{ bottom_left.content }}
++    </{{ bottom_left.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_right.content %}
+-  <{{ bottom_right.wrapper }}{{ bottom_right.attributes }}>
+-    {{ bottom_right.content }}
+-  </{{ bottom_right.wrapper }}>
+-  {% endif %}
++    {% if bottom_middle.content %}
++    <{{ bottom_middle.wrapper }}{{ bottom_middle.attributes }}>
++      {{ bottom_middle.content }}
++    </{{ bottom_middle.wrapper }}>
++    {% endif %}
++
++    {% if bottom_right.content %}
++    <{{ bottom_right.wrapper }}{{ bottom_right.attributes }}>
++      {{ bottom_right.content }}
++    </{{ bottom_right.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-3col-stacked.html.twig b/templates/3.0.0/bs-3col-stacked.html.twig
+index 81e15f2..9aff87d 100644
+--- a/templates/3.0.0/bs-3col-stacked.html.twig
++++ b/templates/3.0.0/bs-3col-stacked.html.twig
+@@ -23,34 +23,42 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if left.content %}
+-  <{{ left.wrapper }}{{ left.attributes }}>
+-    {{ left.content }}
+-  </{{ left.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
+ 
+-  {% if middle.content %}
+-  <{{ middle.wrapper }}{{ middle.attributes }}>
+-    {{ middle.content }}
+-  </{{ middle.wrapper }}>
+-  {% endif %}
++    {% if left.content %}
++    <{{ left.wrapper }}{{ left.attributes }}>
++      {{ left.content }}
++    </{{ left.wrapper }}>
++    {% endif %}
+ 
+-  {% if right.content %}
+-  <{{ right.wrapper }}{{ right.attributes }}>
+-    {{ right.content }}
+-  </{{ right.wrapper }}>
+-  {% endif %}
++    {% if middle.content %}
++    <{{ middle.wrapper }}{{ middle.attributes }}>
++      {{ middle.content }}
++    </{{ middle.wrapper }}>
++    {% endif %}
++
++    {% if right.content %}
++    <{{ right.wrapper }}{{ right.attributes }}>
++      {{ right.content }}
++    </{{ right.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-3col.html.twig b/templates/3.0.0/bs-3col.html.twig
+index 91be405..587a2b6 100644
+--- a/templates/3.0.0/bs-3col.html.twig
++++ b/templates/3.0.0/bs-3col.html.twig
+@@ -21,22 +21,30 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if left.content %}
+-  <{{ left.wrapper }}{{ left.attributes }}>
+-    {{ left.content }}
+-  </{{ left.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if middle.content %}
+-  <{{ middle.wrapper }}{{ middle.attributes }}>
+-    {{ middle.content }}
+-  </{{ middle.wrapper }}>
+-  {% endif %}
++    {% if left.content %}
++    <{{ left.wrapper }}{{ left.attributes }}>
++      {{ left.content }}
++    </{{ left.wrapper }}>
++    {% endif %}
++
++    {% if middle.content %}
++    <{{ middle.wrapper }}{{ middle.attributes }}>
++      {{ middle.content }}
++    </{{ middle.wrapper }}>
++    {% endif %}
++
++    {% if right.content %}
++    <{{ right.wrapper }}{{ right.attributes }}>
++      {{ right.content }}
++    </{{ right.wrapper }}>
++    {% endif %}
+ 
+-  {% if right.content %}
+-  <{{ right.wrapper }}{{ right.attributes }}>
+-    {{ right.content }}
+-  </{{ right.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-4col-bricked.html.twig b/templates/3.0.0/bs-4col-bricked.html.twig
+index 7a64892..299aad5 100644
+--- a/templates/3.0.0/bs-4col-bricked.html.twig
++++ b/templates/3.0.0/bs-4col-bricked.html.twig
+@@ -29,70 +29,78 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if top_first.content %}
+-  <{{ top_first.wrapper }}{{ top_first.attributes }}>
+-    {{ top_first.content }}
+-  </{{ top_first.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
+ 
+-  {% if top_second.content %}
+-  <{{ top_second.wrapper }}{{ top_second.attributes }}>
+-    {{ top_second.content }}
+-  </{{ top_second.wrapper }}>
+-  {% endif %}
++    {% if top_first.content %}
++    <{{ top_first.wrapper }}{{ top_first.attributes }}>
++      {{ top_first.content }}
++    </{{ top_first.wrapper }}>
++    {% endif %}
+ 
+-  {% if top_third.content %}
+-  <{{ top_third.wrapper }}{{ top_third.attributes }}>
+-    {{ top_third.content }}
+-  </{{ top_third.wrapper }}>
+-  {% endif %}
++    {% if top_second.content %}
++    <{{ top_second.wrapper }}{{ top_second.attributes }}>
++      {{ top_second.content }}
++    </{{ top_second.wrapper }}>
++    {% endif %}
+ 
+-  {% if top_fourth.content %}
+-  <{{ top_fourth.wrapper }}{{ top_fourth.attributes }}>
+-    {{ top_fourth.content }}
+-  </{{ top_fourth.wrapper }}>
+-  {% endif %}
++    {% if top_third.content %}
++    <{{ top_third.wrapper }}{{ top_third.attributes }}>
++      {{ top_third.content }}
++    </{{ top_third.wrapper }}>
++    {% endif %}
+ 
+-  {% if middle.content %}
+-  <{{ middle.wrapper }}{{ middle.attributes }}>
+-    {{ middle.content }}
+-  </{{ middle.wrapper }}>
+-  {% endif %}
++    {% if top_fourth.content %}
++    <{{ top_fourth.wrapper }}{{ top_fourth.attributes }}>
++      {{ top_fourth.content }}
++    </{{ top_fourth.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_first.content %}
+-  <{{ bottom_first.wrapper }}{{ bottom_first.attributes }}>
+-    {{ bottom_first.content }}
+-  </{{ bottom_first.wrapper }}>
+-  {% endif %}
++    {% if middle.content %}
++    <{{ middle.wrapper }}{{ middle.attributes }}>
++      {{ middle.content }}
++    </{{ middle.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_second.content %}
+-  <{{ bottom_second.wrapper }}{{ bottom_second.attributes }}>
+-    {{ bottom_second.content }}
+-  </{{ bottom_second.wrapper }}>
+-  {% endif %}
++    {% if bottom_first.content %}
++    <{{ bottom_first.wrapper }}{{ bottom_first.attributes }}>
++      {{ bottom_first.content }}
++    </{{ bottom_first.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_third.content %}
+-  <{{ bottom_third.wrapper }}{{ bottom_third.attributes }}>
+-    {{ bottom_third.content }}
+-  </{{ bottom_third.wrapper }}>
+-  {% endif %}
++    {% if bottom_second.content %}
++    <{{ bottom_second.wrapper }}{{ bottom_second.attributes }}>
++      {{ bottom_second.content }}
++    </{{ bottom_second.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom_fourth.content %}
+-  <{{ bottom_fourth.wrapper }}{{ bottom_fourth.attributes }}>
+-    {{ bottom_fourth.content }}
+-  </{{ bottom_fourth.wrapper }}>
+-  {% endif %}
++    {% if bottom_third.content %}
++    <{{ bottom_third.wrapper }}{{ bottom_third.attributes }}>
++      {{ bottom_third.content }}
++    </{{ bottom_third.wrapper }}>
++    {% endif %}
++
++    {% if bottom_fourth.content %}
++    <{{ bottom_fourth.wrapper }}{{ bottom_fourth.attributes }}>
++      {{ bottom_fourth.content }}
++    </{{ bottom_fourth.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-4col-stacked.html.twig b/templates/3.0.0/bs-4col-stacked.html.twig
+index cd06507..c3d5534 100644
+--- a/templates/3.0.0/bs-4col-stacked.html.twig
++++ b/templates/3.0.0/bs-4col-stacked.html.twig
+@@ -24,40 +24,48 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if top.content %}
+-  <{{ top.wrapper }}{{ top.attributes }}>
+-    {{ top.content }}
+-  </{{ top.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if first.content %}
+-  <{{ first.wrapper }}{{ first.attributes }}>
+-    {{ first.content }}
+-  </{{ first.wrapper }}>
+-  {% endif %}
++    {% if top.content %}
++    <{{ top.wrapper }}{{ top.attributes }}>
++      {{ top.content }}
++    </{{ top.wrapper }}>
++    {% endif %}
+ 
+-  {% if second.content %}
+-  <{{ second.wrapper }}{{ second.attributes }}>
+-    {{ second.content }}
+-  </{{ second.wrapper }}>
+-  {% endif %}
++    {% if first.content %}
++    <{{ first.wrapper }}{{ first.attributes }}>
++      {{ first.content }}
++    </{{ first.wrapper }}>
++    {% endif %}
+ 
+-  {% if third.content %}
+-  <{{ third.wrapper }}{{ third.attributes }}>
+-    {{ third.content }}
+-  </{{ third.wrapper }}>
+-  {% endif %}
++    {% if second.content %}
++    <{{ second.wrapper }}{{ second.attributes }}>
++      {{ second.content }}
++    </{{ second.wrapper }}>
++    {% endif %}
+ 
+-  {% if fourth.content %}
+-  <{{ fourth.wrapper }}{{ fourth.attributes }}>
+-    {{ fourth.content }}
+-  </{{ fourth.wrapper }}>
+-  {% endif %}
++    {% if third.content %}
++    <{{ third.wrapper }}{{ third.attributes }}>
++      {{ third.content }}
++    </{{ third.wrapper }}>
++    {% endif %}
++
++    {% if fourth.content %}
++    <{{ fourth.wrapper }}{{ fourth.attributes }}>
++      {{ fourth.content }}
++    </{{ fourth.wrapper }}>
++    {% endif %}
++
++    {% if bottom.content %}
++    <{{ bottom.wrapper }}{{ bottom.attributes }}>
++      {{ bottom.content }}
++    </{{ bottom.wrapper }}>
++    {% endif %}
+ 
+-  {% if bottom.content %}
+-  <{{ bottom.wrapper }}{{ bottom.attributes }}>
+-    {{ bottom.content }}
+-  </{{ bottom.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>
+diff --git a/templates/3.0.0/bs-4col.html.twig b/templates/3.0.0/bs-4col.html.twig
+index 0a1f289..2c3377b 100644
+--- a/templates/3.0.0/bs-4col.html.twig
++++ b/templates/3.0.0/bs-4col.html.twig
+@@ -22,28 +22,36 @@
+ <{{ wrapper }}{{ attributes }}>
+   {{ title_suffix.contextual_links }}
+ 
+-  {% if first.content %}
+-  <{{ first.wrapper }}{{ first.attributes }}>
+-    {{ first.content }}
+-  </{{ first.wrapper }}>
++  {% if wrapper_link %}
++  <a href="{{ wrapper_link }}">
+   {% endif %}
+ 
+-  {% if second.content %}
+-  <{{ second.wrapper }}{{ second.attributes }}>
+-    {{ second.content }}
+-  </{{ second.wrapper }}>
+-  {% endif %}
++    {% if first.content %}
++    <{{ first.wrapper }}{{ first.attributes }}>
++      {{ first.content }}
++    </{{ first.wrapper }}>
++    {% endif %}
+ 
+-  {% if third.content %}
+-  <{{ third.wrapper }}{{ third.attributes }}>
+-    {{ third.content }}
+-  </{{ third.wrapper }}>
+-  {% endif %}
++    {% if second.content %}
++    <{{ second.wrapper }}{{ second.attributes }}>
++      {{ second.content }}
++    </{{ second.wrapper }}>
++    {% endif %}
++
++    {% if third.content %}
++    <{{ third.wrapper }}{{ third.attributes }}>
++      {{ third.content }}
++    </{{ third.wrapper }}>
++    {% endif %}
++
++    {% if fourth.content %}
++    <{{ fourth.wrapper }}{{ fourth.attributes }}>
++      {{ fourth.content }}
++    </{{ fourth.wrapper }}>
++    {% endif %}
+ 
+-  {% if fourth.content %}
+-  <{{ fourth.wrapper }}{{ fourth.attributes }}>
+-    {{ fourth.content }}
+-  </{{ fourth.wrapper }}>
++  {% if wrapper_link %}
++  </a>
+   {% endif %}
+ 
+ </{{ wrapper }}>

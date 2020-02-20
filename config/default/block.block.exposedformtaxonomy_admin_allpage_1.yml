@@ -1,0 +1,29 @@
+uuid: 57eaa192-8421-4899-b4c5-0902aec3059e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.taxonomy_admin_all
+  module:
+    - system
+    - views
+  theme:
+    - tm_theme_admin
+id: exposedformtaxonomy_admin_allpage_1
+theme: tm_theme_admin
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:taxonomy_admin_all-page_1'
+settings:
+  id: 'views_exposed_filter_block:taxonomy_admin_all-page_1'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: /admin/content/taxonomy
+    negate: false
+    context_mapping: {  }

@@ -1,0 +1,32 @@
+uuid: d1643fc4-fdb9-450f-8dfc-46275810d1c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_listing_type
+    - node.type.job
+    - taxonomy.vocabulary.listing_type_job
+  content:
+    - 'taxonomy_term:listing_type:ca9a0a7d-4bcb-46d3-8ce6-2d6450134967'
+id: node.job.field_listing_type
+field_name: field_listing_type
+entity_type: node
+bundle: job
+label: 'Listing Type'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    target_uuid: ca9a0a7d-4bcb-46d3-8ce6-2d6450134967
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      listing_type_job: listing_type_job
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: listing_type
+field_type: entity_reference

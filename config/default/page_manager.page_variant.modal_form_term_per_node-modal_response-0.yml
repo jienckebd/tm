@@ -1,0 +1,66 @@
+uuid: a2e5d793-20c8-43b1-90ee-97bcb9df00ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - page_manager.page.modal_form_term_per_node
+  module:
+    - entityform_block
+    - cn_display
+id: modal_form_term_per_node-modal_response-0
+label: Default
+variant: modal_response
+variant_settings:
+  blocks:
+    b236c8f2-fedf-4522-840b-97a620834ead:
+      id: entityform_block
+      label: 'Entity form'
+      provider: entityform_block
+      label_display: visible
+      entity_type: taxonomy_term
+      bundle: tags
+      form_mode: default
+      region: top
+      weight: '0'
+      uuid: b236c8f2-fedf-4522-840b-97a620834ead
+      context_mapping: {  }
+  id: modal_response
+  uuid: c1026306-f79b-4ef6-8624-f4dc8605dfb8
+  label: null
+  weight: 0
+  layout: bs_1col_stacked
+  layout_settings:
+    layout:
+      wrapper: div
+      classes:
+        row: row
+      add_layout_class: 1
+      attributes: ''
+    regions:
+      top:
+        wrapper: div
+        classes:
+          col-sm-12: col-sm-12
+        add_region_classes: 1
+        attributes: ''
+      main:
+        wrapper: div
+        classes:
+          col-sm-12: col-sm-12
+        add_region_classes: 1
+        attributes: ''
+      bottom:
+        wrapper: div
+        classes:
+          col-sm-12: col-sm-12
+        add_region_classes: 1
+        attributes: ''
+  page_title: null
+  storage_type: ''
+  storage_id: ''
+  builder: standard
+page: modal_form_term_per_node
+weight: 0
+selection_criteria: {  }
+selection_logic: and
+static_context: {  }

@@ -1,0 +1,160 @@
+uuid: e5a78f85-6e0c-46b5-8909-069e9ad1471e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.api_endpoint.field_api_access
+    - field.field.node.api_endpoint.field_api_format
+    - field.field.node.api_endpoint.field_content
+    - field.field.node.api_endpoint.field_link
+    - field.field.node.api_endpoint.field_meta_tags
+    - field.field.node.api_endpoint.field_summary
+    - field.field.node.api_endpoint.field_tags
+    - field.field.node.api_endpoint.field_x_bundle
+    - field.field.node.api_endpoint.field_x_feed
+    - node.type.api_endpoint
+  module:
+    - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
+    - link
+    - panelizer
+    - user
+third_party_settings:
+  ds:
+    layout:
+      id: radix_sutro
+      library: radix_layouts/radix_layouts
+      disable_css: false
+      entity_classes: all_classes
+      settings: {  }
+    regions:
+      column1:
+        - node_title
+        - field_link
+        - field_x_bundle
+        - field_api_format
+        - field_api_access
+      column2:
+        - field_summary
+        - field_x_feed
+    fields:
+      node_title:
+        plugin_id: node_title
+        weight: 0
+        label: above
+        formatter: default
+        settings:
+          wrapper: div
+          class: ''
+          link: false
+  panelizer:
+    enable: false
+    custom: false
+    allow: false
+    default: default
+id: node.api_endpoint.teaser
+targetEntityType: node
+bundle: api_endpoint
+mode: teaser
+content:
+  field_api_access:
+    type: entity_reference_label
+    weight: 4
+    region: column1
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+  field_api_format:
+    type: entity_reference_label
+    weight: 3
+    region: column1
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+  field_link:
+    type: link
+    weight: 1
+    region: column1
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+  field_summary:
+    type: basic_string
+    weight: 5
+    region: column2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_x_bundle:
+    type: entity_reference_label
+    weight: 2
+    region: column1
+    label: above
+    settings:
+      link: false
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: ''
+  field_x_feed:
+    type: entity_reference_label
+    weight: 6
+    region: column2
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: ''
+      ds:
+        ds_limit: ''
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  field_content: true
+  field_meta_tags: true
+  field_tags: true
+  langcode: true
+  links: true
+  status: true

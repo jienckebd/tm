@@ -1,0 +1,19 @@
+uuid: 0d2d8b0f-2441-4ca3-98ee-476901fb757b
+langcode: en
+status: true
+dependencies:
+  module:
+    - font_field_icon
+    - node
+id: node.field_icon
+field_name: field_icon
+entity_type: node
+type: font_field_icon
+settings: {  }
+module: font_field_icon
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

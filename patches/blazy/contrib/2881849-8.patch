@@ -1,0 +1,13 @@
+diff --git a/src/Dejavu/BlazyVideoTrait.php b/src/Dejavu/BlazyVideoTrait.php
+index 1a02681..443e646 100644
+--- a/src/Dejavu/BlazyVideoTrait.php
++++ b/src/Dejavu/BlazyVideoTrait.php
+@@ -171,7 +171,7 @@ trait BlazyVideoTrait {
+ 
+     $bundle = $media->bundle();
+     $fields = $media->getFields();
+-    $config = $media->getType()->getConfiguration();
++    $config = method_exists($media, 'getSource') ? $media->getSource()->getConfiguration() : $media->getType()->getConfiguration();
+     $source = isset($config['source_url_field']) ? $config['source_url_field'] : '';
+ 
+     $source_field[$bundle]    = isset($config['source_field']) ? $config['source_field'] : $source;

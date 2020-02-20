@@ -1,0 +1,18 @@
+uuid: 4a6d7156-898d-4dab-af54-75edb28b45d4
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.auto_reference
+id: paragraph.auto_reference.created
+field_name: created
+entity_type: paragraph
+bundle: auto_reference
+label: 'Authored on'
+description: 'The time that the Paragraph was created.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: created

@@ -1,0 +1,24 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="shortcut-a.html">
+<link rel="import" href="shortcut-button.html">
+<link rel="import" href="shortcut-focus-element.html">
+<link rel="import" href="shortcut-help.html">
+<link rel="import" href="shortcut-hint.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<!--<div hidden>-->
+    <!--<iron-ajax  id="shortcutConfig" url="shortcuts.json" auto handle-as="json"></iron-ajax>-->
+    <!--<shortcut-help></shortcut-help>-->
+<!--</div>-->
+<script async defer>
+    window.addEventListener('load', function () {
+        var shortcutConfigUrl = window.shortcutConfigUrl || 'shortcuts.json';
+        var ajax = document.createElement('iron-ajax');
+        ajax.id = 'shortcutConfig';
+        ajax.url = shortcutConfigUrl;
+        ajax.auto = true;
+        ajax.handleAs = 'json';
+        document.body.appendChild(ajax);
+        var help = document.createElement('shortcut-help');
+        document.body.appendChild(help);
+    });
+</script>

@@ -1,0 +1,77 @@
+uuid: d8567864-591e-40b6-bb13-aa8f87d18d2b
+langcode: en
+status: true
+dependencies: {  }
+id: notification_anonymous_submission_received
+label: 'Notification: anonymous submission received'
+events:
+  -
+    event_name: 'rules_entity_insert:node'
+description: ''
+tags:
+  - notification_internal
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: 4d2908e7-51ee-4f67-bf2b-f5bbee32a5fc
+  conditions:
+    id: rules_and
+    uuid: 8cda87c7-a5f7-407c-bad2-7ad5b7258a56
+    conditions:
+      -
+        id: rules_condition
+        uuid: 047c820e-cdd5-4c0d-b543-363922fc1cb4
+        context_values:
+          field: field_anon
+        context_mapping:
+          entity: node
+        context_processors:
+          field:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        condition_id: rules_entity_has_field
+        negate: false
+      -
+        id: rules_condition
+        uuid: 50212ec5-6277-4c52-b442-d837df630fd2
+        context_values:
+          operation: '=='
+          value: '1'
+        context_mapping:
+          data: node.field_anon.value
+        context_processors:
+          operation:
+            rules_tokens: {  }
+          value:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        condition_id: rules_data_comparison
+        negate: false
+  actions:
+    id: rules_action_set
+    uuid: 1e8ee1cb-cc44-4ecf-97ce-b45557913142
+    actions:
+      -
+        id: rules_action
+        uuid: f40c1ea8-5c88-47dd-a876-ff6184369719
+        context_values:
+          to:
+            - thetalkingmachines@gmail.com
+          subject: 'A new anonymous submission has been received'
+          message: 'A new anonymous submission has been received. Please see: http://www.thetalkingmachines.com/admin/content/submission'
+          reply: ''
+          language: ''
+        context_mapping: {  }
+        context_processors:
+          to:
+            rules_tokens: {  }
+          subject:
+            rules_tokens: {  }
+          message:
+            rules_tokens: {  }
+          reply:
+            rules_tokens: {  }
+          language:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        action_id: rules_send_email

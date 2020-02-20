@@ -1,0 +1,9 @@
+uuid: 2f251042-1e7a-4497-b41b-86e716490003
+langcode: en
+status: true
+dependencies: {  }
+label: 'Common Entity'
+id: common_entity
+description: ''
+help: ''
+new_revision: null

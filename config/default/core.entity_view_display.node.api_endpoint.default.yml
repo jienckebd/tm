@@ -1,0 +1,117 @@
+uuid: 0d8c29e4-61ae-4a8c-9ea0-1da65a60f024
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.api_endpoint.field_api_access
+    - field.field.node.api_endpoint.field_api_format
+    - field.field.node.api_endpoint.field_content
+    - field.field.node.api_endpoint.field_link
+    - field.field.node.api_endpoint.field_meta_tags
+    - field.field.node.api_endpoint.field_summary
+    - field.field.node.api_endpoint.field_tags
+    - field.field.node.api_endpoint.field_x_bundle
+    - field.field.node.api_endpoint.field_x_feed
+    - node.type.api_endpoint
+  module:
+    - entity_reference_revisions
+    - link
+    - metatag
+    - user
+id: node.api_endpoint.default
+targetEntityType: node
+bundle: api_endpoint
+mode: default
+content:
+  field_api_access:
+    weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_api_format:
+    weight: 102
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_content:
+    weight: 105
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_link:
+    weight: 104
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_meta_tags:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: content
+  field_summary:
+    weight: 110
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_tags:
+    weight: 106
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_x_bundle:
+    weight: 108
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_x_feed:
+    weight: 109
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  title:
+    label: hidden
+    type: string
+    weight: -5
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true
+  status: true

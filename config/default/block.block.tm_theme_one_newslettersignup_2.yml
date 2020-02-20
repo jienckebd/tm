@@ -1,0 +1,25 @@
+uuid: bc597f06-51e9-4854-a487-4c586d757089
+langcode: en
+status: false
+dependencies:
+  content:
+    - 'block_content:basic:1e5c7aa2-3a1e-4140-8f3a-eae1ff6918d9'
+  module:
+    - block_content
+  theme:
+    - tm_theme_one
+id: tm_theme_one_newslettersignup_2
+theme: tm_theme_one
+region: footer
+weight: 0
+provider: null
+plugin: 'block_content:1e5c7aa2-3a1e-4140-8f3a-eae1ff6918d9'
+settings:
+  id: 'block_content:1e5c7aa2-3a1e-4140-8f3a-eae1ff6918d9'
+  label: 'Stay in the loop.'
+  provider: block_content
+  label_display: visible
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

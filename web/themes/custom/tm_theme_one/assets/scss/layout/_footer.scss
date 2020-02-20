@@ -1,0 +1,91 @@
+// Footer
+//
+// Footer region styling.
+
+footer#footer {
+  height: 38px;
+  padding: 4px 0;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #979797;
+  margin: 0 !important;
+
+  @media (min-width: 960px) {
+    height: 38px;
+    padding: 4px 0;
+  }
+}
+
+#footer-menu {
+  li {
+    display: block;
+    padding: 0;
+    margin: 0;
+
+    @media (min-width: 960px) {
+      display: inline-block;
+    }
+
+    &:first-child {
+      a:before {
+        display: none;
+      }
+    }
+  }
+
+  a {
+    padding: 6px 14px;
+    display: block;
+    color: #000;
+    font-size: 0.8em;
+    font-family: $mono_font;
+
+    &:before {
+      font-family: $font-family-icon;
+      content: "\f111";
+      padding-right: 15px;
+      font-size: 8px;
+      color: #000 !important;
+      vertical-align: 2px;
+      margin-left: -10px;
+    }
+
+    @media (min-width: 960px) {
+      display: inline-block;
+    }
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+
+  .nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #000;
+    background-color: transparent;
+  }
+
+  @media (max-width: 990px) {
+    display: none;
+  }
+}
+
+#footer-brand {
+  text-align: right;
+  margin-top: 5px;
+  position: absolute;
+  bottom: 8px;
+  right: 0;
+  min-width: 280px;
+
+  a {
+    color: $yellow;
+    font-family: $mono_font;
+    font-weight: 700;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+}

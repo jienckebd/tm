@@ -1,0 +1,96 @@
+body {
+  background-color: #F0F0F0;
+}
+
+details.field-group-details,
+.field--widget-entity-browser-entity-reference,
+.field--widget-paragraphs table {
+  background-color: #FFF;
+  border-color: #EAEAEA;
+}
+
+details {
+  border-color: #EAEAEA;
+}
+
+.entity-browser-iframe-container iframe {
+  max-width: 95%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-circle img {
+  border-radius: 50%;
+}
+
+details.field-group-details {
+  border: 1px solid #EAEAEA;
+  margin-bottom: 1em;
+  border-radius: 3px;
+  padding: 10px;
+  clear: both;
+  margin-top: 0;
+}
+
+.entity-browser-form .form-item-field-tags-target-id input {
+  width: 300px;
+}
+
+.entity-browser-form .grid {
+  cursor: pointer;
+}
+
+fieldset.form-composite .form-checkboxes {
+  max-height: 300px;
+  overflow: auto;
+  clear: both;
+}
+
+.views-exposed-form input[type="text"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media all and (min-width: 851px) {
+  .layout-one-sidebar .sidebar {
+    width: 15%;
+    float: left;
+    overflow: hidden;
+  }
+
+  .layout-one-sidebar .sidebar > aside {
+    padding-right: 20px;
+  }
+
+  .layout-one-sidebar #content {
+    float: left;
+    width: 85%;
+  }
+}
+
+.layout-column-wrapper {
+  float: left;
+  width: 80%;
+}
+
+.layout-column-wrapper .layout-inner {
+  padding-right: 10px;
+}
+
+.layout-column-sidebar-wrapper {
+  float: right;
+  width: 20%;
+}
+
+.layout-column-sidebar-wrapper .layout-inner {
+  padding-left: 10px;
+}
+
+.region-pre-content,
+.region-header {
+  position: relative;
+  z-index: 2;
+}

@@ -1,0 +1,61 @@
+uuid: 99fe176e-0118-410d-9387-8653f79299e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - eck.eck_type.doc.default
+    - field.field.doc.default.field_content
+    - field.field.doc.default.field_entity
+    - field.field.doc.default.field_field_config
+    - field.field.doc.default.field_icon
+  module:
+    - ds
+    - entity_reference_revisions
+third_party_settings:
+  ds:
+    layout:
+      id: bs_1col
+      library: null
+      disable_css: false
+      entity_classes: all_classes
+      settings:
+        layout:
+          wrapper: div
+          link_display: 0
+          classes:
+            row: row
+          add_layout_class: 1
+          attributes: ''
+        regions:
+          main:
+            wrapper: div
+            classes:
+              col-sm-12: col-sm-12
+            add_region_classes: 1
+            attributes: ''
+    regions:
+      main:
+        - field_content
+id: doc.default.default
+targetEntityType: doc
+bundle: default
+mode: default
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: main
+hidden:
+  changed: true
+  created: true
+  field_entity: true
+  field_field_config: true
+  field_icon: true
+  langcode: true
+  title: true
+  uid: true
