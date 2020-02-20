@@ -238,22 +238,28 @@ display:
           selected_actions:
             -
               action_id:
-                action_id: user_add_role_action
+                action_id:
+                  action_id: user_add_role_action
             -
               action_id:
-                action_id: user_block_user_action
+                action_id:
+                  action_id: user_block_user_action
             -
               action_id:
-                action_id: user_remove_role_action
+                action_id:
+                  action_id: user_remove_role_action
             -
               action_id:
-                action_id: user_unblock_user_action
+                action_id:
+                  action_id: user_unblock_user_action
             -
               action_id:
-                action_id: vbo_cancel_user_action
+                action_id:
+                  action_id: vbo_cancel_user_action
             -
               action_id:
-                action_id: 'entity:save_action:user'
+                action_id:
+                  action_id: 'entity:save_action:user'
           plugin_id: views_bulk_operations_bulk_form
         name:
           id: name

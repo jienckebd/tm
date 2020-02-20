@@ -306,25 +306,32 @@ display:
           selected_actions:
             -
               action_id:
-                action_id: 'entity:save_action:config:node'
+                action_id:
+                  action_id: 'entity:save_action:config:node'
             -
               action_id:
-                action_id: node_assign_owner_action
+                action_id:
+                  action_id: node_assign_owner_action
             -
               action_id:
-                action_id: node_unpromote_action
+                action_id:
+                  action_id: node_unpromote_action
             -
               action_id:
-                action_id: node_promote_action
+                action_id:
+                  action_id: node_promote_action
             -
               action_id:
-                action_id: node_publish_action
+                action_id:
+                  action_id: node_publish_action
             -
               action_id:
-                action_id: node_unpublish_action
+                action_id:
+                  action_id: node_unpublish_action
             -
               action_id:
-                action_id: views_bulk_operations_delete_entity
+                action_id:
+                  action_id: views_bulk_operations_delete_entity
           plugin_id: views_bulk_operations_bulk_form
         title:
           id: title

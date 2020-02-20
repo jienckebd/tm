@@ -13,8 +13,13 @@ dependencies:
     - field.field.user.user.field_last_name
     - field.field.user.user.field_parent
   module:
+    - cn_display
     - ds
+    - empty_fields
+    - fico
+    - field_formatter_class
     - panelizer
+    - smart_trim
     - text
     - user
 third_party_settings:
@@ -29,11 +34,12 @@ third_party_settings:
       library: radix_layouts/radix_layouts
       disable_css: false
       entity_classes: all_classes
-      settings: {  }
+      settings:
+        label: ''
     regions:
       contentmain:
         - field_image
-        - realname
+        - name
         - field_bio
 id: user.user.compact
 targetEntityType: user
@@ -56,12 +62,64 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
-    region: sidebar
-  realname:
+    region: contentmain
+  name:
+    type: smart_trim
     weight: 1
     region: contentmain
-    settings: {  }
-    third_party_settings: {  }
+    label: hidden
+    settings:
+      trim_length: 600
+      trim_type: chars
+      trim_suffix: ''
+      wrap_class: trimmed
+      more_text: More
+      more_class: more-link
+      wrap_output: false
+      more_link: false
+      trim_options:
+        text: false
+        trim_zero: false
+      summary_handler: full
+    third_party_settings:
+      cn_display:
+        fallback_field: ''
+        roles:
+          anonymous: 0
+          authenticated: 0
+          administrator: 0
+          page_creator: 0
+          layout_manager: 0
+          page_reviewer: 0
+          landing_page_creator: 0
+          landing_page_reviewer: 0
+          media_creator: 0
+          media_manager: 0
+          article_creator: 0
+          article_reviewer: 0
+          event_creator: 0
+          event_reviewer: 0
+          content_admin: 0
+          podcast_creator: 0
+          podcast_reviewer: 0
+          job_creator: 0
+          job_reviewer: 0
+          company_creator: 0
+          company_reviewer: 0
+          api_endpoint_creator: 0
+          api_endpoint_reviewer: 0
+          doc_creator: 0
+          doc_reviewer: 0
+          client_administrator: 0
+          gallery_creator: 0
+          gallery_reviewer: 0
+      empty_fields:
+        handler: ''
+      fico:
+        fico:
+          condition: ''
+      field_formatter_class:
+        class: 'strong bold text-bold'
 hidden:
   client_profiles: true
   feeds_item: true
@@ -72,6 +130,6 @@ hidden:
   field_parent: true
   langcode: true
   member_for: true
-  name: true
   profile_client: true
+  realname: true
   search_api_excerpt: true

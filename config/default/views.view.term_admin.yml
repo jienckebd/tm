@@ -182,7 +182,8 @@ display:
           selected_actions:
             -
               action_id:
-                action_id: views_bulk_operations_delete_entity
+                action_id:
+                  action_id: views_bulk_operations_delete_entity
           plugin_id: views_bulk_operations_bulk_form
         name:
           id: name

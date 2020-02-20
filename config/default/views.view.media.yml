@@ -265,16 +265,20 @@ display:
           selected_actions:
             -
               action_id:
-                action_id: views_bulk_operations_delete_entity
+                action_id:
+                  action_id: views_bulk_operations_delete_entity
             -
               action_id:
-                action_id: 'entity:publish_action:media'
+                action_id:
+                  action_id: 'entity:publish_action:media'
             -
               action_id:
-                action_id: 'entity:save_action:media'
+                action_id:
+                  action_id: 'entity:save_action:media'
             -
               action_id:
-                action_id: 'entity:unpublish_action:media'
+                action_id:
+                  action_id: 'entity:unpublish_action:media'
           plugin_id: views_bulk_operations_bulk_form
         name:
           id: name
