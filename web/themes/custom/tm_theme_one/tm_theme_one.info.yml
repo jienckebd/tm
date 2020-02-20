@@ -21,7 +21,6 @@ libraries:
   - tm_theme_one/base
   - tm_theme_one/generic
   - tm_theme_one/fonts
-  - tm_theme_one/art19
   - tm_theme_one/ajax
   - tm_theme_one/waypoints
   - tm_theme_one/webcomponentsjs
