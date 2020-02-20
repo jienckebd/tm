@@ -46,6 +46,10 @@
   Drupal.behaviors.tm_theme_one_ajax = {
     attach: function (context) {
 
+      $("iframe").each( function( index, element ){
+        $(this).attr('src', $(this).attr('src'));
+      });
+
       $( ".vud-widget" ).on( "voteUpSuccess", function( event ) {
       });
 
