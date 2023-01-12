@@ -8,7 +8,7 @@
     "postinstall": "find node_modules/ -name '*.info' -type f -delete"
   },
   "devDependencies": {
-    "browser-sync": "~2.18.7",
+    "browser-sync": "~2.27.11",
     "imagemin-pngcrush": "~5.0.0",
     "node-sass": "^4.5.0",
     "gulp": "~3.9.0",
